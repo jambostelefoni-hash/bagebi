@@ -1,3 +1,8 @@
+## **6.5.5**
+- [Fix] fix regressions from robustness refactor
+- [meta] add `npmignore` to autogenerate an npmignore file
+- [actions] update reusable workflows
+
 ## **6.5.4**
 - [Robustness] avoid `.push`, use `void`
 - [readme] clarify `parseArrays` and `arrayLimit` documentation (#543)
