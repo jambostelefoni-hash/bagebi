@@ -1,0 +1,812 @@
+[14-Nov-2023 13:56:35 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:56:37 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:56:38 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:56:41 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:57:23 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:57:32 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:57:46 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:57:47 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:58:22 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:58:24 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:59:25 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:59:37 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 13:59:38 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:02:29 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:02:40 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(54): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:02:41 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(54): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:02:42 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(54): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:02:50 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:51 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:58 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:58 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:58 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:59 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:59 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:02:59 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 14:03:05 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:04:21 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 14:04:48 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 16:44:19 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 16:44:20 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:03:39 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:03:47 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:03:48 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 8.0.30. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:03:54 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(54): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:04:03 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:04:24 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:05:14 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:05:29 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:06:13 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:06:19 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:06:41 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:08:26 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:08:33 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:09:07 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:13:53 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:13:53 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:15:31 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:15:32 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.4.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:40:30 UTC] PHP Warning:  require(/home/vanisbag/public_html/kindergarten/vendor/autoload.php): failed to open stream: No such file or directory in /home/vanisbag/public_html/index.php on line 24
+[14-Nov-2023 17:40:30 UTC] PHP Fatal error:  require(): Failed opening required '/home/vanisbag/public_html/kindergarten/vendor/autoload.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/vanisbag/public_html/index.php on line 24
+[14-Nov-2023 17:57:37 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:57:39 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:57:56 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:57:57 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:57:58 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:57:59 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:57:59 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#11 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#12 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:58:07 UTC] PHP Warning:  require(/home/vanisbag/public_html/vendor/symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home/vanisbag/public_html/vendor/composer/autoload_real.php on line 55
+[14-Nov-2023 17:58:07 UTC] PHP Warning:  require(/home/vanisbag/public_html/vendor/symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home/vanisbag/public_html/vendor/composer/autoload_real.php on line 55
+[14-Nov-2023 17:58:07 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/vanisbag/public_html/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/vanisbag/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/composer/autoload_real.php(38): composerRequire18348d1f3b1e8c498caad1ca5644e384()
+#1 /home/vanisbag/public_html/vendor/autoload.php(25): ComposerAutoloaderInit18348d1f3b1e8c498caad1ca5644e384::getLoader()
+#2 /home/vanisbag/public_html/index.php(24): require('/home/vanisbag/...')
+#3 {main}
+  thrown in /home/vanisbag/public_html/vendor/composer/autoload_real.php on line 55
+[14-Nov-2023 17:58:08 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:58:08 UTC] PHP Warning:  require(/home/vanisbag/public_html/vendor/symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home/vanisbag/public_html/vendor/composer/autoload_real.php on line 55
+[14-Nov-2023 17:58:08 UTC] PHP Warning:  require(/home/vanisbag/public_html/vendor/symfony/polyfill-php81/bootstrap.php): Failed to open stream: No such file or directory in /home/vanisbag/public_html/vendor/composer/autoload_real.php on line 55
+[14-Nov-2023 17:58:08 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/vanisbag/public_html/vendor/composer/../symfony/polyfill-php81/bootstrap.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/vanisbag/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/composer/autoload_real.php(38): composerRequire18348d1f3b1e8c498caad1ca5644e384()
+#1 /home/vanisbag/public_html/vendor/autoload.php(25): ComposerAutoloaderInit18348d1f3b1e8c498caad1ca5644e384::getLoader()
+#2 /home/vanisbag/public_html/index.php(24): require('/home/vanisbag/...')
+#3 {main}
+  thrown in /home/vanisbag/public_html/vendor/composer/autoload_real.php on line 55
+[14-Nov-2023 17:58:22 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:58:25 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:58:26 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(135): Illuminate\Foundation\Http\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(109): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#13 /home/vanisbag/public_html/index.php(55): Illuminate\Foundation\Http\Kernel->handle()
+#14 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:58:37 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(571): include('/home/vanisbag/...')
+#2 /home/vanisbag/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#3 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass()
+#4 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect()
+#5 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config()
+#8 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap()
+#10 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith()
+#11 /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/vanisbag/public_html/artisan(37): Illuminate\Foundation\Console\Kernel->handle()
+#13 {main} in /home/vanisbag/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[14-Nov-2023 17:58:48 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[14-Nov-2023 17:58:49 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". You are running 7.1.33. in /home/vanisbag/public_html/vendor/composer/platform_check.php on line 24
+[27-Sep-2025 11:12:49 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:14:41 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Container\Container::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1270
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Container\Container::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1281
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Container\Container::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1293
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Container\Container::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1306
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Config\Repository::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Config/Repository.php on line 141
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Config\Repository::offsetGet($key) should either be compatible with ArrayAccess::offsetGet(mixed $offset): mixed, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Config/Repository.php on line 152
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Config\Repository::offsetSet($key, $value) should either be compatible with ArrayAccess::offsetSet(mixed $offset, mixed $value): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Config/Repository.php on line 164
+[27-Sep-2025 11:14:42 UTC] PHP Deprecated:  Return type of Illuminate\Config\Repository::offsetUnset($key) should either be compatible with ArrayAccess::offsetUnset(mixed $offset): void, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Config/Repository.php on line 175
+[27-Sep-2025 11:14:42 UTC] PHP Fatal error:  During inheritance of ArrayAccess: Uncaught ErrorException: Return type of Illuminate\Support\Collection::offsetExists($key) should either be compatible with ArrayAccess::offsetExists(mixed $offset): bool, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php:1349
+Stack trace:
+#0 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php(11): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8192, 'Return type of ...', '/home/mtskhet4/...', 1349)
+#1 /home/mtskhet4/public_html/vendor/composer/ClassLoader.php(576): include('/home/mtskhet4/...')
+#2 /home/mtskhet4/public_html/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}('/home/mtskhet4/...')
+#3 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(110): Composer\Autoload\ClassLoader->loadClass('Illuminate\\Supp...')
+#4 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(130): collect(Array)
+#5 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(106): Illuminate\Foundation\PackageManifest->build()
+#6 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(89): Illuminate\Foundation\PackageManifest->getManifest()
+#7 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(78): Illuminate\Foundation\PackageManifest->config('aliases')
+#8 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\Foundation\PackageManifest->aliases()
+#9 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\Foundation\Bootstrap\RegisterFacades->bootstrap(Object(Illuminate\Foundation\Application))
+#10 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\Foundation\Application->bootstrapWith(Array)
+#11 /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\Foundation\Console\Kernel->bootstrap()
+#12 /home/mtskhet4/public_html/artisan(35): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 {main} in /home/mtskhet4/public_html/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 11
+[27-Sep-2025 11:16:32 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:17:26 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:18:00 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:18:09 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:18:10 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:18:10 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:18:11 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:19:54 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:19:55 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:19:55 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:22:19 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:22:19 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:22:20 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:23:15 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:23:23 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:27:56 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:27:56 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:27:57 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:27:57 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:28:00 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:28:01 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:28:01 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:28:06 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 11:28:10 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[27-Sep-2025 20:13:20 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 14:40:37 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 14:40:40 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 14:41:34 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 14:44:04 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 18:48:24 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 18:48:25 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 18:48:26 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0
+[01-Oct-2025 18:48:26 UTC] PHP Warning:  Module "imagick" is already loaded in Unknown on line 0

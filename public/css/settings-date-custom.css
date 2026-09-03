@@ -1,0 +1,9 @@
+.settings-date-card {
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .settings-date-card {
+    min-height: 320px;
+  }
+}

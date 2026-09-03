@@ -1,0 +1,70 @@
+import {
+  createTheme,
+  responsiveFontSizes,
+  makeStyles
+} from '@material-ui/core/styles';
+import { cyan, grey } from '@material-ui/core/colors';
+
+// 🌈 Modern theme with cyan accents
+let theme = createTheme({
+  palette: {
+    primary: cyan,
+    secondary: {
+      main: grey[700],
+    },
+    background: {
+      default: '#f4f6f8', // soft gray background
+      paper: '#ffffff',   // clean white cards
+    },
+    text: {
+      primary: '#1a1a1a',
+      secondary: grey[700],
+    },
+  },
+  typography: {
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    h4: {
+      fontWeight: 700,
+      letterSpacing: '0.5px',
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.6,
+    },
+  },
+  shape: {
+    borderRadius: 16, // smoother rounded corners
+  },
+  shadows: Array(25).fill('none'), // reset shadows
+});
+theme = responsiveFontSizes(theme);
+
+// 🎨 Custom component styles
+const useStyle = makeStyles(() => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(4),
+    backgroundColor: theme.palette.background.default,
+    minHeight: '100vh',
+    width: '100%',
+  },
+  paper: {
+    padding: theme.spacing(4),
+    width: '100%',
+    maxWidth: '100%',
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: '0 8px 24px rgba(0,0,0,0.12)', // modern card shadow
+    backgroundColor: theme.palette.background.paper,
+  },
+  titleFont: {
+    fontFamily: "'BPG WEB 001 Caps', 'Roboto', sans-serif",
+    fontWeight: 700,
+    fontSize: '1.5rem',
+    color: theme.palette.primary.main,
+    marginBottom: theme.spacing(2),
+    textAlign: 'center',
+  },
+}));
+
+export { theme, useStyle };
