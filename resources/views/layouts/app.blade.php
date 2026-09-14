@@ -7,20 +7,22 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'რეგისტრაცია') }}</title>
+    <title>@yield('title', config('app.name', 'ბაღების მართვის სისტემა'))</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     @stack('styles')
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?v=20260912-6" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}?v=20260212">
     <link rel="stylesheet" href="{{ asset('css/vendors/admin-lte-core.css') }}">
     <link rel="stylesheet" href="{{ asset('css/settings-date-custom.css') }}?v=20260214">
+    <link rel="stylesheet" href="{{ asset('css/admin-modern.css') }}?v={{ file_exists(public_path('css/admin-modern.css')) ? filemtime(public_path('css/admin-modern.css')) : '1' }}">
 
 
+    <link rel="stylesheet" href="{{ asset('css/platform-unified.css') }}?v={{ filemtime(public_path('css/platform-unified.css')) }}">
 </head>
 <body class="font-sans antialiased hold-transition sidebar-mini layout-fixed app-shell">
   @include('partials.navigation')

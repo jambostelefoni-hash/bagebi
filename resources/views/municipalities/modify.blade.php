@@ -1,56 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
-<div class="content-header">
-	  <div class="container-fluid">
-	   <div class="row mb-2">
-	    <div class="col-sm-6">
-	     <h1 class="m-0">მუნიციპალიტეტი</h1>
-	    </div><!-- /.col -->
-	   </div><!-- /.row -->
-	  </div><!-- /.container-fluid -->
-	 </div>
-    <section class="content">
-     {!! Form::model($model, ['route' => 'municipalities.store']) !!}
-     {!! Form::hidden('id', $model->id) !!}
-       <div class="card card-primary card-outline card-tabs">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-            <div class="tab-content" id="custom-tabs-three-tabContent">
-            
-             <div class="form-group">
-			    {!! Form::label('name', 'დასახელება', ['class' => 'awesome']) !!}
-			    {!! Form::text('name', $model->name, ['class' => 'form-control']) !!}
-			  </div>
-
-            </div>       
-          </div>
-          <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-            <div class="form-group">
-            {!! Form::select('region_id', $data['regions'], null, ['class' => 'custom-select', 'placeholder' => 'აირჩიეთ რეგიონი']) !!}
-            </div>
-            <button onclick="location.href = '{{ route('municipalities.list') }}'" type="button" class="btn btn-danger  btn-block" style="margin-right: 5px;">
-        <i class="far fa-window-close"></i> გაუქმება
-      </button>
-      <button type="submit" class="btn btn-success  btn-block">
-        <i class="far fa-paper-plane"></i> გაგზავნა
-      </button>
-          </div>
-        </div>        
-      </div>
-  </div>
-     {!! Form::close() !!}
-
-   
-    </section>
+<div class="content-header modern-page-header"><div class="container-fluid"><span class="dashboard-eyebrow">მდებარეობების მართვა</span><h1>{{ $model->exists ? 'მუნიციპალიტეტის რედაქტირება' : 'ახალი მუნიციპალიტეტი' }}</h1><p>მიუთითეთ დასახელება და შესაბამისი რეგიონი.</p></div></div>
+<section class="content">{!! Form::model($model,['route'=>'municipalities.store']) !!}{!! Form::hidden('id',$model->id) !!}<div class="form-layout"><div class="card"><div class="card-header"><h3 class="card-title">მუნიციპალიტეტის ინფორმაცია</h3></div><div class="card-body"><div class="form-grid form-grid--two"><div class="form-group"><label for="name">დასახელება *</label>{!! Form::text('name',$model->name,['id'=>'name','class'=>'form-control','required'=>true]) !!}</div><div class="form-group"><label for="region_id">რეგიონი *</label>{!! Form::select('region_id',$data['regions'],null,['id'=>'region_id','class'=>'custom-select','placeholder'=>'აირჩიეთ რეგიონი','required'=>true]) !!}</div></div></div><div class="card-footer modern-card-footer"><a href="{{route('municipalities.list')}}" class="btn btn-light"><i class="fas fa-arrow-left"></i> უკან</a><button class="btn btn-primary"><i class="fas fa-save"></i> შენახვა</button></div></div><aside class="form-aside"><div class="aside-icon"><i class="fas fa-city"></i></div><h2>მუნიციპალიტეტი</h2><p>მუნიციპალიტეტი უკავშირდება რეგიონს და გამოიყენება ბაღების მდებარეობის დასადგენად.</p></aside></div>{!! Form::close() !!}</section>
 @endsection
-
-@push('scripts')
-<script></script>
-@endpush
-
-
-
-

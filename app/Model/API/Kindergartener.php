@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kindergartener extends Model
 {
     protected $table = 'kindergarteners';
+    protected $appends = ['application_status_label'];
 
     protected $fillable = [
         'kids_personal_number',
@@ -25,11 +26,22 @@ class Kindergartener extends Model
         'kindergarten_id',
         'group_id',
         'active_status_id'
+        , 'application_status', 'status_changed_at', 'suspended_at'
     ];
-protected $casts = [
+    protected $casts = [
     'created_at' => 'datetime:Y-m-d H:i:s',
     'updated_at' => 'datetime:Y-m-d H:i:s',
-];
+    ];
+
+    public function waitingListEntry()
+    {
+        return $this->hasOne(\App\Model\WaitingListEntry::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(\App\Model\Attendance::class);
+    }
 
     // --- SCOPES ---
     public function scopeActive($query)
@@ -62,5 +74,10 @@ protected $casts = [
     public function activeStatus()
     {
         return $this->belongsTo(\App\Model\ActiveStatus::class, 'active_status_id');
+    }
+
+    public function getApplicationStatusLabelAttribute()
+    {
+        return config('statuses.application.'.$this->application_status, $this->application_status);
     }
 }

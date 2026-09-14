@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Model\Municipality;
 use App\Model\Region;
+use App\Model\Kindergarten;
+use App\Model\API\Kindergartener;
 
 class MunicipalityController extends Controller
 {
@@ -49,7 +51,9 @@ class MunicipalityController extends Controller
 
         $model = Municipality::firstOrNew(['id' => $request->id]);
         $model->fill($request->all());
+        $isNew = !$model->exists;
         $model->save();
+        $this->logAudit($isNew ? 'municipality.create' : 'municipality.update',Municipality::class,$model->id,'Municipality saved',['name'=>$model->name,'region_id'=>$model->region_id]);
 
         $saveOrUpdate = $request->id ? 'განახლდა' : 'დაემატა';
 
@@ -101,16 +105,18 @@ class MunicipalityController extends Controller
         //
         if (!isset($id)) return back();
 
-        $model = Municipality::destroy($id);
+        $model = Municipality::findOrFail($id);
+        if (Kindergarten::where('municipality_id',$id)->exists() || Kindergartener::where('municipality_id',$id)->exists()) return back()->withErrors(['municipality'=>'მუნიციპალიტეტის წაშლამდე გადაიტანეთ მასთან დაკავშირებული ბაღები და აღსაზრდელები.']);
+        $details=['name'=>$model->name,'region_id'=>$model->region_id];
+        $model->delete();
+        $this->logAudit('municipality.delete',Municipality::class,(int)$id,'Municipality deleted',$details);
         $message = [
           'flashType'    => 'success',
-          'flashMessage' => 'რეგიონი წაიშალა წარმატებით'
+          'flashMessage' => 'მუნიციპალიტეტი წაიშალა წარმატებით'
         ];
         return redirect()->route('municipalities.list')->with($message);
     }
 }
-
-
 
 
 

@@ -13,7 +13,15 @@ const nottify = (event) => {
     },
     callback: function (result) {
       if (result && target.dataset.submit) document.querySelector(`#${target.dataset.submit}`).submit()
-      else if (result) location.href = target.dataset.href
+      else if (result) {
+        const form = document.createElement('form')
+        form.method = 'POST'
+        form.action = target.dataset.href
+        const csrf = document.querySelector('meta[name="csrf-token"]').content
+        form.innerHTML = `<input type="hidden" name="_token" value="${csrf}"><input type="hidden" name="_method" value="DELETE">`
+        document.body.appendChild(form)
+        form.submit()
+      }
       return
     }
   }

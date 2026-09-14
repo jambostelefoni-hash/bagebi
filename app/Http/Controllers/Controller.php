@@ -15,8 +15,12 @@ class Controller extends BaseController
     protected function logAudit($action, $modelType = null, $modelId = null, $description = null, $changes = null)
     {
         try {
+            $actor = auth()->user();
             AuditLog::create([
-                'user_id' => auth()->id(),
+                'user_id' => optional($actor)->id,
+                'actor_name' => optional($actor)->name,
+                'actor_email' => optional($actor)->email,
+                'actor_role' => optional($actor)->role,
                 'action' => $action,
                 'model_type' => $modelType,
                 'model_id' => $modelId,
@@ -34,6 +38,10 @@ class Controller extends BaseController
     {
         $changes = [];
         foreach ($model->getDirty() as $key => $newValue) {
+            if (in_array($key, ['kids_personal_number','mother_personal_number','father_personal_number','mobile_number','email','password','remember_token'], true)) {
+                $changes[$key] = ['changed' => true];
+                continue;
+            }
             $changes[$key] = [
                 'old' => $model->getOriginal($key),
                 'new' => $newValue

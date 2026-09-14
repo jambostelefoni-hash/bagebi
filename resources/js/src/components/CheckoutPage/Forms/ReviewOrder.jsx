@@ -10,6 +10,7 @@ export default function ReviewOrder(props) {
 
   return (
     <React.Fragment>
+      <div className="registration-section-heading"><span>05</span><div><Typography variant="h5">საკონტაქტო ინფორმაცია</Typography><p>ამ მონაცემებზე მიიღებთ რეგისტრაციისა და სტატუსის შეტყობინებებს.</p></div></div>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <InputField

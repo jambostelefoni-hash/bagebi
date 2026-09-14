@@ -1,56 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
-<div class="content-header">
-	  <div class="container-fluid">
-	   <div class="row mb-2">
-	    <div class="col-sm-6">
-	     <h1 class="m-0">პრიორიტეტი</h1>
-	    </div>
-	   </div><!-- /.row -->
-	  </div><!-- /.container-fluid -->
-	 </div>
-    <section class="content">
-     {!! Form::model($model, ['route' => 'prioriteties.store']) !!}
-     {!! Form::hidden('id', $model->id) !!}
-       <div class="card card-primary card-outline card-tabs">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-            <div class="tab-content" id="custom-tabs-three-tabContent">
-            
-             <div class="form-group">
-			    {!! Form::label('name', 'პრიორიტეტის დასახელება', ['class' => 'awesome']) !!}
-			    {!! Form::text('name', $model->name, ['class' => 'form-control']) !!}
-			  </div>
-
-            </div>       
-          </div>
-          <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-            <button onclick="location.href = '{{ route('prioriteties.list') }}'" type="button" class="btn btn-danger  btn-block" style="margin-right: 5px;">
-        <i class="far fa-window-close"></i> გაუქმება
-      </button>
-      <button type="submit" class="btn btn-success  btn-block">
-        <i class="far fa-paper-plane"></i> გაგზავნა
-      </button>
-          </div>
-        </div>        
-      </div>
-  </div>
-     {!! Form::close() !!}
-
-   
-    </section>
+<div class="content-header modern-page-header"><div class="container-fluid"><span class="dashboard-eyebrow">რიგის პოლიტიკა</span><h1>{{ $model->exists ? 'პრიორიტეტის რედაქტირება' : 'ახალი პრიორიტეტი' }}</h1><p>მიუთითეთ მშობლებისთვის გასაგები და ზუსტი დასახელება.</p></div></div>
+<section class="content">{!! Form::model($model,['route'=>'prioriteties.store']) !!}{!! Form::hidden('id',$model->id) !!}<div class="form-layout"><div class="card"><div class="card-header"><h3 class="card-title">პრიორიტეტის ინფორმაცია</h3></div><div class="card-body"><div class="form-group"><label for="name">პრიორიტეტის დასახელება *</label>{!! Form::text('name',$model->name,['id'=>'name','class'=>'form-control','required'=>true]) !!}</div></div><div class="card-footer modern-card-footer"><a href="{{route('prioriteties.list')}}" class="btn btn-light"><i class="fas fa-arrow-left"></i> უკან</a><button class="btn btn-primary"><i class="fas fa-save"></i> შენახვა</button></div></div><aside class="form-aside"><div class="aside-icon"><i class="fas fa-sort-amount-up"></i></div><h2>რიგის თანმიმდევრობა</h2><p>პრიორიტეტი გავლენას ახდენს მომლოდინეთა ავტომატურ რიგზე, ამიტომ გამოიყენეთ ზუსტი სახელწოდება.</p></aside></div>{!! Form::close() !!}</section>
 @endsection
-
-@push('scripts')
-<script></script>
-@endpush
-
-
-
-
-
-
-

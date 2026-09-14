@@ -18,8 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        $model = User::all();
+        $model = User::with('kindergarten')->orderBy('role')->orderBy('name')->get();
         return view('users.list', ['model' => $model]);
     }
 
@@ -35,6 +34,8 @@ class UserController extends Controller
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->id)],
+            'role' => ['required', 'in:union_admin,director'],
+            'kindergarten_id' => ['nullable', 'required_if:role,director', 'exists:kindergartens,id'],
         ];
 
         if ($request->filled('password')) {
@@ -62,7 +63,11 @@ class UserController extends Controller
         } else {
             $request->request->remove('password');
         }
-        $model->fill($request->all());
+        $input = $request->all();
+        if ($request->role === 'union_admin') {
+            $input['kindergarten_id'] = null;
+        }
+        $model->fill($input);
         $changes = $this->buildAuditChanges($model);
         if (isset($changes['password'])) {
             unset($changes['password']);
@@ -85,7 +90,7 @@ class UserController extends Controller
         //
         $model = User::firstOrNew(['id' => $id]);
 
-        return view('users.modify')->withModel($model);
+        return view('users.modify')->withModel($model)->with('kindergartens', \App\Model\Kindergarten::orderBy('name')->pluck('name', 'id'));
     }
 
     /**
@@ -130,8 +135,6 @@ class UserController extends Controller
         return back()->with($message);
     }
 }
-
-
 
 
 

@@ -16,9 +16,12 @@ use App\Model\Kindergarten;
 use App\Model\GroupAgeRange;
 use App\Model\ActiveStatus;
 use App\Model\KindergartnerPriority;
+use App\Model\WaitingListEntry;
 
 use App\Exports\KindergartenerExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Services\ApplicationWorkflowService;
+use Carbon\Carbon;
 
 
 use Arr;
@@ -32,8 +35,9 @@ class KindergartenerController extends Controller
      */
     public function index()
     {
-        //
-        $model = Kindergartener::with('municipality', 'kindergarten', 'groupRange', 'priority', 'activeStatus')->get();
+        $model = Kindergartener::with('municipality', 'kindergarten', 'groupRange', 'priority', 'activeStatus')
+            ->when(auth()->user()->role === 'director', fn ($q) => $q->where('kindergarten_id', auth()->user()->kindergarten_id))
+            ->latest()->get();
         return view('kindergarteners.list', ['model' => $model]);
     }
 
@@ -43,8 +47,29 @@ class KindergartenerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function publicStore(Request $request)
+    {
+        $registrationOpen = (bool) data_get(Setting::where('slug', 'basic')->first(), 'object.isRegistrationStart', false);
+        if (!$registrationOpen) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'registration' => 'რეგისტრაცია ამჟამად დახურულია.',
+            ]);
+        }
+        $request->request->remove('id');
+        $request->request->remove('active_status_id');
+        $request->request->remove('has_permission');
+        return $this->store($request, app(ApplicationWorkflowService::class));
+    }
+
+    public function store(Request $request, ApplicationWorkflowService $workflow)
 {
+    if (auth()->check() && auth()->user()->role === 'director') {
+        $garden = Kindergarten::findOrFail(auth()->user()->kindergarten_id);
+        $request->merge(['kindergarten_id' => $garden->id, 'municipality_id' => $garden->municipality_id]);
+        if ($request->filled('id')) abort_unless((int)Kindergartener::findOrFail($request->id)->kindergarten_id === (int)$garden->id, 403);
+        $request->request->remove('priority_id');
+        $request->request->remove('has_permission');
+    }
     $kindergartener = Kindergartener::firstOrNew(['id' => $request->id]);
     $isNew = !$request->filled('id');
 
@@ -52,6 +77,20 @@ class KindergartenerController extends Controller
         'municipality_id' => ['required'],
         'kindergarten_id' => ['required'],
         'group_id' => ['required'],
+        'birth_date' => ['required', 'date', function ($attribute, $value, $fail) {
+            $setting = Setting::where('slug', 'date')->first();
+            $startValue = data_get($setting, 'object.start');
+            if (!$startValue) return $fail('სასწავლო წლის დაწყების თარიღი არ არის მითითებული.');
+            try {
+                $start = Carbon::parse($startValue);
+                $birth = Carbon::parse($value);
+                if ($birth->gt($start->copy()->subYears(2)) || !$birth->gt($start->copy()->subYears(6))) {
+                    $fail('სასწავლო წლის დაწყებისას ბავშვი უნდა იყოს 2-დან 6 წლამდე.');
+                }
+            } catch (\Throwable $e) {
+                $fail('დაბადების თარიღი არასწორია.');
+            }
+        }],
         'kids_personal_number' => [
             'required',
             'numeric',
@@ -67,20 +106,20 @@ class KindergartenerController extends Controller
         'father_first_name' => ['nullable', 'alpha'],
         'father_last_name' => ['nullable', 'alpha'],
         'mobile_number' => ['required', 'numeric', 'digits:9'],
-        'email' => ['nullable', 'email'],
+        'email' => ['required', 'email'],
         'priority_id' => ['nullable', 'exists:priorities,id'],  // 👈 პრივილეგიის ვალიდაცია
         'has_permission' => ['nullable', 'boolean'],            // 👈 დადასტურების ვალიდაცია
     ]);
 
     $kindergarten = Kindergarten::find($request->kindergarten_id);
     $kindergartenAgeRange = $kindergarten ? $kindergarten->currentAge($request->group_id) : null;
+    $placementChanged = !$kindergartener->exists
+        || (int) $kindergartener->kindergarten_id !== (int) $request->kindergarten_id
+        || (int) $kindergartener->group_id !== (int) $request->group_id;
 
-    $validator->after(function ($validator) use ($kindergartenAgeRange,$request) {
-        if (!$kindergartenAgeRange) {
-            $validator->errors()->add('kindergarten_id', 'შეავსეთ ყველა აუცილებელი ველი!');
-        }
-        else if ($kindergartenAgeRange->pivot->space_free == 0 && !$request->filled('id')) {
-            $validator->errors()->add('kindergarten_id', 'ბაღში თავისუფალი ადგილი არ არის!');
+    $validator->after(function ($validator) use ($kindergartenAgeRange, $placementChanged) {
+        if ($placementChanged && !$kindergartenAgeRange) {
+            $validator->errors()->add('group_id', 'არჩეული ჯგუფი ამ ბაღში არ არის გააქტიურებული. ჯერ ბაღის ტევადობაში მიუთითეთ ჯგუფის ადგილების რაოდენობა.');
         }
     });
 
@@ -92,10 +131,16 @@ class KindergartenerController extends Controller
         }
     };
 
-    // ვავსებთ ძირითად ინფორმაციას
-    $kindergartener->fill($request->all());
-    $changes = $this->buildAuditChanges($kindergartener);
-    $kindergartener->save();
+    $kindergartener = $workflow->save($request->all(), $kindergartener->exists ? $kindergartener : null);
+    $changes = ['application_status' => $kindergartener->application_status];
+    if ($isNew) {
+        app(\App\Services\ParentNotificationService::class)->send(
+            $kindergartener,
+            'application_created',
+            'განაცხადი მიღებულია',
+            'თქვენი განაცხადი მიღებულია. მიმდინარე სტატუსი: '.$kindergartener->application_status_label
+        );
+    }
 
     // ვამუშავებთ პრივილეგიას
     if ($request->filled('priority_id')) {
@@ -121,12 +166,8 @@ class KindergartenerController extends Controller
         }
     }
 
-    // ჯგუფის ადგილი - სივრცის განახლება
-    $newData = [
-        'space_filled' => $kindergartenAgeRange->pivot->space_filled + 1,
-        'space_free' => $kindergartenAgeRange->pivot->space_free - 1
-    ];
-    $kindergarten->groupAgeRanges()->updateExistingPivot($request->group_id, $newData);
+    $kindergartener->load('priority');
+    $workflow->syncWaitingPriority($kindergartener);
 
     $action = $isNew ? 'kindergartener.create' : 'kindergartener.update';
     $this->logAudit($action, Kindergartener::class, $kindergartener->id, 'Kindergartener saved', $changes);
@@ -139,7 +180,34 @@ class KindergartenerController extends Controller
     ];
 
     if ($request->ajax()) {
-        return response()->json(['message' => $message, 'status' => 'success']);
+        $queuePosition = null;
+        if ($kindergartener->application_status === ApplicationWorkflowService::WAITING) {
+            $entry = WaitingListEntry::where('kindergartener_id', $kindergartener->id)->where('state', 'waiting')->first();
+            if ($entry) {
+                $queuePosition = WaitingListEntry::where('kindergarten_id', $entry->kindergarten_id)
+                    ->where('group_id', $entry->group_id)
+                    ->where('state', 'waiting')
+                    ->where(function ($query) use ($entry) {
+                        $query->where('priority_rank', '<', $entry->priority_rank)
+                            ->orWhere(function ($query) use ($entry) {
+                                $query->where('priority_rank', $entry->priority_rank)
+                                    ->where(function ($query) use ($entry) {
+                                        $query->where('queued_at', '<', $entry->queued_at)
+                                            ->orWhere(function ($query) use ($entry) {
+                                                $query->where('queued_at', $entry->queued_at)->where('id', '<', $entry->id);
+                                            });
+                                    });
+                            });
+                    })->count() + 1;
+            }
+        }
+        return response()->json([
+            'message' => $message,
+            'status' => 'success',
+            'application_status' => $kindergartener->application_status,
+            'application_status_label' => $kindergartener->application_status_label,
+            'queue_position' => $queuePosition,
+        ]);
     } else {
         return back()->withInput()->withErrors([])->with($message);
     }
@@ -154,13 +222,28 @@ class KindergartenerController extends Controller
      */
     public function show($id = null)
     {
-        //
         $model = Kindergartener::firstOrNew(['id' => $id]);
+        $user = auth()->user();
+        if ($model->exists && $user->role === 'director') {
+            abort_unless((int)$model->kindergarten_id === (int)$user->kindergarten_id, 403);
+        }
+
+        if ($user->role === 'director') {
+            $garden = Kindergarten::with(['municipality', 'groupAgeRanges'])->findOrFail($user->kindergarten_id);
+            $municipalities = Municipality::with(['kindergartens' => fn ($query) => $query->whereKey($garden->id)])
+                ->whereKey($garden->municipality_id)->get();
+            $groupRanges = $garden->groupAgeRanges->pluck('range', 'id');
+        } else {
+            $garden = null;
+            $municipalities = Municipality::with('kindergartens')->get();
+            $groupRanges = GroupAgeRange::pluck('range', 'id');
+        }
+
         $data = [
-          'municipalities' => Municipality::with('kindergartens')->get(),
-          'group_ranges' => GroupAgeRange::pluck('range', 'id'),
-          'active_statuses' => ActiveStatus::pluck('name', 'id'),
+          'municipalities' => $municipalities,
+          'group_ranges' => $groupRanges,
           'priorities' => Priority::pluck('name', 'id'),
+          'assigned_garden' => $garden,
 
         ];
 
@@ -185,7 +268,7 @@ class KindergartenerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, ApplicationWorkflowService $workflow)
     {
         //
         if (!isset($id)) return back();
@@ -194,7 +277,12 @@ class KindergartenerController extends Controller
         $details = $model
             ? ['name' => $model->kids_first_name.' '.$model->kids_last_name, 'kids_personal_number' => $model->kids_personal_number]
             : null;
-        Kindergartener::destroy($id);
+        if ($model) {
+            if (in_array($model->application_status, [ApplicationWorkflowService::ENROLLED, ApplicationWorkflowService::SUSPENDED], true)) {
+                $workflow->transition($model, ApplicationWorkflowService::CANCELLED, 'Record deleted');
+            }
+            $model->delete();
+        }
         $this->logAudit('kindergartener.delete', Kindergartener::class, $id, 'Kindergartener deleted', $details);
         $message = [
           'flashType'    => 'success',
@@ -204,7 +292,7 @@ class KindergartenerController extends Controller
     }
 
 
-    public function order(Request $request)
+    public function order(Request $request, ApplicationWorkflowService $workflow)
     {
        $errs = [];
        if ($request->missing('ids')) { $errs = Arr::prepend($errs, 'მონიშნეთ აღსაზრდელი/არსაზრდელები');};
@@ -212,40 +300,29 @@ class KindergartenerController extends Controller
        if (!$request->filled('destination')) { $errs = Arr::prepend($errs, 'ცვლილების ველი ცარიელია');};
        
        if ($errs) return redirect()->route('kindergarteners.index')->withErrors($errs);
-       $list = Kindergartener::find($request->ids);
+       $list = Kindergartener::whereIn('id', $request->ids)
+           ->when(auth()->user()->role === 'director', fn ($q) => $q->where('kindergarten_id', auth()->user()->kindergarten_id))->get();
+       abort_unless($list->count() === count($request->ids), 403);
 
        $action = $request->action;
        $destination = $request->destination;
 
-       $list->each(function ($item, $key) use($action,$destination) {
+       $list->each(function ($item, $key) use($action,$destination,$workflow) {
           if($action == 1) {
             if ($item->priority !== null) {
               $item->priority()->update(['has_permission' => $destination]);
+              $item->load('priority');
+              $workflow->syncWaitingPriority($item);
             }
           } else if($action == 2) {
-            $group_range = $item->groupRange;
-            $garden = $item->kindergarten;
-            $gardenByGroupAge = $garden->currentAge($group_range->id);
-            if ($destination == 4) {
-               $newData = [
-                  'space_filled' => $gardenByGroupAge->pivot->space_filled > 0 ? $gardenByGroupAge->pivot->space_filled - 1 : 0,
-                  'space_free' => $gardenByGroupAge->pivot->space_free + 1
-               ];
-               $garden->groupAgeRanges()->updateExistingPivot($group_range->id, $newData);
-            } else if (($destination == 1 || $destination == 2) && $item->active_status_id == 4) {
-                $newData = [
-                  'space_filled' => $gardenByGroupAge->pivot->space_filled + 1,
-                  'space_free' => $gardenByGroupAge->pivot->space_free > 0 ? $gardenByGroupAge->pivot->space_free - 1 : 0
-                ];
-                if (($gardenByGroupAge->pivot->space_filled + 1) > $gardenByGroupAge->pivot->space_length) {
-                    $newData['space_length'] = $gardenByGroupAge->pivot->space_length + 1;
-                }
-                $garden->groupAgeRanges()->updateExistingPivot($group_range->id, $newData);
+            $statuses = config('statuses.application', []);
+            abort_unless(isset($statuses[$destination]) && $destination !== ApplicationWorkflowService::GRADUATED, 422);
+            if (auth()->user()->role === 'director') {
+                abort_unless($item->application_status === ApplicationWorkflowService::ENROLLED && $destination === ApplicationWorkflowService::SUSPENDED, 403);
             }
-            $garden->save();
-            if(!$item->graduate) $item->fill(['active_status_id' => $destination]);
+            $workflow->transition($item, $destination, 'Bulk status update');
           }
-          $item->save();
+          if($action == 1) $item->save();
        });
 
        $message = [
@@ -263,26 +340,48 @@ class KindergartenerController extends Controller
     }
 
     public function findKid (Request $request) {
-         $kid = Kindergartener::with(['kindergarten', 'municipality', 'activeStatus'])
+         $request->validate(['kids_personal_number' => ['required', 'digits:11']]);
+         $kid = Kindergartener::with(['kindergarten:id,name', 'groupRange:id,range'])
                 ->where('kids_personal_number', $request->kids_personal_number)
-                ->get();
+                ->first();
 
-       return response()->json(['data' => $kid, 'status' => 'success']);
+       return response()->json(['data' => $kid ? [
+           'application_status' => $kid->application_status,
+           'application_status_label' => $kid->application_status_label,
+           'kindergarten' => optional($kid->kindergarten)->name,
+           'group' => optional($kid->groupRange)->range,
+       ] : null, 'status' => 'success']);
     }
 
 
     public function dataObject()
     {
+        $municipalities = Municipality::with('kindergartens.groupAgeRanges')->get();
+        $waitingCounts = \App\Model\WaitingListEntry::query()
+            ->where('state', 'waiting')
+            ->selectRaw('kindergarten_id, group_id, COUNT(*) as total')
+            ->groupBy('kindergarten_id', 'group_id')
+            ->get()
+            ->keyBy(fn ($entry) => $entry->kindergarten_id.':'.$entry->group_id);
+        $municipalities->each(function ($municipality) use ($waitingCounts) {
+            $municipality->kindergartens->each(function ($garden) use ($waitingCounts) {
+                $garden->groupAgeRanges->each(function ($range) use ($waitingCounts) {
+                    $range->pivot->space_free = max(0, (int)$range->pivot->space_free - (int)($range->pivot->space_reserved ?? 0));
+                    $range->pivot->waiting_count = (int) data_get($waitingCounts->get($range->pivot->kindergarten_id.':'.$range->id), 'total', 0);
+                });
+            });
+        });
         return [
           'priorities' => Priority::all(),
           'setting' => Setting::where(['slug' => 'basic'])->firstOrNew()->toArray(),
-          'municipalities' => Municipality::with('kindergartens.groupAgeRanges')->get()
+          'learning_start_date' => data_get(Setting::where('slug', 'date')->first(), 'object.start'),
+          'municipalities' => $municipalities
         ];
     }
 
     public function export() 
     {
-        return Excel::download(new KindergartenerExport, 'kindergarteners.xlsx');
+        return Excel::download(new KindergartenerExport(auth()->user()->role === 'director' ? auth()->user()->kindergarten_id : null), 'kindergarteners.xlsx');
     }
 }
 

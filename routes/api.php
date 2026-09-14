@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('API')->group(function () {
 
   Route::post('/data-object', 'KindergartenerController@dataObject');
-  Route::post('/registration', 'KindergartenerController@store');
-  Route::post('/find-kid', 'KindergartenerController@findKid');
+  Route::post('/registration', 'KindergartenerController@publicStore')->middleware('throttle:10,1');
+  Route::post('/find-kid', 'KindergartenerController@findKid')->middleware('throttle:10,1');
 
 });

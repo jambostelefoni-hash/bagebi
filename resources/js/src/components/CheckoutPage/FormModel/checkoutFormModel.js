@@ -19,7 +19,7 @@ export default {
     group: {
       name: 'group_id',
       label: 'ჯგუფი*',
-      requiredErrorMsg: 'ჯგუფის ველი ცარიელია, ან ბაღში არ არის თავისუფალი ადგილი!'
+      requiredErrorMsg: 'აირჩიეთ ასაკობრივი ჯგუფი!'
     },
     kidsId: {
       name: 'kids_personal_number',
@@ -84,14 +84,12 @@ export default {
     },
     email: {
       name: 'email',
-      label: 'ელ-ფოსტა',
+      label: 'ელ-ფოსტა*',
       notValidErrorMsg: 'ელ-ფოსტა არ არის ვალიდური!',
       requiredErrorMsg: 'შეავსეთ ელ-ფოსტის ველი!'
     }
   }
 };
-
-
 
 
 

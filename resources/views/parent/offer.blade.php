@@ -1,0 +1,5 @@
+@extends('layouts.basic')
+@section('title','ადგილის შეთავაზება')
+@section('content')
+<section class="modern-action-page"><div class="modern-action-card"><div class="modern-action-icon modern-action-icon--offer"><svg viewBox="0 0 24 24"><path d="M4 19V8l8-5 8 5v11H4Z"/><path d="M9 19v-6h6v6"/></svg></div><span class="modern-card-kicker">თავისუფალი ადგილი</span><h1>ადგილის შეთავაზება</h1><p>თქვენი ბავშვისთვის ბაღში თავისუფალი ადგილი გამოჩნდა. შეთავაზება ძალაშია მითითებულ ვადამდე.</p><div class="modern-action-deadline"><small>პასუხის ბოლო ვადა</small><strong>{{$offer->expires_at->format('d.m.Y H:i')}}</strong></div><form method="POST" action="{{route('placement-offers.respond',$token)}}" class="modern-action-buttons">@csrf<button name="response" value="accepted" class="modern-action-primary"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg> ვადასტურებ</button><button name="response" value="declined" class="modern-action-danger">უარს ვამბობ</button></form><small class="modern-action-note">პასუხის შემდეგ გადაწყვეტილების შეცვლა შეუძლებელი იქნება.</small></div></section>
+@endsection

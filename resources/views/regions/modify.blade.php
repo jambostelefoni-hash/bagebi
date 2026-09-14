@@ -1,56 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
-<div class="content-header">
-	  <div class="container-fluid">
-	   <div class="row mb-2">
-	    <div class="col-sm-6">
-	     <h1 class="m-0">რეგიონი</h1>
-	    </div><!-- /.col -->
-	   </div><!-- /.row -->
-	  </div><!-- /.container-fluid -->
-	 </div>
-    <section class="content">
-     {!! Form::model($model, ['route' => 'regions.store']) !!}
-     {!! Form::hidden('id', $model->id) !!}
-       <div class="card card-primary card-outline card-tabs">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-            <div class="tab-content" id="custom-tabs-three-tabContent">
-            
-             <div class="form-group">
-			    {!! Form::label('name', 'რეგიონის დასახელება', ['class' => 'awesome']) !!}
-			    {!! Form::text('name', $model->name, ['class' => 'form-control']) !!}
-			  </div>
-
-            </div>       
-          </div>
-          <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-            <button onclick="location.href = '{{ route('regions.list') }}'" type="button" class="btn btn-danger  btn-block" style="margin-right: 5px;">
-        <i class="far fa-window-close"></i> გაუქმება
-      </button>
-      <button type="submit" class="btn btn-success  btn-block">
-        <i class="far fa-paper-plane"></i> გაგზავნა
-      </button>
-          </div>
-        </div>        
-      </div>
-  </div>
-     {!! Form::close() !!}
-
-   
-    </section>
+<div class="content-header modern-page-header"><div class="container-fluid"><span class="dashboard-eyebrow">მდებარეობების მართვა</span><h1>{{ $model->exists ? 'რეგიონის რედაქტირება' : 'ახალი რეგიონი' }}</h1><p>მიუთითეთ რეგიონის ოფიციალური დასახელება.</p></div></div>
+<section class="content">{!! Form::model($model,['route'=>'regions.store']) !!}{!! Form::hidden('id',$model->id) !!}<div class="form-layout"><div class="card"><div class="card-header"><h3 class="card-title">რეგიონის ინფორმაცია</h3></div><div class="card-body"><div class="form-group"><label for="name">რეგიონის დასახელება *</label>{!! Form::text('name',$model->name,['id'=>'name','class'=>'form-control','required'=>true,'autofocus'=>true]) !!}</div></div><div class="card-footer modern-card-footer"><a href="{{route('regions.list')}}" class="btn btn-light"><i class="fas fa-arrow-left"></i> უკან</a><button class="btn btn-primary"><i class="fas fa-save"></i> შენახვა</button></div></div><aside class="form-aside"><div class="aside-icon"><i class="fas fa-map-marked-alt"></i></div><h2>სტრუქტურული ერთეული</h2><p>რეგიონი გამოიყენება მუნიციპალიტეტებისა და საბავშვო ბაღების სწორად დასაჯგუფებლად.</p></aside></div>{!! Form::close() !!}</section>
 @endsection
-
-@push('scripts')
-<script></script>
-@endpush
-
-
-
-
-
-
-

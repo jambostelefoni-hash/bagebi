@@ -13,9 +13,7 @@ export default function PaymentForm(props) {
 
   return (
     <React.Fragment>
-      <Typography className="title-font" variant="h5" gutterBottom>
-        ინფორმაცია
-      </Typography>
+      <div className="registration-section-heading"><span>{props.gender === 'kids' ? '02' : props.gender === 'mothers' ? '03' : '04'}</span><div><Typography variant="h5">{props.gender === 'kids' ? 'ბავშვის ინფორმაცია' : props.gender === 'mothers' ? 'დედის ინფორმაცია' : 'მამის ინფორმაცია'}</Typography><p>მონაცემები მიუთითეთ პირადობის დამადასტურებელი დოკუმენტის შესაბამისად.</p></div></div>
       <Grid container spacing={3}>
         {/* პირადი ნომერი */}
         <Grid item xs={12}>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', 'PublicSiteController@home')->name('public.home');
 Route::get('/kids-registration', 'ChildrenController@index')->name('children');
@@ -23,64 +23,72 @@ Route::get('/about', 'PublicSiteController@show')->name('public.about')->default
 Route::get('/contact', 'PublicSiteController@show')->name('public.contact')->defaults('slug', 'contact');
 Route::get('/news', 'PublicSiteController@show')->name('public.news')->defaults('slug', 'news');
 Route::get('/status-tracker', 'PublicSiteController@statusTracker')->name('public.status-tracker');
-Route::namespace('API')->prefix('kindergarteners')->name('kindergarteners.')->group(function () {
-  Route::get('export', 'KindergartenerController@export')->name('export');
-});
+Route::post('/status-tracker', 'PublicSiteController@statusTracker')->middleware('throttle:10,1')->name('public.status-tracker.search');
 
 Route::group(['middleware' => ['auth', 'check']], function () {
 
   Route::get('/home', 'HomeController@index')->name('home');
   Route::view('/guide', 'guide.index')->name('guide.index');
+  Route::get('/profile', 'ProfileController@edit')->name('profile.edit');
+  Route::patch('/profile', 'ProfileController@update')->name('profile.update');
 
-  Route::prefix('auth')->namespace('Auth')->group(function () {
-    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
+  Route::prefix('auth')->namespace('Auth')->middleware('role:union_admin')->name('users.')->group(function () {
+    Route::get('register', 'RegisterController@showRegistrationForm')->name('create');
     Route::post('register', 'RegisterController@register')->name('register');
   });
 
-  Route::prefix('users')->name('users.')->group(function () {
+  Route::prefix('users')->name('users.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'UserController@index')->name('list');
     Route::get('show/{id?}', 'UserController@show')->name('show');
     Route::post('store', 'UserController@store')->name('store');
-    Route::get('destroy{id?}', 'UserController@destroy')->name('destroy');
+    Route::delete('destroy/{id}', 'UserController@destroy')->name('destroy');
   });
 
-  Route::prefix('regions')->name('regions.')->group(function () {
+  Route::prefix('regions')->name('regions.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'RegionController@index')->name('list');
     Route::get('show/{id?}', 'RegionController@show')->name('show');
     Route::post('store', 'RegionController@store')->name('store');
-    Route::get('destroy{id?}', 'RegionController@destroy')->name('destroy');
+    Route::delete('destroy/{id}', 'RegionController@destroy')->name('destroy');
   });
 
-  Route::prefix('municipalities')->name('municipalities.')->group(function () {
+  Route::prefix('municipalities')->name('municipalities.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'MunicipalityController@index')->name('list');
     Route::get('show/{id?}', 'MunicipalityController@show')->name('show');
     Route::post('store', 'MunicipalityController@store')->name('store');
-    Route::get('destroy{id?}', 'MunicipalityController@destroy')->name('destroy');
+    Route::delete('destroy/{id}', 'MunicipalityController@destroy')->name('destroy');
   });
 
-  Route::prefix('prioriteties')->name('prioriteties.')->group(function () {
+  Route::prefix('prioriteties')->name('prioriteties.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'PriorityController@index')->name('list');
     Route::get('show/{id?}', 'PriorityController@show')->name('show');
     Route::post('store', 'PriorityController@store')->name('store');
-    Route::get('destroy{id?}', 'PriorityController@destroy')->name('destroy');
+    Route::delete('destroy/{id}', 'PriorityController@destroy')->name('destroy');
   });
 
-  Route::prefix('kindergartens')->name('kindergartens.')->group(function () {
+  Route::prefix('kindergartens')->name('kindergartens.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'KindergartenController@index')->name('list');
     Route::get('show/{id?}', 'KindergartenController@show')->name('show');
     Route::post('store', 'KindergartenController@store')->name('store');
-    Route::get('destroy{id?}', 'KindergartenController@destroy')->name('destroy');
+    Route::delete('destroy/{id}', 'KindergartenController@destroy')->name('destroy');
+  });
+
+  Route::prefix('group-age-ranges')->name('group-age-ranges.')->middleware('role:union_admin')->group(function () {
+    Route::get('', 'GroupAgeRangeController@index')->name('list');
+    Route::get('show/{id?}', 'GroupAgeRangeController@show')->name('show');
+    Route::post('store', 'GroupAgeRangeController@store')->name('store');
+    Route::delete('destroy/{id}', 'GroupAgeRangeController@destroy')->name('destroy');
   });
 
   Route::namespace('API')->prefix('kindergarteners')->name('kindergarteners.')->group(function () {
     Route::get('', 'KindergartenerController@index')->name('index');
     Route::get('show/{id?}', 'KindergartenerController@show')->name('show');
     Route::post('store', 'KindergartenerController@store')->name('store');
-    Route::post('order', 'KindergartenerController@order')->name('order');
-    Route::get('destroy{id?}', 'KindergartenerController@destroy')->name('destroy');
+    Route::post('order', 'KindergartenerController@order')->middleware('role:union_admin')->name('order');
+    Route::delete('destroy/{id}', 'KindergartenerController@destroy')->name('destroy')->middleware('role:union_admin');
+    Route::get('export', 'KindergartenerController@export')->name('export');
   });
 
-  Route::prefix('settings')->name('settings.')->group(function () {
+  Route::prefix('settings')->name('settings.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'SettingController@index')->name('index');
     Route::post('store', 'SettingController@store')->name('store');
     Route::get('date', 'SettingController@date')->name('date');
@@ -90,27 +98,40 @@ Route::group(['middleware' => ['auth', 'check']], function () {
     Route::post('learning', 'SettingController@learning')->name('learning');
   });
 
-  Route::prefix('registration-texts')->name('registration-texts.')->group(function () {
+  Route::prefix('registration-texts')->name('registration-texts.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'RegistrationTextController@index')->name('index');
     Route::post('store', 'RegistrationTextController@store')->name('store');
     Route::get('rules', 'RegistrationTextController@rules')->name('rules');
     Route::post('rules', 'RegistrationTextController@storeRules')->name('rules.store');
   });
 
-  Route::prefix('public-pages')->name('public-pages.')->group(function () {
+  Route::prefix('public-pages')->name('public-pages.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'PublicPageController@index')->name('index');
     Route::get('{slug}/edit', 'PublicPageController@edit')->name('edit');
     Route::put('{slug}', 'PublicPageController@update')->name('update');
   });
 
-  Route::prefix('audit-logs')->name('audit-logs.')->group(function () {
+  Route::prefix('audit-logs')->name('audit-logs.')->middleware('role:union_admin')->group(function () {
     Route::get('', 'AuditLogController@index')->name('index');
   });
+  Route::get('/operations', 'OperationsController@index')->middleware('role:union_admin')->name('operations.index');
+  Route::post('/operations/process-waiting-list', 'OperationsController@processWaitingList')->middleware('role:union_admin')->name('operations.process-waiting-list');
+
+  Route::get('/attendance', 'AttendanceController@index')->name('attendance.index');
+  Route::post('/attendance', 'AttendanceController@store')->name('attendance.store');
+  Route::post('/attendance/evaluate', 'AttendanceController@evaluate')->middleware('role:union_admin')->name('attendance.evaluate');
+  Route::get('/attendance/export/{format}', 'AttendanceController@export')->name('attendance.export');
+  Route::patch('/applications/{id}/status', 'ApplicationStatusController@update')->name('applications.status');
+  Route::get('/reinstatement-requests', 'ReinstatementController@index')->middleware('role:union_admin')->name('reinstatement.index');
+  Route::post('/reinstatement-requests/{id}/review', 'ReinstatementController@review')->middleware('role:union_admin')->name('reinstatement.review');
+  Route::get('/reinstatement-requests/{id}/document', 'ReinstatementController@download')->middleware('role:union_admin')->name('reinstatement.download');
+  Route::get('/work-calendar', 'WorkCalendarController@index')->middleware('role:union_admin')->name('calendar.index');
+  Route::post('/work-calendar', 'WorkCalendarController@store')->middleware('role:union_admin')->name('calendar.store');
+  Route::delete('/work-calendar/{id}', 'WorkCalendarController@destroy')->middleware('role:union_admin')->name('calendar.destroy');
 
 });
 
-
-
-
-
-
+Route::get('/placement-offers/{token}', 'PlacementOfferController@show')->name('placement-offers.show');
+Route::post('/placement-offers/{token}', 'PlacementOfferController@respond')->middleware('throttle:10,1')->name('placement-offers.respond');
+Route::get('/reinstatement/{token}', 'ReinstatementController@show')->name('reinstatement.show');
+Route::post('/reinstatement/{token}', 'ReinstatementController@store')->middleware('throttle:5,1')->name('reinstatement.store');

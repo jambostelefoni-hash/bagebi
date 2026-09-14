@@ -16,12 +16,14 @@ class SettingController extends Controller
 {
     public function index()
     {
-        $permission = Setting::where('slug', 'date')->first()->toArray();
-        $now = Carbon::createFromFormat('m/d/Y', Carbon::now()->format('m/d/Y'));
-        $start = Carbon::createFromFormat('m/d/Y', $permission['object']['start']);
-        $end = Carbon::createFromFormat('m/d/Y', $permission['object']['end']);
-        $canStart = $now->gte($start);
-        $canEnd = $now->gte($end);
+        $dateSetting = Setting::where('slug', 'date')->firstOrNew();
+        $permission = $dateSetting->toArray();
+        $permission['object'] = array_merge(['start' => null, 'end' => null], $permission['object'] ?? []);
+        $now = Carbon::today();
+        $start = $this->parseSettingDate($permission['object']['start']);
+        $end = $this->parseSettingDate($permission['object']['end']);
+        $canStart = $start ? $now->gte($start) : false;
+        $canEnd = $end ? $now->gte($end) : false;
 
         $model = Setting::where('slug', 'basic')->firstOrNew();
         return view('settings.index', [
@@ -147,14 +149,8 @@ class SettingController extends Controller
         ];
 
         $permission = Setting::where('slug', 'date')->first();
-        $start = Carbon::createFromFormat('m/d/Y', $permission['object']['start'])->addYear();
-        
-        $oldData = $permission->toArray()['object'];
-        $newData = ['start' => $start->format('m/d/Y')];
-        $mergeData = array_merge($oldData, $newData);
-
-        $permission->object = $mergeData;
-        $permission->save();
+        $start = $this->parseSettingDate(data_get($permission, 'object.start'));
+        if (!$start) return back()->withErrors(['date' => 'სასწავლო წლის დაწყების თარიღი არასწორია.']);
 
         $oldBasic = $basic->toArray()['object'];
         $oldBasic['canPorting'] = false;
@@ -176,17 +172,15 @@ class SettingController extends Controller
         ];
 
         $permission = Setting::where('slug', 'date')->first();
-        $end = Carbon::createFromFormat('m/d/Y', $permission['object']['end'])->addYear();
-        
-        $oldData = $permission->toArray()['object'];
-        $newData = ['end' => $end->format('m/d/Y')];
-        $mergeData = array_merge($oldData, $newData);
-
-        $permission->object = $mergeData;
-        $permission->save();
+        $end = $this->parseSettingDate(data_get($permission, 'object.end'));
+        if (!$end) return back()->withErrors(['date' => 'სასწავლო წლის დასრულების თარიღი არასწორია.']);
+        if ($end->isFuture()) return back()->withErrors(['date' => 'სასწავლო წლის დასრულების თარიღი ჯერ არ დამდგარა.']);
 
         $basic = Setting::where('slug', 'basic')->first();
         $oldBasic = $basic->toArray()['object'];
+        if (!empty($oldBasic['last_ported_end']) && $end->toDateString() <= $oldBasic['last_ported_end']) {
+            return back()->withErrors(['date' => 'ამ სასწავლო წლის პორტირება უკვე შესრულებულია.']);
+        }
         $oldBasic['canPorting'] = true;
         $oldBasic['isLearningStart'] = false;
 
@@ -198,60 +192,24 @@ class SettingController extends Controller
         return back()->withInput()->withErrors([])->with($message);
     }
 
-    public function learning(Request $request)
+    public function learning(Request $request, \App\Services\AnnualPortingService $porting)
     {
-        Kindergartener::all()->each(function($item) {
-            if ($item->group_id == 4) {
-                $item->active_status_id = 3;
-                $item->graduate = 1;
-                $item->group_id = NULL;
-            } else if (!$item->graduate) {
-                $item->group_id = $item->group_id + 1;
-            }
-            $item->save();
-        });
+        $result = $porting->execute();
 
-        Kindergarten::all()->each(function($item) {
-            $item->groupAgeRanges->each(function($item_range) use ($item) {
-                $kindergartenersByGroupId = $item->KindergartenersByGroupId($item_range->id);
-                if ($kindergartenersByGroupId) {
-                    if (!$kindergartenersByGroupId->total) $kindergartenersByGroupId->total = 0;
-                    
-                    $newData = [
-                        'space_length' => $kindergartenersByGroupId->total,
-                        'space_filled' => $kindergartenersByGroupId->total,
-                        'space_free' => 0
-                    ];
+        return back()->with([
+            'flashType' => 'success',
+            'flashMessage' => 'პორტირება დასრულდა: გადაყვანილია '.$result['moved'].'; დასრულებულია '.$result['graduated'].'. ჯგუფების ზღვრები შენარჩუნებულია.',
+        ]);
+    }
 
-                    $item->groupAgeRanges()->updateExistingPivot($kindergartenersByGroupId->group_id, $newData);
-                } else {
-                    $item->groupAgeRanges()->updateExistingPivot($item_range->id, [
-                        'space_length' => 0,
-                        'space_filled' => 0,
-                        'space_free' => 0
-                    ]);
-                }
-                $item->save();
-            });
-            
-            $item->groupAgeRanges()->updateExistingPivot(1, ['space_length' => 0, 'space_filled' => 0, 'space_free' => 0]);
-            $item->save();
-        });
+    private function parseSettingDate($value): ?Carbon
+    {
+        if (!$value) return null;
 
-        $message = [
-            'flashType'    => 'success',
-            'flashMessage' => 'მოსწავლეების ჯგუფიდან ჯგუფში გადაყვანა წარმატებით შესრულდა. აუცილებელია, რომ ეს მოქმედება აღარ შესრულდეს შემდეგი სასწავლო წლის დასრულებამდე!'
-        ];
-
-        $basic = Setting::where('slug', 'basic')->first();
-        $oldBasic = $basic->toArray()['object'];
-        $oldBasic['canPorting'] = false;
-
-        $basic->object = $oldBasic;
-        $basic->save();
-
-        $this->logAudit('settings.learning', Setting::class, $basic->id, 'Learning process executed');
-
-        return back()->withInput()->withErrors([])->with($message);
+        try {
+            return Carbon::parse($value)->startOfDay();
+        } catch (\Throwable $exception) {
+            return null;
+        }
     }
 }

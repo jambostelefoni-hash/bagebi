@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Model\Kindergarten;
 use App\Model\Municipality;
 use App\Model\GroupAgeRange;
+use App\Model\API\Kindergartener;
+use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class KindergartenController extends Controller
 {
@@ -20,7 +24,8 @@ class KindergartenController extends Controller
     public function index()
     {
         //
-        $model = Kindergarten::all();
+        $model = Kindergarten::with(['municipality', 'groupAgeRanges'])
+            ->withCount(['occupiedChildren'])->orderBy('name')->get();
         return view('kindergartens.list', ['model' => $model]);
     }
 
@@ -42,25 +47,50 @@ class KindergartenController extends Controller
                 })->ignore($request->id)
             ],
             'municipality_id' => [
-                'required'
-            ]
+                'required', 'exists:municipalities,id'
+            ],
+            'range' => ['required', 'array'],
+            'range.*.space_length' => ['nullable', 'integer', 'min:0', 'max:10000'],
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         };        
 
-        $filterRange = array_map(function($array) {
-           return ['space_free' => ($array['space_length'] - $array['space_filled'])] + $array;
-        }, array_filter($request->range, function($item) {
-           return !empty($item['space_length']);
-        }));
+        $model = DB::transaction(function () use ($request) {
+            $model = $request->id ? Kindergarten::whereKey($request->id)->lockForUpdate()->firstOrFail() : new Kindergarten();
+            $model->fill($request->only(['name', 'municipality_id']));
+            $model->save();
 
-        $model = Kindergarten::firstOrNew(['id' => $request->id]);
-        $model->fill($request->all());
-        $model->save();
-        $model->groupAgeRanges()->sync($filterRange);
-        $model->fresh();
+            $ranges = [];
+            $existing = DB::table('kindergarten_group_age_range')->where('kindergarten_id', $model->id)->lockForUpdate()->get();
+            $submitted = $request->input('range', []);
+            foreach ($existing as $row) {
+                if (!array_key_exists($row->group_age_range, $submitted)) {
+                    $submitted[$row->group_age_range] = ['space_length' => $row->space_length];
+                }
+            }
+            foreach ($submitted as $groupId => $values) {
+                if (!GroupAgeRange::whereKey($groupId)->exists()) {
+                    throw ValidationException::withMessages(['range' => 'ასაკობრივი ჯგუფი არ არსებობს.']);
+                }
+                $capacity = (int) ($values['space_length'] ?? 0);
+                $occupied = Kindergartener::where('kindergarten_id', $model->id)
+                    ->where('group_id', $groupId)
+                    ->whereIn('application_status', ['enrolled', 'suspended'])->count();
+                $reserved = (int) DB::table('kindergarten_group_age_range')
+                    ->where('kindergarten_id', $model->id)->where('group_age_range', $groupId)
+                    ->value('space_reserved');
+                if ($capacity < $occupied + $reserved) {
+                    throw ValidationException::withMessages(['range' => 'ჯგუფის ზღვარი დაკავებულ და დაჯავშნილ ადგილებზე ნაკლები ვერ იქნება.']);
+                }
+                $ranges[$groupId] = ['space_length'=>$capacity,'space_filled'=>$occupied,'space_free'=>$capacity-$occupied,'space_reserved'=>$reserved];
+            }
+            $model->groupAgeRanges()->syncWithoutDetaching($ranges);
+            return $model->fresh();
+        }, 3);
+
+        $this->logAudit($request->id ? 'kindergarten.update' : 'kindergarten.create', Kindergarten::class, $model->id, 'Kindergarten saved', ['name'=>$model->name,'municipality_id'=>$model->municipality_id]);
 
         $insertOrUpdate = $request->id ? 'განახლდა' : 'დაემატა';
 
@@ -113,7 +143,14 @@ class KindergartenController extends Controller
         //
         if (!isset($id)) return back();
 
-        $model = Kindergarten::destroy($id);
+        $model = Kindergarten::findOrFail($id);
+        if (Kindergartener::where('kindergarten_id', $id)->exists() || User::where('kindergarten_id', $id)->exists()) {
+            return back()->withErrors(['kindergarten' => 'ბაღის წაშლამდე გადაიყვანეთ მასთან დაკავშირებული ბავშვები და დირექტორები.']);
+        }
+        $details = ['name'=>$model->name,'municipality_id'=>$model->municipality_id];
+        $model->groupAgeRanges()->detach();
+        $model->delete();
+        $this->logAudit('kindergarten.delete', Kindergarten::class, $id, 'Kindergarten deleted', $details);
         $message = [
           'flashType'    => 'success',
           'flashMessage' => 'ბაღი წაიშალა წარმატებით'

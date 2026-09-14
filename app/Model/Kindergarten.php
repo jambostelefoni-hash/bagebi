@@ -32,7 +32,7 @@ class Kindergarten extends Model
             'kindergarten_id',
             'group_age_range'
         )
-        ->withPivot(['space_length', 'space_filled', 'space_free']);
+        ->withPivot(['space_length', 'space_filled', 'space_free', 'space_reserved']);
     }
 
     public function currentAge($rangeId)
@@ -58,13 +58,18 @@ class Kindergarten extends Model
 {
     return Kindergartener::where('kindergarten_id', $this->id)
         ->where('group_id', $groupId)
-        ->where('active_status_id', 2)
+        ->whereIn('application_status', ['enrolled', 'suspended'])
         ->count();
 }
 
     public function Kindergarteners()
     {
-        return $this->hasMany(Kindergartener::class)->active();
+        return $this->hasMany(Kindergartener::class)->where('application_status', 'enrolled');
+    }
+
+    public function occupiedChildren()
+    {
+        return $this->hasMany(Kindergartener::class)->whereIn('application_status', ['enrolled', 'suspended']);
     }
 
     public function KindergartenersList()

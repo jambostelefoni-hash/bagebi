@@ -7,16 +7,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravels') }}</title>
+    <title>@yield('title', $publicBrand ?? config('app.name', 'საბავშვო ბაღების გაერთიანება'))</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}?v=20260212">
+    <link rel="stylesheet" href="{{ asset('css/public-modern.css') }}?v={{ file_exists(public_path('css/public-modern.css')) ? filemtime(public_path('css/public-modern.css')) : '1' }}">
 
+    <link rel="stylesheet" href="{{ asset('css/platform-unified.css') }}?v={{ filemtime(public_path('css/platform-unified.css')) }}">
 </head>
 <body class="basic-shell">
  @include('partials.public-nav')
@@ -48,30 +51,13 @@
  <script src="{{ mix('js/app.js') }} " defer></script>
  <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var toggle = document.querySelector('.public-menu-toggle');
-        var links = document.getElementById('publicNavLinks');
-        function isMobile() {
-            return window.innerWidth <= 768;
-        }
-        function updateMenu() {
-            if (!isMobile()) {
-                links.classList.remove('is-open');
-                links.style.display = 'flex';
-                toggle.setAttribute('aria-expanded', 'false');
-            } else {
-                links.style.display = links.classList.contains('is-open') ? 'flex' : 'none';
-            }
-        }
-        if (!toggle || !links) return;
+        var toggle = document.getElementById('publicMenuToggle');
+        var menu = document.getElementById('publicNavMenu');
+        if (!toggle || !menu) return;
         toggle.addEventListener('click', function () {
-            if (isMobile()) {
-                var isOpen = links.classList.toggle('is-open');
-                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                updateMenu();
-            }
+            var open = menu.classList.toggle('is-open');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
-        window.addEventListener('resize', updateMenu);
-        updateMenu();
     });
  </script>
 

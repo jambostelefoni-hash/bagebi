@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
 use App\Model\Priority;
+use App\Model\KindergartnerPriority;
 
 class PriorityController extends Controller
 {
@@ -45,7 +46,9 @@ class PriorityController extends Controller
 
         $model = Priority::firstOrNew(['id' => $request->id]);
         $model->fill($request->all());
+        $isNew = !$model->exists;
         $model->save();
+        $this->logAudit($isNew ? 'priority.create' : 'priority.update',Priority::class,$model->id,'Priority saved',['name'=>$model->name]);
 
         $message = [
           'flashType'    => 'success',
@@ -92,7 +95,11 @@ class PriorityController extends Controller
         //
         if (!isset($id)) return back();
 
-        $model = Priority::destroy($id);
+        $model = Priority::findOrFail($id);
+        if (KindergartnerPriority::where('priority_id',$id)->exists()) return back()->withErrors(['priority'=>'პრიორიტეტი გამოიყენება აღსაზრდელის განაცხადში და მისი წაშლა შეუძლებელია.']);
+        $details=['name'=>$model->name];
+        $model->delete();
+        $this->logAudit('priority.delete',Priority::class,(int)$id,'Priority deleted',$details);
         $message = [
           'flashType'    => 'success',
           'flashMessage' => 'პრიორიტეტი წაიშალა წარმატებით'
@@ -100,7 +107,6 @@ class PriorityController extends Controller
         return back()->with($message);
     }
 }
-
 
 
 

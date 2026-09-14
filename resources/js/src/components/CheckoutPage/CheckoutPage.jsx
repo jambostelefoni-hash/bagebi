@@ -1,12 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-  CircularProgress
-} from '@material-ui/core';
+import { Stepper, Step, StepLabel, Button, CircularProgress } from '@material-ui/core';
 
 import { Formik, Form } from 'formik'
 
@@ -65,7 +58,6 @@ export default function CheckoutPage() {
   const classes = useStyles();
   const [mounted, setMounted] = useState(false)
   const [activeStep, setActiveStep] = useState(0);
-  const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
   const [responseData, setResponseData] = useState({})
   const [formStatus, setFormStatuss] = useState('')
@@ -73,10 +65,12 @@ export default function CheckoutPage() {
   const dataObjectSetter = {
     municipalities : [],
     kindergartens: [],
-    group_ranges: []
+    group_ranges: [],
+    learning_start_date: null
   }
 
   const [dataObject, setDataObject] = useState(dataObjectSetter)
+  const currentValidationSchema = validationSchema(dataObject.learning_start_date)[activeStep];
 
   useEffect(async () => {
     const data = await axios.post(`${domain}/api/data-object`)
@@ -110,17 +104,16 @@ export default function CheckoutPage() {
     setActiveStep(activeStep - 1);
   }
 
+  if (dataObject && dataObject.setting && !dataObject.setting.object.isRegistrationStart) {
+    return <div className={classes.closed}>რეგისტრაცია ამ ეტაპზე დახურულია.</div>;
+  }
+
   return (
-    <React.Fragment>
-      {dataObject && dataObject.setting && !dataObject.setting.object.isRegistrationStart ? 
-        (<div>რეგისტრაცია ნებადართული არ არის!</div>) :
-        (<React.Fragment>
-          <Typography className={classes.pageTitle} component="h1" variant="h4" align="center">
-            სარეგისტრაციო ფორმა
-          </Typography>
-          <Typography className={classes.pageSubtitle} component="p" align="center">
-            შეავსეთ ველები მოკლედ და ზუსტად. აუცილებელი ველები მონიშნულია.
-          </Typography>
+    <div className={classes.formShell}>
+          <div className={classes.intro}>
+            <div className={classes.introCopy}><strong>{steps[activeStep] || 'დასრულებულია'}</strong><span>შეავსეთ ინფორმაცია ზუსტად ისე, როგორც ოფიციალურ დოკუმენტებშია.</span></div>
+            <span className={classes.progressText}>{Math.min(activeStep + 1, steps.length)} / {steps.length} ეტაპი</span>
+          </div>
           <Stepper activeStep={activeStep} className={classes.stepper} alternativeLabel>
             {steps.map(label => (
               <Step key={label}>
@@ -128,15 +121,12 @@ export default function CheckoutPage() {
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length && formStatus == 'success' ? (
-              <CheckoutSuccess responseData={responseData}/>
-            ) : (
-              <React.Fragment>
-                { formStatus == 'errors' && responseData.errors 
-                  ? responseData.errors.map((object, i) => 
-                    <Typography className={classes.colorRed} key={i} variant="subtitle1">{object}</Typography> 
-                  )
+      {activeStep === steps.length && formStatus == 'success' ? (
+        <CheckoutSuccess responseData={responseData}/>
+      ) : (
+        <React.Fragment>
+                { formStatus == 'errors' && responseData.errors
+                  ? responseData.errors.map((object, i) => <div className={classes.errorBox} key={i}>{object}</div>)
                   : ''
                 }
                 <Formik
@@ -146,7 +136,7 @@ export default function CheckoutPage() {
                 >
                 {({ isSubmitting, setFieldValue }) => (
                   <Form id={formId}>
-                    {_renderStepContent(activeStep, setFieldValue, dataObject, setDataObject)} 
+                    <div className={classes.section}>{_renderStepContent(activeStep, setFieldValue, dataObject, setDataObject)}</div>
                     <div className={classes.buttons}>
                       {activeStep !== 0 && (
                         <Button onClick={_handleBack} className={classes.buttonSecondary}>
@@ -160,7 +150,7 @@ export default function CheckoutPage() {
                           variant="contained"
                           color="primary"
                           className={classes.buttonPrimary}>
-                          {isLastStep ? 'დასრულება' : 'შემდეგი'}
+                          {isLastStep ? 'რეგისტრაციის დასრულება' : 'შემდეგი →'}
                         </Button>
                         {isSubmitting && (
                           <CircularProgress
@@ -172,14 +162,9 @@ export default function CheckoutPage() {
                     </div>
                   </Form>
                 )}
-              </Formik>
-            </React.Fragment>
-          )}
+          </Formik>
         </React.Fragment>
-      </React.Fragment>
-    )}
-    </React.Fragment>
+      )}
+    </div>
   );
 }
-
-

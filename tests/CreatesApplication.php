@@ -17,6 +17,12 @@ trait CreatesApplication
 
         $app->make(Kernel::class)->bootstrap();
 
+        $connection = config('database.default');
+        $database = (string) config("database.connections.{$connection}.database");
+        if (!preg_match('/(^|_)testing$/', $database)) {
+            throw new \RuntimeException("Refusing to run tests against unsafe database [{$database}]. Use a database ending in _testing.");
+        }
+
         return $app;
     }
 }

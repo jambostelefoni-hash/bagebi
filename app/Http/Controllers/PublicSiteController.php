@@ -39,12 +39,13 @@ class PublicSiteController extends Controller
         $query = $request->input('kids_personal_number');
 
         if ($query) {
+            $request->validate(['kids_personal_number' => ['required', 'digits:11']]);
             $kid = Kindergartener::with(['kindergarten', 'groupRange', 'activeStatus'])
                 ->where('kids_personal_number', $query)
                 ->first();
 
-            if ($kid && $kid->activeStatus) {
-                $statusLabel = $kid->activeStatus->name;
+            if ($kid) {
+                $statusLabel = $kid->application_status_label ?: 'უცნობი';
             }
         }
 

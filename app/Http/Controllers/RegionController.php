@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Session;
 
 use App\Model\Region;
+use App\Model\Municipality;
 
 class RegionController extends Controller
 {
@@ -46,7 +47,9 @@ class RegionController extends Controller
 
         $model = Region::firstOrNew(['id' => $request->id]);
         $model->fill($request->all());
+        $isNew = !$model->exists;
         $model->save();
+        $this->logAudit($isNew ? 'region.create' : 'region.update', Region::class, $model->id, 'Region saved', ['name'=>$model->name]);
 
         $insertOrUpdate = $request->id ? 'განახლდა' : 'დაემატა';
 
@@ -95,7 +98,11 @@ class RegionController extends Controller
         //
         if (!isset($id)) return back();
 
-        $model = Region::destroy($id);
+        $model = Region::findOrFail($id);
+        if (Municipality::where('region_id',$id)->exists()) return back()->withErrors(['region'=>'რეგიონის წაშლამდე გადაიტანეთ ან წაშალეთ მასთან დაკავშირებული მუნიციპალიტეტები.']);
+        $details=['name'=>$model->name];
+        $model->delete();
+        $this->logAudit('region.delete',Region::class,(int)$id,'Region deleted',$details);
         $message = [
           'flashType'    => 'success',
           'flashMessage' => 'რეგიონი წაიშალა წარმატებით'
@@ -103,7 +110,6 @@ class RegionController extends Controller
         return redirect()->route('regions.list')->with($message);
     }
 }
-
 
 
 

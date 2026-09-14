@@ -8,6 +8,9 @@ class AuditLog extends Model
 {
     protected $fillable = [
         'user_id',
+        'actor_name',
+        'actor_email',
+        'actor_role',
         'action',
         'model_type',
         'model_id',
@@ -24,5 +27,16 @@ class AuditLog extends Model
     public function user()
     {
         return $this->belongsTo(\App\User::class);
+    }
+
+    protected static function booted()
+    {
+        static::updating(function () {
+            throw new \LogicException('Audit log entries are append-only.');
+        });
+
+        static::deleting(function () {
+            throw new \LogicException('Audit log entries cannot be deleted.');
+        });
     }
 }

@@ -30,4 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'mailtrap' => [
+        'api_token' => env('MAILTRAP_API_TOKEN'),
+        'from_address' => env('MAILTRAP_FROM_ADDRESS', env('MAIL_FROM_ADDRESS')),
+        'from_name' => env('MAILTRAP_FROM_NAME', env('MAIL_FROM_NAME', 'Mailtrap Test')),
+        'test_recipient' => env('MAILTRAP_TEST_RECIPIENT'),
+    ],
+
 ];

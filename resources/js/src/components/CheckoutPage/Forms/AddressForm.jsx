@@ -24,10 +24,16 @@ export default function AddressForm(props) {
         dataNewObject = props.dataObject.municipalities.find(elm => elm.id == value)?.kindergartens
       } else if (name == 'group_ranges') {
         props.setFieldValue('group_id', '', false)
-        dataNewObject = 
-          props.dataObject.kindergartens
-            .find(elm => elm.id == value)?.group_age_ranges
-            .filter(elm => Number(elm.pivot.space_free) > 0)
+        dataNewObject = (props.dataObject.kindergartens
+          .find(elm => elm.id == value)?.group_age_ranges || [])
+          .map(elm => {
+            const free = Number(elm.pivot.space_free) || 0
+            const waiting = Number(elm.pivot.waiting_count) || 0
+            return {
+              ...elm,
+              range: `${elm.range} წ. — თავისუფალი: ${free} · რიგში: ${waiting}`
+            }
+          })
       }
       props.setDataObject(old => ({ ...old, [name]: dataNewObject }))
     }
@@ -35,13 +41,11 @@ export default function AddressForm(props) {
 
   return (
     <React.Fragment>
-      <Typography className="title-font" variant="h5" gutterBottom>
-        მდებარეობა
-      </Typography>      
+      <div className="registration-section-heading"><span>01</span><div><Typography variant="h5">ბაღის შერჩევა</Typography><p>თანმიმდევრულად აირჩიეთ მუნიციპალიტეტი, ბაღი და ასაკობრივი ჯგუფი.</p></div></div>
       <Grid container spacing={3}>
 
         {(props.dataObject.setting && props.dataObject.setting.object && props.dataObject.setting.object.isPrioritetiesStart) ? 
-          (<Grid item xs={12} >
+          (<Grid item xs={12} md={6}>
             <SelectField
               handlechange = { handlechange }
               objName="kindergartens"
@@ -54,7 +58,7 @@ export default function AddressForm(props) {
           : ''
         }
 
-        <Grid item xs={12} >
+        <Grid item xs={12} md={6}>
           <SelectField
             handlechange = { handlechange }
             objName="kindergartens"
@@ -65,7 +69,7 @@ export default function AddressForm(props) {
           />
         </Grid>
 
-        <Grid item xs={12} >
+        <Grid item xs={12} md={6}>
           <SelectField
             handlechange = { handlechange }
             objName="group_ranges"
@@ -75,7 +79,7 @@ export default function AddressForm(props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} >
+        <Grid item xs={12} md={6}>
           <SelectField
             handlechange = { handlechange }
             objName=""
@@ -85,17 +89,16 @@ export default function AddressForm(props) {
             fullWidth
           />
         </Grid>
+        <Grid item xs={12}>
+          <div className="registration-waiting-note">
+            თუ არჩეულ ჯგუფში თავისუფალი ადგილი არ არის, განაცხადი ავტომატურად მოხვდება მომლოდინეთა სიაში.
+          </div>
+        </Grid>
         
       </Grid>
     </React.Fragment>
   )
 }
-
-
-
-
-
-
 
 
 

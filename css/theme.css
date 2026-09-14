@@ -1,4 +1,28 @@
 /* Public hero style for navigation bar */
+:root {
+  --brand-navy: #123f73;
+  --brand-teal: #11a99a;
+  --brand-coral: #ff7157;
+  --brand-ink: #172033;
+  --brand-muted: #667085;
+  --brand-surface: #f6f8fc;
+  --brand-radius: 16px;
+  --brand-shadow: 0 12px 34px rgba(18, 63, 115, .10);
+}
+body { font-family: 'Noto Sans Georgian', sans-serif !important; color: var(--brand-ink); background: var(--brand-surface); }
+.content-wrapper { background: var(--brand-surface) !important; padding: 12px 18px 36px; }
+.card { border: 1px solid #e8edf5 !important; border-radius: var(--brand-radius) !important; box-shadow: var(--brand-shadow) !important; overflow: hidden; }
+.card-header { background: #fff !important; border-bottom: 1px solid #edf1f7 !important; padding: 18px 22px !important; }
+.btn { border-radius: 10px !important; font-weight: 700 !important; min-height: 40px; }
+.btn-primary, .btn-outline-primary:hover { background: var(--brand-navy) !important; border-color: var(--brand-navy) !important; }
+.btn-success { background: var(--brand-teal) !important; border-color: var(--brand-teal) !important; }
+.form-control, .custom-select { min-height: 44px; border-radius: 10px !important; border-color: #d8e0ec !important; }
+.form-control:focus, .custom-select:focus { border-color: var(--brand-teal) !important; box-shadow: 0 0 0 3px rgba(17,169,154,.16) !important; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid rgba(255,113,87,.45) !important; outline-offset: 2px; }
+.main-sidebar { background: linear-gradient(180deg, #102e53 0%, #123f73 100%) !important; }
+.brand-link { background: rgba(7,29,55,.72) !important; min-height: 72px !important; }
+.nav-sidebar .nav-link.active { background: rgba(17,169,154,.18) !important; border-left-color: var(--brand-teal) !important; }
+@media (max-width: 767px) { .content-wrapper { padding: 6px 8px 24px; } .card-body { padding: 14px !important; } .content-header h1 { font-size: 1.45rem; } }
 .public-hero-nav {
   background: linear-gradient(135deg, #e6f7ff 0%, #d6f0ff 100%);
   box-shadow: 0 24px 48px rgba(90, 132, 182, 0.13);
@@ -1846,7 +1870,6 @@ body.basic-shell {
     border-radius: 16px;
   }
 }
-
 
 
 

@@ -1,0 +1,18 @@
+<div class="form-layout">
+  <div class="card">
+    <div class="card-header"><div><h3 class="card-title">ანგარიშის ინფორმაცია</h3><span class="kids-list-caption">როლი განსაზღვრავს მონაცემებზე წვდომის ფარგლებს</span></div></div>
+    <div class="card-body"><div class="form-grid form-grid--two">
+      <div class="form-group"><label for="name">სახელი და გვარი</label><input id="name" name="name" value="{{old('name',$model->name)}}" class="form-control @error('name') is-invalid @enderror" required>@error('name') <span class="invalid-feedback">{{$message}}</span> @enderror</div>
+      <div class="form-group"><label for="email">ელფოსტა</label><input id="email" type="email" name="email" value="{{old('email',$model->email)}}" class="form-control @error('email') is-invalid @enderror" required>@error('email') <span class="invalid-feedback">{{$message}}</span> @enderror</div>
+      <div class="form-group"><label for="role">როლი</label><select id="role" name="role" class="custom-select" required><option value="director" @selected(old('role',$model->role?:'director')==='director')>ბაღის დირექტორი</option><option value="union_admin" @selected(old('role',$model->role)==='union_admin')>გაერთიანების ადმინისტრატორი</option></select></div>
+      <div class="form-group" id="garden-field"><label for="kindergarten_id">მინიჭებული ბაღი</label><select id="kindergarten_id" name="kindergarten_id" class="custom-select @error('kindergarten_id') is-invalid @enderror"><option value="">აირჩიეთ ბაღი</option>@foreach($kindergartens as $id=>$name)<option value="{{$id}}" @selected((string)old('kindergarten_id',$model->kindergarten_id)===(string)$id)>{{$name}}</option>@endforeach</select>@error('kindergarten_id') <span class="invalid-feedback">{{$message}}</span> @enderror<small class="form-text text-muted">ერთ ბაღზე შეგიძლიათ რამდენიმე დირექტორის დამატება.</small></div>
+      <div class="form-group"><label for="password">{{$isEdit?'ახალი პაროლი':'პაროლი'}}</label><input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror" @if(!$isEdit) required @endif minlength="8" autocomplete="new-password">@error('password') <span class="invalid-feedback">{{$message}}</span> @enderror @if($isEdit)<small class="form-text text-muted">თუ შეცვლა არ გსურთ, დატოვეთ ცარიელი.</small>@endif</div>
+      <div class="form-group"><label for="password-confirm">გაიმეორეთ პაროლი</label><input id="password-confirm" type="password" name="password_confirmation" class="form-control" @if(!$isEdit) required @endif autocomplete="new-password"></div>
+    </div></div>
+    <div class="card-footer modern-card-footer"><a href="{{route('users.list')}}" class="btn btn-light"><i class="fas fa-arrow-left"></i> უკან</a><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> {{$isEdit?'ცვლილებების შენახვა':'ანგარიშის შექმნა'}}</button></div>
+  </div>
+  <aside class="form-aside"><div class="aside-icon"><i class="fas fa-shield-alt"></i></div><h2>წვდომის უსაფრთხოება</h2><p>დირექტორი ხედავს მხოლოდ მისთვის მინიჭებული ბაღის ბავშვებს, ჯგუფებს, დასწრებასა და ანგარიშებს.</p><ul><li><i class="fas fa-check"></i> სხვა ბაღები იზოლირებულია</li><li><i class="fas fa-check"></i> ტევადობას მხოლოდ გაერთიანება მართავს</li><li><i class="fas fa-check"></i> მოქმედებები აუდიტში ინახება</li></ul></aside>
+</div>
+@push('scripts')
+<script>(function(){const role=document.getElementById('role'),field=document.getElementById('garden-field'),garden=document.getElementById('kindergarten_id');function sync(){const director=role.value==='director';field.hidden=!director;garden.required=director;if(!director)garden.value='';}role.addEventListener('change',sync);sync();})();</script>
+@endpush

@@ -18,7 +18,7 @@ const path = require('path')
 mix.webpackConfig(webpack => {
     return {
       output: {
-       chunkFilename: "js/chunks/[name].js",
+       chunkFilename: "js/chunks/[name].[contenthash:8].js",
        publicPath: "/"
       },
       plugins: [

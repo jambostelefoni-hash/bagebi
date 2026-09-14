@@ -1,201 +1,92 @@
 @extends('layouts.app')
-
+@section('title','აუდიტის ჟურნალი')
 @section('content')
 @php
   $actionLabels = [
-    'kindergartener.create' => 'ბავშვის დამატება',
-    'kindergartener.update' => 'ბავშვის განახლება',
-    'kindergartener.delete' => 'ბავშვის წაშლა',
-    'kindergartener.bulk_action' => 'ბავშვებზე bulk  მოქმედება',
-    'user.update' => 'მომხმარებლის განახლება',
-    'user.delete' => 'მომხმარებლის წაშლა',
-    'settings.update' => 'პარამეტრების განახლება',
-    'settings.date' => 'თარიღის პარამეტრები',
-    'settings.learningStart' => 'სწავლის დაწყება',
-    'settings.learningEnd' => 'სწავლის დასრულება',
-    'settings.learning' => 'სწავლის პროცესის შესრულება',
-    'public_page.update' => 'საჯარო გვერდის განახლება',
-    'registration_text.update' => 'რეგისტრაციის ტექსტის განახლება'
+    'auth.login'=>'სისტემაში შესვლა','auth.logout'=>'სისტემიდან გასვლა',
+    'kindergartener.create'=>'აღსაზრდელის დამატება','kindergartener.update'=>'აღსაზრდელის განახლება','kindergartener.delete'=>'აღსაზრდელის წაშლა','kindergartener.bulk_action'=>'მასობრივი მოქმედება',
+    'application.status'=>'განაცხადის სტატუსის შეცვლა','attendance.store'=>'დასწრების შენახვა','attendance.evaluate'=>'გაცდენების ხელით შემოწმება',
+    'reinstatement.approved'=>'აღდგენის დამტკიცება','reinstatement.rejected'=>'აღდგენის უარყოფა',
+    'kindergarten.create'=>'ბაღის დამატება','kindergarten.update'=>'ბაღის განახლება','kindergarten.delete'=>'ბაღის წაშლა',
+    'group_age_range.create'=>'ასაკობრივი ჯგუფის დამატება','group_age_range.update'=>'ასაკობრივი ჯგუფის განახლება','group_age_range.delete'=>'ასაკობრივი ჯგუფის წაშლა',
+    'user.update'=>'მომხმარებლის განახლება','user.delete'=>'მომხმარებლის წაშლა',
+    'calendar.update'=>'სამუშაო კალენდრის შეცვლა','settings.update'=>'პარამეტრების შეცვლა','settings.date'=>'სასწავლო თარიღების შეცვლა',
+    'settings.learningStart'=>'სწავლის დაწყება','settings.learningEnd'=>'სწავლის დასრულება','settings.learning'=>'ჯგუფების პორტირება',
+    'public_page.update'=>'საჯარო გვერდის შეცვლა','registration_text.update'=>'რეგისტრაციის ტექსტის შეცვლა','registration_text.rules.update'=>'რეგისტრაციის წესების შეცვლა',
   ];
-
   $fieldLabels = [
-    'kids_first_name' => 'ბავშვის სახელი',
-    'kids_last_name' => 'ბავშვის გვარი',
-    'kids_personal_number' => 'ბავშვის პირადი ნომერი',
-    'mother_personal_number' => 'დედის პირადი ნომერი',
-    'father_personal_number' => 'მამის პირადი ნომერი',
-    'mother_first_name' => 'დედის სახელი',
-    'mother_last_name' => 'დედის გვარი',
-    'father_first_name' => 'მამის სახელი',
-    'father_last_name' => 'მამის გვარი',
-    'mobile_number' => 'მობილურის ნომერი',
-    'email' => 'ელ. ფოსტა',
-    'municipality_id' => 'მუნიციპალიტეტი',
-    'kindergarten_id' => 'ბაღი',
-    'group_id' => 'ჯგუფი',
-    'priority_id' => 'პრიორიტეტი',
-    'has_permission' => 'დადასტურება',
-    'active_status_id' => 'სტატუსი',
-    'title' => 'სათაური',
-    'subtitle' => 'ქვესათაური',
-    'description' => 'აღწერა',
-    'isRegistrationStart' => 'რეგისტრაცია',
-    'isPrioritetiesStart' => 'პრიორიტეტები',
-    'canPorting' => 'პორტირების ნებართვა',
-    'isLearningStart' => 'სწავლის სტატუსი',
-    'name' => 'სახელი',
-    'password' => 'პაროლი',
-    'role' => 'როლი'
+    'kids_first_name'=>'ბავშვის სახელი','kids_last_name'=>'ბავშვის გვარი','kids_personal_number'=>'ბავშვის პირადი ნომერი',
+    'mother_personal_number'=>'დედის პირადი ნომერი','father_personal_number'=>'მამის პირადი ნომერი','mother_first_name'=>'დედის სახელი','mother_last_name'=>'დედის გვარი','father_first_name'=>'მამის სახელი','father_last_name'=>'მამის გვარი',
+    'mobile_number'=>'მობილური','email'=>'ელფოსტა','municipality_id'=>'მუნიციპალიტეტი','kindergarten_id'=>'ბაღი','group_id'=>'ჯგუფი','priority_id'=>'პრიორიტეტი','active_status_id'=>'სტატუსი',
+    'application_status'=>'განაცხადის სტატუსი','from'=>'ძველი სტატუსი','to'=>'ახალი სტატუსი','reason'=>'მიზეზი','note'=>'შენიშვნა','date'=>'თარიღი','count'=>'ჩანაწერების რაოდენობა',
+    'title'=>'სათაური','subtitle'=>'ქვესათაური','description'=>'აღწერა','name'=>'სახელი','password'=>'პაროლი','role'=>'როლი','is_working_day'=>'სამუშაო დღე',
   ];
-
-  // Model mapping with correct class names
-  $modelMap = [
-    'municipality_id' => ['class' => 'App\Model\Municipality', 'field' => 'name'],
-    'kindergarten_id' => ['class' => 'App\Model\Kindergarten', 'field' => 'name'],
-    'group_id' => ['class' => 'App\Model\GroupAgeRange', 'field' => 'range'],
-    'priority_id' => ['class' => 'App\Model\KindergartnerPriority', 'field' => 'name'],
-    'active_status_id' => ['class' => 'App\Model\ActiveStatus', 'field' => 'name'],
-  ];
+  $modelLabels = ['User'=>'მომხმარებელი','Kindergartener'=>'აღსაზრდელი','Kindergarten'=>'ბაღი','GroupAgeRange'=>'ასაკობრივი ჯგუფი','Attendance'=>'დასწრება','Setting'=>'პარამეტრი','PublicPage'=>'საჯარო გვერდი','RegistrationText'=>'რეგისტრაციის ტექსტი','ReinstatementRequest'=>'აღდგენის მოთხოვნა','WorkCalendarDay'=>'კალენდრის დღე'];
+  $dangerActions = ['kindergartener.delete','kindergartener.bulk_action','kindergarten.delete','user.delete','reinstatement.rejected','settings.learning','settings.learningStart','settings.learningEnd'];
+  $warningActions = ['application.status','kindergartener.update','group_age_range.update','user.update','settings.update','settings.date','calendar.update','public_page.update','registration_text.update','registration_text.rules.update'];
+  $renderValue = function($value) {
+    if (is_array($value) && array_key_exists('changed',$value)) return 'შეცვლილია — მნიშვნელობა დაფარულია';
+    if ($value === null || $value === '') return '—';
+    if (is_bool($value)) return $value ? 'დიახ' : 'არა';
+    if (is_array($value)) return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    return config('statuses.application.'.$value, config('statuses.attendance.'.$value, (string)$value));
+  };
 @endphp
 
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0">აუდიტის ჟურნალი</h1>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="content-header modern-page-header"><div class="container-fluid"><div class="page-heading-row"><div><span class="dashboard-eyebrow">გამჭვირვალობა და კონტროლი</span><h1>აუდიტის ჟურნალი</h1><p>სისტემაში შესრულებული მოქმედებების უცვლელი ისტორია — ვინ, როდის, საიდან და რა შეცვალა.</p></div><span class="audit-protection"><i class="fas fa-shield-alt"></i> ჩანაწერები დაცულია ცვლილებისა და წაშლისგან</span></div></div></div>
 
-<section class="content">
-  <div class="card">
-    <div class="card-body table-responsive p-0">
-      <table class="table table-hover text-nowrap">
-        <thead>
-          <tr>
-            <th>თარიღი</th>
-            <th>მომხმარებელი</th>
-            <th>ქმედება</th>
-            <th>ცვლილება</th>
-            <th>IP</th>
-          </tr>
-        </thead>
-        <tbody>
-          @forelse ($logs as $log)
-            <tr>
-              <td>{{ $log->created_at }}</td>
-              <td>{{ $log->user ? $log->user->name : '-' }}</td>
-              <td style="min-width: 200px;">
-                @php
-                  $actionText = $actionLabels[$log->action] ?? $log->action;
-                  
-                  // Add record identifiers
-                  if (strpos($log->action, 'kindergartener') !== false) {
-                    if (isset($log->auditable)) {
-                      $firstName = $log->auditable->kids_first_name ?? '';
-                      $lastName = $log->auditable->kids_last_name ?? '';
-                      $personalNumber = $log->auditable->kids_personal_number ?? '';
-                      
-                      if ($firstName || $lastName) {
-                        $actionText .= '<br><span class="badge badge-info" style="font-size: 90%;">ბავშვი: ' . trim($firstName . ' ' . $lastName) . '</span>';
-                      }
-                      if ($personalNumber) {
-                        $actionText .= '<br><span class="badge badge-info" style="font-size: 90%;">პ/ნ: ' . $personalNumber . '</span>';
-                      }
-                    }
-                  }
-                  
-                  // Add changed fields summary
-                  if ($log->changes && (strpos($log->action, 'update') !== false || strpos($log->action, 'bulk_action') !== false)) {
-                    $changedFields = [];
-                    foreach ($log->changes as $key => $value) {
-                      if (!in_array($key, ['kids_first_name', 'kids_last_name', 'kids_personal_number'])) {
-                        $changedFields[] = $fieldLabels[$key] ?? $key;
-                      }
-                    }
-                    if (!empty($changedFields)) {
-                      $actionText .= '<br><small class="text-muted" style="font-size: 85%;">შეიცვალა: ' . implode(', ', $changedFields) . '</small>';
-                    }
-                  }
-                @endphp
-                {!! $actionText !!}
-              </td>
-              <td style="max-width: 400px;">
-                @if ($log->changes)
-                  <div class="audit-changes" style="font-size: 90%;">
-                    @foreach ($log->changes as $key => $value)
-                      @php
-                        $label = $fieldLabels[$key] ?? $key;
-                        
-                        // Function to render value with ID lookup
-                        $renderWithLookup = function($val, $fieldKey) use ($modelMap) {
-                          if ($val === null || $val === '') return '-';
-                          if (is_bool($val)) return $val ? 'დიახ' : 'არა';
-                          if (is_array($val)) return json_encode($val, JSON_UNESCAPED_UNICODE);
-                          
-                          // Lookup for ID fields
-                          if (isset($modelMap[$fieldKey]) && is_numeric($val)) {
-                            try {
-                              $config = $modelMap[$fieldKey];
-                              $modelClass = $config['class'];
-                              $fieldName = $config['field'];
-                              
-                              if (class_exists($modelClass)) {
-                                $item = $modelClass::find($val);
-                                if ($item && isset($item->$fieldName)) {
-                                  return $item->$fieldName;
-                                }
-                              }
-                            } catch (\Exception $e) {
-                              // Silent fail, return ID
-                            }
-                            return "ID: $val";
-                          }
-                          
-                          return $val;
-                        };
-                      @endphp
-                      
-                      @if (is_array($value) && array_key_exists('old', $value) && array_key_exists('new', $value))
-                        <div style="margin-bottom: 5px; padding: 3px 0; border-bottom: 1px solid #f4f4f4;">
-                          <strong>{{ $label }}:</strong><br>
-                          <span class="text-danger">{{ $renderWithLookup($value['old'], $key) }}</span> 
-                          → 
-                          <span class="text-success">{{ $renderWithLookup($value['new'], $key) }}</span>
-                        </div>
-                      @else
-                        <div style="margin-bottom: 5px; padding: 3px 0; border-bottom: 1px solid #f4f4f4;">
-                          <strong>{{ $label }}:</strong> 
-                          <span class="text-success">{{ $renderWithLookup($value, $key) }}</span>
-                        </div>
-                      @endif
-                    @endforeach
-                  </div>
-                @else
-                  <span class="text-muted">-</span>
-                @endif
-              </td>
-              <td>{{ $log->ip }}</td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="5" class="text-center text-muted py-4">ჩანაწერები ჯერ არ არსებობს</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
+<section class="content audit-page">
+  <div class="audit-stats">
+    <article><span><i class="fas fa-database"></i></span><div><small>სულ მოქმედება</small><strong>{{number_format($stats['total'])}}</strong></div></article>
+    <article><span><i class="far fa-clock"></i></span><div><small>დღეს</small><strong>{{number_format($stats['today'])}}</strong></div></article>
+    <article><span><i class="far fa-calendar-alt"></i></span><div><small>ბოლო 7 დღე</small><strong>{{number_format($stats['week'])}}</strong></div></article>
+    <article><span><i class="fas fa-users"></i></span><div><small>მოქმედი მომხმარებელი</small><strong>{{number_format($stats['actors'])}}</strong></div></article>
+  </div>
+
+  <div class="card audit-filter-card"><div class="card-body"><form method="GET" action="{{route('audit-logs.index')}}" class="audit-filters">
+    <div class="form-group audit-search-field"><label for="search">ძებნა</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div><input id="search" name="search" class="form-control" value="{{request('search')}}" placeholder="მოქმედება, მომხმარებელი, IP ან ჩანაწერის ID"></div></div>
+    <div class="form-group"><label for="user_id">მომხმარებელი</label><select id="user_id" name="user_id" class="custom-select"><option value="">ყველა მომხმარებელი</option>@foreach($users as $user)<option value="{{$user->id}}" @selected((string)request('user_id')===(string)$user->id)>{{$user->name}} · {{$user->email}}</option>@endforeach</select></div>
+    <div class="form-group"><label for="action">მოქმედება</label><select id="action" name="action" class="custom-select"><option value="">ყველა მოქმედება</option>@foreach($actions as $action)<option value="{{$action}}" @selected(request('action')===$action)>{{$actionLabels[$action]??$action}}</option>@endforeach</select></div>
+    <div class="form-group"><label for="date_from">თარიღიდან</label><input id="date_from" type="date" name="date_from" class="form-control" value="{{request('date_from')}}"></div>
+    <div class="form-group"><label for="date_to">თარიღამდე</label><input id="date_to" type="date" name="date_to" class="form-control" value="{{request('date_to')}}"></div>
+    <div class="audit-filter-actions"><button class="btn btn-primary"><i class="fas fa-filter"></i> გაფილტვრა</button><a href="{{route('audit-logs.index')}}" class="btn btn-light"><i class="fas fa-redo"></i> გასუფთავება</a></div>
+  </form></div></div>
+
+  <div class="card audit-log-card"><div class="card-header"><div><h3 class="card-title">მოქმედებების ისტორია</h3><span class="kids-list-caption">ნაპოვნია {{number_format($logs->total())}} ჩანაწერი</span></div><div class="audit-legend"><span><i class="audit-dot audit-dot--critical"></i> კრიტიკული</span><span><i class="audit-dot audit-dot--change"></i> ცვლილება</span><span><i class="audit-dot audit-dot--normal"></i> ჩვეულებრივი</span></div></div>
+    <div class="card-body audit-feed">
+      @forelse($logs as $log)
+        @php
+          $severity = in_array($log->action,$dangerActions,true)?'critical':(in_array($log->action,$warningActions,true)?'change':'normal');
+          $modelShort = $log->model_type ? class_basename($log->model_type) : null;
+          $modelLabel = $modelShort ? ($modelLabels[$modelShort]??$modelShort) : 'სისტემა';
+        @endphp
+        <article class="audit-entry audit-entry--{{$severity}}">
+          <div class="audit-entry-marker"><i class="fas {{$severity==='critical'?'fa-exclamation-triangle':($severity==='change'?'fa-pen':'fa-check')}}"></i></div>
+          <div class="audit-entry-main">
+            <div class="audit-entry-head"><div><span class="audit-action-label">{{$actionLabels[$log->action]??$log->action}}</span><span class="audit-action-code">{{$log->action}}</span></div><time class="date-stack" datetime="{{$log->created_at->toIso8601String()}}"><strong>{{$log->created_at->format('d.m.Y')}}</strong><small>{{$log->created_at->format('H:i')}}</small></time></div>
+            <div class="audit-actor-row">
+              @php($actorName=$log->actor_name??optional($log->user)->name)
+              @php($actorEmail=$log->actor_email??optional($log->user)->email)
+              @php($actorRole=$log->actor_role??optional($log->user)->role)
+              <span class="audit-avatar">{{$actorName?mb_strtoupper(mb_substr($actorName,0,1)):'S'}}</span>
+              <div class="audit-actor"><strong>{{$actorName?:($log->user_id?'წაშლილი მომხმარებელი':'სისტემური მოქმედება')}}</strong><small>{{$actorEmail?:($log->user_id?'ანგარიში აღარ არსებობს':'ავტომატური პროცესი')}} @if($log->user_id) · {{$actorRole==='union_admin'?'გაერთიანების ადმინისტრატორი':($actorRole==='director'?'ბაღის დირექტორი':'როლი უცნობია')}} · ID {{$log->user_id}} @endif</small></div>
+              <div class="audit-target"><span>ობიექტი</span><strong>{{$modelLabel}}{{$log->model_id?' #'.$log->model_id:''}}</strong></div>
+              <div class="audit-origin"><span>IP მისამართი</span><strong>{{$log->ip?:'—'}}</strong></div>
+            </div>
+            @if($log->description)<p class="audit-description">{{$log->description}}</p>@endif
+            <details class="audit-details" @if($severity==='critical') open @endif><summary><i class="fas fa-code-branch"></i> ცვლილების დეტალები <span>{{is_array($log->changes)?count($log->changes):0}} ველი</span><i class="fas fa-chevron-down"></i></summary>
+              <div class="audit-details-body">
+                @if(is_array($log->changes) && count($log->changes))
+                  <div class="audit-change-list">@foreach($log->changes as $key=>$value)<div class="audit-change-item"><strong>{{$fieldLabels[$key]??$key}}</strong>@if(is_array($value)&&array_key_exists('old',$value)&&array_key_exists('new',$value))<div><span class="audit-old">{{$renderValue($value['old'])}}</span><i class="fas fa-long-arrow-alt-right"></i><span class="audit-new">{{$renderValue($value['new'])}}</span></div>@else<div><span class="audit-new">{{$renderValue($value)}}</span></div>@endif</div>@endforeach</div>
+                @else<div class="audit-no-changes">ამ მოქმედებას ველების ცვლილება არ ახლავს.</div>@endif
+                <div class="audit-technical"><div><span>ჩანაწერის ID</span><code>#{{$log->id}}</code></div><div><span>ობიექტის კლასი</span><code>{{$log->model_type?:'—'}}</code></div><div><span>მოწყობილობა / ბრაუზერი</span><code>{{$log->user_agent?:'—'}}</code></div></div>
+              </div>
+            </details>
+          </div>
+        </article>
+      @empty<div class="empty-state"><i class="fas fa-search"></i><h3>ჩანაწერები ვერ მოიძებნა</h3><p>შეცვალეთ ფილტრები ან თარიღის დიაპაზონი.</p></div>@endforelse
     </div>
+    @if($logs->hasPages())<div class="card-footer">{{$logs->links()}}</div>@endif
   </div>
 </section>
-
-<style>
-  .audit-changes {
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  .table td {
-    vertical-align: top;
-  }
-</style>
 @endsection

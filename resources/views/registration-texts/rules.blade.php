@@ -1,36 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0">რეგისტრაციის წესები</h1>
-      </div>
-    </div>
-  </div>
-</div>
-
-<section class="content">
-  <div class="card">
-    <div class="card-body">
-      <form method="POST" action="{{ route('registration-texts.rules.store') }}">
-        @csrf
-        <div class="form-group">
-          <label for="rules">წესების ტექსტი</label>
-          <textarea
-            id="rules"
-            name="rules"
-            class="form-control"
-            rows="10"
-          >{{ old('rules', $model->rules) }}</textarea>
-        </div>
-
-        <button type="submit" class="btn btn-success">
-          <i class="far fa-save"></i> შენახვა
-        </button>
-      </form>
-    </div>
-  </div>
-</section>
+<div class="content-header modern-page-header"><div class="container-fluid"><span class="dashboard-eyebrow">საჯარო რეგისტრაცია</span><h1>რეგისტრაციის წესები</h1><p>განაახლეთ მშობლებისთვის ხელმისაწვდომი წესები და პირობები.</p></div></div><section class="content"><form method="POST" action="{{route('registration-texts.rules.store')}}">@csrf<div class="editor-layout"><div class="card"><div class="card-header"><h3 class="card-title">წესების ტექსტი</h3></div><div class="card-body"><textarea id="rules" name="rules" class="form-control content-editor" rows="16" placeholder="ჩამოწერეთ რეგისტრაციის წესები">{{old('rules',$model->rules)}}</textarea></div><div class="card-footer modern-card-footer"><button class="btn btn-primary"><i class="fas fa-save"></i> წესების შენახვა</button></div></div><aside class="editor-preview"><i class="fas fa-book-open"></i><h2>კარგი პრაქტიკა</h2><p>ცალ-ცალკე აღწერეთ ასაკობრივი ზღვარი, პრიორიტეტები, მომლოდინეთა რიგი და საჭირო დოკუმენტები.</p></aside></div></form></section>
 @endsection

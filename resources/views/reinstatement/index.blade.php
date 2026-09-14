@@ -1,0 +1,13 @@
+@extends('layouts.app')
+@section('title','აღდგენის მოთხოვნები')
+@section('content')
+<div class="content-header modern-page-header"><div class="container-fluid"><span class="dashboard-eyebrow">გაცდენების კონტროლი</span><h1>აღდგენის მოთხოვნები</h1><p>ნახეთ ყველა მოთხოვნა — დოკუმენტის მოლოდინში, განსახილველი, დასრულებული და ვადაგასული.</p></div></div>
+<section class="content"><div class="card"><div class="card-header"><div><h3 class="card-title">მოთხოვნების ჩამონათვალი</h3><span class="kids-list-caption">მოლოდინში: {{$requests->where('status','pending')->count()}}</span></div></div><div class="card-body reinstatement-list">
+@forelse($requests as $item)
+<article class="request-card"><div class="request-card__identity"><span><i class="fas fa-file-medical"></i></span><div><small>{{optional($item->kindergartener->kindergarten)->name}}</small><h2>{{$item->kindergartener->kids_first_name}} {{$item->kindergartener->kids_last_name}}</h2><p>ვადა: {{$item->expires_at->format('d.m.Y H:i')}}</p></div><span class="role-badge {{$item->status==='pending'?'role-badge--pending':'role-badge--admin'}}">{{['pending'=>'მოლოდინში','approved'=>'დამტკიცებული','rejected'=>'უარყოფილი','expired'=>'ვადაგასული'][$item->status]??$item->status}}</span></div>
+<div class="request-card__document"><i class="fas fa-paperclip"></i><span>{{$item->original_filename?:'დოკუმენტი ჯერ არ არის ატვირთული'}}</span>@if($item->document_path)<a href="{{route('reinstatement.download',$item)}}" class="btn btn-sm btn-outline-primary"><i class="fas fa-download"></i> ნახვა</a>@endif</div>
+@if($item->status==='pending'&&$item->document_path&&$item->expires_at->isFuture())<form method="POST" action="{{route('reinstatement.review',$item)}}" class="request-review">@csrf<textarea name="review_note" class="form-control" maxlength="500" placeholder="გადაწყვეტილების შენიშვნა"></textarea><div><button name="decision" value="approved" class="btn btn-success"><i class="fas fa-check"></i> აღდგენა</button><button name="decision" value="rejected" class="btn btn-outline-danger"><i class="fas fa-times"></i> უარი</button></div></form>@elseif($item->status==='pending'&&!$item->document_path)<div class="request-note"><strong>მდგომარეობა:</strong> მშობლის დოკუმენტის მოლოდინში.</div>@elseif($item->review_note)<div class="request-note"><strong>შენიშვნა:</strong> {{$item->review_note}}</div>@endif
+</article>
+@empty<div class="empty-state"><i class="fas fa-clipboard-check"></i><h3>მოთხოვნები არ არის</h3><p>აღდგენის მოთხოვნები აქ ავტომატურად გამოჩნდება.</p></div>@endforelse
+</div><div class="card-footer">{{$requests->links()}}</div></div></section>
+@endsection

@@ -1,0 +1,222 @@
+/* Shared palette and compact surfaces for public, parent and staff pages. */
+:root {
+  --platform-font: 'Noto Sans Georgian', 'Segoe UI', Arial, sans-serif;
+  --panel-navy: #33475b;
+  --panel-teal: #426978;
+  --panel-surface: #f3f5f6;
+  --panel-line: #e5eaed;
+  --panel-text: #293c4b;
+  --panel-muted: #5f7180;
+  --panel-shadow: none;
+  --pm-ink: var(--panel-text);
+  --pm-blue: #426978;
+  --pm-blue-dark: #334f60;
+  --pm-mint: #96733f;
+  --pm-bg: var(--panel-surface);
+  --pm-line: var(--panel-line);
+  --pm-muted: var(--panel-muted);
+  --pm-shadow: none;
+}
+.app-shell .main-sidebar { background: #edf1f3 !important; box-shadow: none !important; }
+.app-shell .brand-link { background: transparent !important; border: 0 !important; }
+.app-shell .brand-text, .sidebar-user strong { color: var(--panel-text) !important; }
+.sidebar-user { padding: 8px; margin-bottom: 8px; border: 0; background: #e3eaee; border-radius: 6px; }
+.sidebar-user small { color: #526674; }
+.sidebar-user > span, .admin-profile-avatar { background: #426978; border-radius: 6px; }
+.app-shell .nav-sidebar .nav-link { padding: 8px 10px !important; border-radius: 5px !important; }
+.app-shell .nav-sidebar .nav-link, .app-shell .nav-sidebar .nav-link p,
+.app-shell .nav-sidebar .nav-link .nav-icon { color: #405969 !important; }
+.app-shell .nav-sidebar .nav-header { padding: 11px 10px 4px; color: #657681; letter-spacing: .02em; }
+.app-shell .nav-sidebar .nav-link:hover { background: #dee7ec !important; }
+.app-shell .nav-sidebar .nav-link:hover p, .app-shell .nav-sidebar .nav-link:hover .nav-icon { color: #293c4b !important; }
+.app-shell .nav-sidebar .nav-link.active { background: #426978 !important; box-shadow: none !important; }
+.app-shell .nav-sidebar .nav-link.active p, .app-shell .nav-sidebar .nav-link.active .nav-icon { color: #fff !important; }
+.app-shell .nav-treeview { border: 0; background: transparent !important; padding: 0 0 0 10px !important; }
+.app-shell .nav-treeview .nav-link.active { background: #d7e3e9 !important; }
+.app-shell .nav-treeview .nav-link.active p, .app-shell .nav-treeview .nav-link.active .nav-icon { color: #293c4b !important; }
+.app-shell .sidebar::-webkit-scrollbar-thumb { background: #b2c1ca; }
+.app-shell .main-header, .admin-topbar, .public-nav { background: #fff !important; box-shadow: none !important; border: 0 !important; }
+.admin-menu-button { border: 0; border-radius: 5px; background: #edf1f3; }
+.app-shell .content-wrapper { padding: 16px 18px 24px !important; }
+.app-shell .card, .app-shell .info-card, .app-shell .export-card,
+.app-shell .table-responsive, .dashboard-panel, .garden-card, .record-aside,
+.public-page-card, .summary-strip > div, .metric-card, .audit-stats article,
+.request-card, .audit-entry, .audit-details, .form-aside, .editor-preview {
+  border: 0 !important; border-radius: 6px !important; box-shadow: none !important;
+}
+.app-shell .card-header { padding: 9px 10px !important; min-height: 42px; border-bottom: 0; }
+.app-shell .card-body { padding: 10px !important; }
+.app-shell .card-body.table-responsive { padding: 0 !important; }
+.app-shell .card-footer { padding: 8px 10px; border-top: 0; background: #fff; }
+.app-shell .table th, .app-shell .table td { border-left: 0 !important; border-right: 0 !important; }
+.app-shell .table thead th { background: #edf1f3; color: #415767; border-bottom: 0; padding: 8px; }
+.app-shell .table td { padding: 6px 8px; border-top: 1px solid #f0f2f4; }
+.app-shell .table-hover tbody tr:hover { background: #f1f5f7 !important; }
+.app-shell .btn { border-radius: 5px !important; box-shadow: none !important; }
+.app-shell .btn-primary, .app-shell .btn-success { background: #426978 !important; border-color: #426978 !important; }
+.app-shell .btn-outline-primary, .app-shell .btn-outline-success { color: #365867 !important; border-color: #c4d2da !important; }
+.app-shell .badge-primary, .role-badge--admin, .identity-cell > span { background: #e7eef2; color: #365867; }
+.app-shell .form-control, .app-shell .custom-select { border-color: #d2dce2 !important; background-color: #fff; }
+.app-shell .alert, .dashboard-callout, .assigned-garden { border: 0; box-shadow: none; border-radius: 6px; }
+.dashboard-hero, .record-status, .form-aside { background: #334f60; box-shadow: none; }
+.dashboard-hero { padding: 18px; min-height: 120px; }
+.dashboard-hero .dashboard-eyebrow { color: #d7e5ec; }
+.dashboard-hero-mark, .metric-card::after { display: none; }
+.metric-card { min-height: 126px; }
+.metric-link { position: static; display: block; margin-top: 8px; }
+.dashboard-callout, .editor-preview { background: #eaf0f3; }
+.audit-stats article, .garden-card__head, .request-card__identity { padding: 12px; }
+.audit-entry { padding: 12px; border-left: 3px solid #73919f !important; }
+.audit-entry--critical { border-left-color: #ac6255 !important; background: #fff; }
+.audit-entry--change { border-left-color: #aa8649 !important; }
+.audit-actor-row { padding: 8px; margin-top: 8px; border-radius: 4px; }
+.date-stack { display: inline-flex; flex-direction: column; white-space: nowrap; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.date-stack small { color: var(--panel-muted); font-size: .9em; }
+.basic-shell, .modern-home, .modern-registration-page, .modern-content-page,
+.modern-action-page, .modern-auth-page { background: var(--pm-bg); }
+.modern-home { padding: 48px 0; }
+.modern-home-glow { display: none; }
+.modern-hero-grid { gap: 32px; }
+.modern-hero-copy h1 { font-size: clamp(30px,4vw,48px); }
+.modern-hero-copy > p { font-size: 15px; }
+.public-brand-mark, .modern-primary-button, .public-nav-menu .public-nav-cta,
+.modern-auth-submit { background: var(--pm-blue); box-shadow: none; border-radius: 6px; }
+.modern-primary-button { padding: 12px 18px; }
+.modern-primary-button:hover { transform: none; box-shadow: none; }
+.modern-status-card, .modern-content-card, .modern-action-card,
+.modern-form-card, .modern-auth-card { border: 0; border-radius: 8px; box-shadow: none; }
+.modern-status-card, .modern-action-card { padding: 26px; }
+.modern-content-card > header, .modern-content-body { padding: 24px; background: #fff; }
+.modern-content-card > header, .modern-form-card-head { border-bottom: 0; }
+.modern-auth-brand { background: #334f60; }
+.modern-form-card #children-form .MuiFormControl-root { border-radius: 6px; background: #fff; border-color: #d2dce2; }
+.modern-form-card #children-form .MuiFormControl-root:focus-within { border-color: var(--pm-blue); box-shadow: 0 0 0 2px #42697820; }
+.settings-action-grid, .setting-toggle-grid { gap: 10px !important; }
+.process-card, .setting-toggle, .date-fields > label { padding: 12px !important; border: 0 !important; border-radius: 6px !important; box-shadow: none !important; background: #fff; }
+.process-card__icon, .setting-toggle__icon, .date-field-icon { border-radius: 6px !important; background: #e7eef2 !important; color: #426978 !important; }
+.modern-card-footer { padding: 8px 10px !important; border-top: 0 !important; background: #fff !important; }
+.registration-section-heading { gap: 10px; margin-bottom: 18px; }
+.registration-section-heading > span, .modern-card-icon { background: #e7eef2; color: var(--pm-blue); border-radius: 6px; }
+.app-shell .nav-treeview .nav-link.porting-nav { background: #dce7ed !important; box-shadow: inset 3px 0 #426978; margin-top: 8px !important; }
+.app-shell .nav-treeview .nav-link.porting-nav p, .app-shell .nav-treeview .nav-link.porting-nav .nav-icon { color: #294c60 !important; }
+.app-shell .nav-treeview .nav-link.porting-nav:hover { background: #ccdde6 !important; }
+.porting-panel { display: grid; grid-template-columns: 44px minmax(0,1fr) auto; align-items: center; gap: 16px; margin-bottom: 18px; padding: 20px; border-radius: 8px; background: #e8eff3; scroll-margin-top: 90px; }
+.porting-panel__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; color: #fff; background: #426978; font-size: 18px; }
+.porting-panel__eyebrow { color: #466473; font-size: .65rem; font-weight: 700; }
+.porting-panel h2 { margin: 4px 0 7px; font-size: 1rem; font-weight: 800; color: #293c4b; }
+.porting-panel p { max-width: 670px; margin: 0; font-size: .76rem; line-height: 1.65; color: #435a69; }
+.porting-panel__status { display: flex; align-items: baseline; gap: 6px; margin-top: 10px; color: #465c6a; font-size: .66rem; line-height: 1.6; }
+.porting-panel__actions { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.porting-panel__actions form { margin: 0; }
+.app-shell .porting-run { min-height: 42px; width: 100%; padding: 10px 16px; font-size: .76rem; }
+.app-shell .porting-run:disabled { background: #d4dee4 !important; border-color: #d4dee4 !important; color: #4d626f !important; opacity: 1; cursor: not-allowed; }
+.porting-panel__actions > a { color: #365867; text-align: center; font-size: .67rem; text-decoration: underline; text-underline-offset: 3px; }
+.porting-panel__actions > a i { margin-left: 4px; }
+.porting-panel :focus-visible, .porting-nav:focus-visible { outline: 2px solid #294c60 !important; outline-offset: 3px; }
+@media (max-width: 1000px) { .porting-panel { grid-template-columns: 40px minmax(0,1fr); padding: 16px; gap: 12px; } .porting-panel__actions { grid-column: 2; align-items: flex-start; } }
+@media (max-width: 576px) { .porting-panel__actions { grid-column: 1/-1; align-items: stretch; } }
+@media (max-width: 767px) {
+  .app-shell .content-wrapper { padding: 12px 10px 20px !important; }
+  .app-shell .btn { min-height: 36px; }
+  .modern-home { padding: 30px 0; }
+  .modern-status-card, .modern-action-card, .modern-content-body { padding: 20px; }
+}
+
+/* Georgian typography: text elements only, preserving icon font families. */
+body.app-shell, body.basic-shell, body.login-shell {
+  font-family: var(--platform-font) !important;
+  font-weight: 400;
+  line-height: 1.6;
+}
+:is(.app-shell, .basic-shell, .login-shell) :is(h1,h2,h3,h4,h5,h6,p,a,label,button,input,select,textarea,th,td,dt,dd,.btn,.title-font),
+#children-form :is(.MuiTypography-root,.MuiInputBase-root,.MuiInputLabel-root,.MuiFormLabel-root,.MuiFormHelperText-root,.MuiButton-root),
+.MuiMenuItem-root {
+  font-family: var(--platform-font) !important;
+  letter-spacing: normal !important;
+}
+:is(.app-shell, .basic-shell, .login-shell) :is(h1,h2,h3,h4,h5,h6) { font-weight: 600 !important; line-height: 1.45; }
+:is(.app-shell, .basic-shell, .login-shell) :is(.btn,button,label,th) { font-weight: 600 !important; }
+.app-shell .table { font-size: 13px; }
+.app-shell .table thead th { font-size: 12px; line-height: 1.5; }
+.app-shell .table td { line-height: 1.5; }
+.app-shell .identity-cell strong { font-size: 13px; font-weight: 500; }
+.app-shell .nav-sidebar .nav-link p { font-size: 12px !important; font-weight: 500 !important; line-height: 1.55; }
+.app-shell .nav-treeview > .nav-item > .nav-link p { font-size: 12px !important; }
+.app-shell :is(.form-control,.custom-select) { font-size: 13px; }
+.app-shell label { font-size: 12px; }
+.app-shell .btn { font-size: 12px; line-height: 1.5; }
+.app-shell .btn-sm { font-size: 12px; }
+.app-shell :is(.badge,.role-badge,.status-chip) { font-size: 11px; font-weight: 500; }
+.app-shell .kids-list-card .badge { font-size: 11px; }
+.basic-shell :is(.modern-content-body,.modern-hero-copy > p) { line-height: 1.8; }
+
+/* Product palette: shared across administrative, public and parent screens. */
+:root {
+  --panel-navy: #333F6B;
+  --panel-teal: #333F6B;
+  --panel-coral: #D9A441;
+  --panel-surface: #F7F7FB;
+  --panel-line: #E3E4F0;
+  --panel-text: #232842;
+  --panel-muted: #68708B;
+  --pm-ink: #232842;
+  --pm-blue: #333F6B;
+  --pm-blue-dark: #212A4D;
+  --pm-mint: #D9A441;
+  --pm-bg: #F7F7FB;
+  --pm-line: #E3E4F0;
+  --pm-muted: #68708B;
+  --panel-shadow: 0 10px 28px rgba(33, 42, 77, .07);
+}
+body.app-shell, .app-shell, .basic-shell, .modern-home, .modern-registration-page,
+.modern-content-page, .modern-action-page, .modern-auth-page { background: #F7F7FB !important; color: #232842; }
+.app-shell .content-wrapper { background: #F7F7FB !important; }
+.app-shell .main-header, .admin-topbar, .public-nav { border-color: #E3E4F0 !important; }
+.app-shell .main-sidebar { background: linear-gradient(180deg, #212A4D 0%, #333F6B 100%) !important; }
+.app-shell .brand-link { background: rgba(33, 42, 77, .72) !important; }
+.sidebar-user > span, .admin-profile-avatar { background: #D9A441 !important; }
+.app-shell .nav-sidebar .nav-link.active { background: linear-gradient(135deg, #333F6B, #495687) !important; box-shadow: 0 8px 18px rgba(33, 42, 77, .25) !important; }
+.app-shell .nav-treeview .nav-link.active { background: rgba(217, 164, 65, .18) !important; box-shadow: inset 3px 0 0 #D9A441 !important; }
+.app-shell .card, .app-shell .info-card, .app-shell .export-card,
+.app-shell .table-responsive, .dashboard-panel, .garden-card, .record-aside,
+.public-page-card, .summary-strip > div, .metric-card, .audit-stats article,
+.request-card, .audit-entry, .audit-details, .form-aside, .editor-preview { border-color: #E3E4F0 !important; background: #FFFFFF !important; }
+.app-shell .table thead th { background: #F1F2F8 !important; color: #333F6B !important; }
+.app-shell .table td { border-top-color: #EDEEF5 !important; }
+.app-shell .table-hover tbody tr:hover { background: #F7F7FB !important; }
+.app-shell .btn-primary, .app-shell .btn-success, .modern-primary-button,
+.public-brand-mark, .public-nav-menu .public-nav-cta, .modern-auth-submit { background: #333F6B !important; border-color: #333F6B !important; }
+.app-shell .btn-primary:hover, .app-shell .btn-success:hover, .modern-primary-button:hover,
+.public-nav-menu .public-nav-cta:hover, .modern-auth-submit:hover { background: #212A4D !important; border-color: #212A4D !important; }
+.app-shell .btn-outline-primary, .app-shell .btn-outline-success { color: #333F6B !important; border-color: #BFC3D8 !important; }
+.app-shell .form-control, .app-shell .custom-select { border-color: #E3E4F0 !important; }
+.app-shell .form-control:focus, .app-shell .custom-select:focus { border-color: #D9A441 !important; box-shadow: 0 0 0 .16rem rgba(217, 164, 65, .18) !important; }
+.dashboard-hero, .record-status, .form-aside, .modern-auth-brand { background: #212A4D !important; }
+.process-card__icon, .setting-toggle__icon, .date-field-icon,
+.registration-section-heading > span, .modern-card-icon { background: #F4EEE2 !important; color: #9B6C18 !important; }
+.app-shell a:not(.btn):not(.nav-link) { color: #333F6B; }
+.app-shell :focus-visible, .basic-shell :focus-visible { outline-color: #D9A441 !important; }
+
+/* Light navigation surface: keeps the application workspace open and readable. */
+.app-shell .main-sidebar { background: #FFFFFF !important; box-shadow: 4px 0 20px rgba(33, 42, 77, .06) !important; border-right: 1px solid #E3E4F0; }
+.app-shell .brand-link { background: #FFFFFF !important; border-bottom-color: #E3E4F0 !important; }
+.app-shell .brand-text { color: #232842 !important; }
+.sidebar-user { background: #F7F7FB !important; border-color: #E3E4F0 !important; }
+.sidebar-user strong { color: #232842 !important; }
+.sidebar-user small { color: #68708B !important; }
+.app-shell .nav-sidebar .nav-header { color: #7A829B !important; }
+.app-shell .nav-sidebar .nav-link { color: #4A5270 !important; }
+.app-shell .nav-sidebar .nav-link p, .app-shell .nav-sidebar .nav-link .nav-icon { color: #4A5270 !important; }
+.app-shell .nav-sidebar .nav-link:hover { background: #F1F2F8 !important; }
+.app-shell .nav-sidebar .nav-link:hover p, .app-shell .nav-sidebar .nav-link:hover .nav-icon { color: #333F6B !important; }
+.app-shell .nav-sidebar .nav-link.active { background: #333F6B !important; box-shadow: 0 7px 16px rgba(51, 63, 107, .18) !important; }
+.app-shell .nav-treeview { background: #F7F7FB !important; border-color: #E3E4F0 !important; }
+.app-shell .nav-treeview .nav-link.active { background: #E9EAF4 !important; box-shadow: inset 3px 0 0 #D9A441 !important; }
+.app-shell .nav-treeview .nav-link.active p, .app-shell .nav-treeview .nav-link.active .nav-icon { color: #333F6B !important; }
+.app-shell .sidebar::-webkit-scrollbar-thumb { background: #C9CBD9 !important; }
+.registration-waiting-note { padding: 12px 14px; border: 1px solid #E3E4F0; border-left: 3px solid #D9A441; border-radius: 8px; background: #F7F7FB; color: #4A5270; font-size: 12px; line-height: 1.75; }
+.registration-success-icon--waiting { background: #F8F0E1 !important; color: #9B6C18 !important; }
+.registration-queue-position, .registration-result-status { min-width: 220px; margin: 4px auto 12px; padding: 12px 18px; border: 1px solid #E3E4F0; border-radius: 10px; background: #F7F7FB; }
+.registration-queue-position span, .registration-result-status span { display: block; color: #68708B; font-size: 11px; }
+.registration-queue-position strong { display: block; margin-top: 3px; color: #333F6B; font-size: 28px; line-height: 1.3; }
+.registration-result-status strong { display: block; margin-top: 4px; color: #333F6B; font-size: 16px; }

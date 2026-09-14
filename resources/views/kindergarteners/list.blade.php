@@ -2,58 +2,53 @@
 
 @section('content')
 
-<div class="content-header">
+<div class="content-header kids-page-header">
   <div class="container-fluid">
-   <div class="row mb-2">
-    <div class="col-sm-6">
-     <h1 class="m-0">აღსაზრდელი</h1>
+    <div class="kids-page-heading">
+      <div><span class="dashboard-eyebrow">აღსაზრდელთა მართვა</span><h1 class="m-0">აღსაზრდელები</h1><p>მოძებნეთ, მართეთ სტატუსები და ნახეთ თითოეული ბავშვის მონაცემი.</p></div>
+      <a href="{{ route('kindergarteners.show') }}" class="btn btn-success kids-add-button"><i class="fas fa-plus"></i> აღსაზრდელის დამატება</a>
     </div>
-   </div>
   </div>
- </div>
+</div>
 
-<section class="content">
-  <div class="card">
+<section class="content kids-page">
+  <div class="card kids-list-card">
     <div class="card-header">
-      <h3 class="card-title">აღსაზრდელების ჩამონათვალი</h3>
-      <div class="card-tools">
-        <div class="input-group input-group-sm" style="width: 150px;">          
-          <button 
-            type="submit" onclick="location.href = '{{ route('kindergarteners.show') }}'" class="btn btn-sm btn-outline-success">
-              <i class="fas fa-shield-alt"></i> დამატება
-          </button>          
-        </div>
-      </div>
+      <div><h3 class="card-title">აღსაზრდელების ჩამონათვალი</h3><span class="kids-list-caption">სულ {{ count($model) }} ჩანაწერი</span></div>
+      <a href="{{ route('kindergarteners.export') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-excel"></i> Excel</a>
     </div>
 
     <div class="card-body table-responsive p-2">
+      @if(auth()->user()->isUnionAdmin())
       {!! Form::model($model, ['route' => 'kindergarteners.order']) !!}
       <div style="display: none;" id="checkbox-section"></div>
-      <div class="row">
+      <div class="row kids-toolbar">
 
-        <div class="col">
+        <div class="col-lg-5">
           <div class="form-group">
-            <div class="input-group">
-              <input id="searchable" type="text" class="form-control" placeholder="ძებნა" >
+            <div class="input-group kids-search">
+              <span class="input-group-text"><i class="fas fa-search"></i></span><input id="searchable" type="text" class="form-control" placeholder="ძებნა სახელით, ბაღით ან სტატუსით" >
             </div>
           </div>
         </div>
 
-        <div class="col">
+        <div class="col-lg-3">
           <select name="action" id="cars-select" class="custom-select" onchange="updateModels()">
-            <option value="" selected>მოქმედება -------></option>
+            <option value="" selected>აირჩიეთ მოქმედება</option>
           </select> 
         </div>
 
-        <div class="col">
+        <div class="col-lg-2">
           <select name="destination" id="models-select" class="custom-select">
-            <option value="" selected><------- შედეგი</option>
+            <option value="" selected>შედეგი</option>
           </select>
         </div>
 
-        <div class="col"><button type="submit" class="btn btn-block btn-outline-primary">შესრულება</button></div>
+        <div class="col-lg-2"><button type="submit" class="btn btn-block btn-primary">შესრულება</button></div>
       </div>
       {!! Form::close() !!}   
+      @endif
+      @if(!auth()->user()->isUnionAdmin())<div style="display:none" id="checkbox-section"></div>@endif
 
       <table class="table table-hover text-nowrap" id="table" ></table>
     </div>
@@ -92,9 +87,11 @@ var cars = [
 var models = [
   createModel('დასტურის გაუქმება', '0', '1'),
   createModel('დადასტურება', '1', '1'),
-  createModel('მომლოდინეთ', '1', '2'),
-  createModel('აქტიურით', '2', '2'),
-  createModel('გასულით', '4', '2')
+  createModel('დარეგისტრირებული', 'registered', '2'),
+  createModel('მომლოდინე', 'waiting', '2'),
+  createModel('ჩარიცხული', 'enrolled', '2'),
+  createModel('შეჩერებული', 'suspended', '2'),
+  createModel('გაუქმებული', 'cancelled', '2')
 ];
 
 function updateModels() {
@@ -106,9 +103,10 @@ function updateModels() {
   addOptions(modelsSelect, options);
 }
 
-addOptions(carsSelect, cars);
+if (carsSelect) addOptions(carsSelect, cars);
 
 var app = @json($model);
+var applicationStatusLabels = @json(config('statuses.application'));
 
 const datatable = $('#table').DataTable({
   "ordering": true,
@@ -127,26 +125,24 @@ const datatable = $('#table').DataTable({
     { title: 'პრიორიტეტი', targets: 4 },
     { title: 'სტატუსი', targets: 5 },
     { title: 'ბავშვის N:', targets: 6 },
-    { title: 'დედის N:', targets: 7 },
-    { title: 'ბავშვი', targets: 8 },
-    { title: 'დაბადების თარიღი', targets: 9 },   // 👈 დამატებული სვეტი
-    { title: 'თარიღი', targets: 10 },
+    { title: 'ბავშვი', targets: 7 },
+    { title: 'დაბადების თარიღი', targets: 8 },
+    { title: 'თარიღი', targets: 9 },
     {
-      'targets': 11,
+      'targets': 10,
       'checkboxes': {
         'selectRow': true,
         stateSave: false
       }
     },
-    { title: 'მოქმედება', targets: 12 }
+    { title: 'მოქმედება', targets: 11 }
   ],
   'select': {
     'style': 'multi',
     selector: 'td.dt-checkboxes-cell'
   },
   createdRow: function (row, data, index) {
-    if (data.active_status.id == 4) { row.style.backgroundColor = '#ccc';  row.style.color = '#fff'; }
-    else if (data.active_status.id == 3) { row.style.backgroundColor = '#19712d'; row.style.color = '#fff'; }
+    if (data.application_status === 'cancelled' || data.application_status === 'suspended') { row.style.backgroundColor = '#faf6f4'; }
   },
   columns: [
     { data: 'id' },
@@ -159,23 +155,27 @@ const datatable = $('#table').DataTable({
            </span>`
         : '<span class="badge badge-primary">არ სარგებლობს</span>'
     },
-    { render: (d,t,row) => row.active_status.name },
+    { render: (d,t,row) => applicationStatusLabels[row.application_status] ?? 'უცნობი სტატუსი' },
     { data: 'kids_personal_number' },
-    { data: 'mother_personal_number' },
     { render: (d,t,row) => `${row.kids_first_name} ${row.kids_last_name}` },
-    { render: (d,t,row) => row.birth_date ? row.birth_date : '---' }, // 👈 ახალი სვეტი
-    { data: 'created_at' },
+    { render: (d,t,row) => row.birth_date ? row.birth_date : '---' },
+    { data: 'created_at', render: function (value, type) {
+        if (type !== 'display') return value;
+        const parts = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}:\d{2})/);
+        return parts ? `<span class="date-stack"><span>${parts[3]}.${parts[2]}.${parts[1]}</span><small>${parts[4]}</small></span>` : '—';
+      }
+    },
     { data: 'id', className: 'text-left' },
     {
       data: null,
       className: "dt-center editor-edit",
       render: function ( data, type, row ) {
         const route = @json(route('kindergarteners.show'));
-        const routeDelate = @json(route('kindergarteners.destroy'));
+        const routeDelate = @json(route('kindergarteners.destroy', ['id' => '__ID__']));
+        const canDelete = @json(auth()->user()->isUnionAdmin());
         return `${!row.graduate ? `<i style="cursor:pointer; margin-right:17px; color:black;" class="fas fa-edit" 
           onclick='letsRedirect(event, "${route}", ${row.id})'></i>` : ''}
-                <i style="cursor:pointer; color:black;" class="fas fa-trash" 
-                  onclick='nottify(event)' data-href="${routeDelate + '' + row.id}"></i>`
+                ${canDelete ? `<i style="cursor:pointer; color:black;" class="fas fa-trash" onclick='nottify(event)' data-href="${routeDelate.replace('__ID__', row.id)}"></i>` : ''}`
       },
       orderable: false
     }
@@ -194,7 +194,7 @@ function createCheckbox (value) {
 }
 
 $(document).on("change", "input[type='checkbox']", function() {
-  var rows_selected = datatable.column(11).checkboxes.selected();
+  var rows_selected = datatable.column(10).checkboxes.selected();
   checkboxDiv.innerHTML = "";
   rows_selected.map(function(value) {
     createCheckbox(value);
@@ -223,5 +223,6 @@ $('.dataTables_filter').css('display', 'none');
 
 <style>
   table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected { background-color: #B0BED9; }
+  .kids-page-header{padding-bottom:18px!important}.kids-page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}.kids-page-heading h1{margin-top:4px!important}.kids-page-heading p{margin:7px 0 0;color:var(--panel-muted);font-size:.87rem}.kids-add-button{white-space:nowrap}.kids-list-card .card-header{display:flex;align-items:center;justify-content:space-between;gap:14px}.kids-list-caption{display:block;margin-top:5px;color:var(--panel-muted);font-size:.76rem;font-weight:700}.kids-toolbar{align-items:center;margin-bottom:6px}.kids-toolbar .form-group{margin:0}.kids-search .input-group-text{border:1px solid #d8e1ec;border-right:0;border-radius:11px 0 0 11px;background:#fff;color:var(--panel-teal)}.kids-search .form-control{border-left:0!important;border-radius:0 11px 11px 0!important}.kids-list-card .dataTables_wrapper{padding-top:8px}.kids-list-card .badge{padding:6px 9px;border-radius:99px;font-size:.7rem}.kids-list-card .fa-edit,.kids-list-card .fa-trash{width:30px;height:30px;display:inline-grid;place-items:center;border-radius:8px;background:#eef5fb!important;color:var(--panel-navy)!important;margin-right:5px!important}.kids-list-card .fa-trash{background:#fff0ed!important;color:#cb5a47!important}@media(max-width:767px){.kids-page-heading{align-items:flex-start;flex-direction:column}.kids-add-button{width:100%}.kids-toolbar>div{margin-bottom:10px}.kids-list-card .card-header{align-items:flex-start;flex-direction:column}.kids-list-card .card-header .btn{width:100%}}
 </style>
 @endpush

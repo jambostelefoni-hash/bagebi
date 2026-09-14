@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Model\Kindergarten;
 
 class RegisterController extends Controller
 {
@@ -66,7 +67,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('users.register');
+        return view('users.register', ['kindergartens' => Kindergarten::orderBy('name')->pluck('name', 'id')]);
     }
 
     /**
@@ -130,6 +131,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'in:union_admin,director'],
+            'kindergarten_id' => ['nullable', 'required_if:role,director', 'exists:kindergartens,id'],
         ]);
     }
 
@@ -145,10 +148,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+            'kindergarten_id' => $data['role'] === 'director' ? $data['kindergarten_id'] : null,
         ]);
     }
 }
-
 
 
 

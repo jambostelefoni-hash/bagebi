@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 use App\Model\Setting;
 use App\Model\PublicPage;
@@ -28,23 +28,29 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    { $this->app->bind('path.public', function() {
-        return base_path().'/../public_html';
-    });
-        //
-        $setting_basic = Setting::where('slug', 'basic')->first(); $setting_date = Setting::where('slug', 'date')->first();
-        if(!$setting_basic) $setting_basic = collect(); if(!$setting_date) $setting_date = collect();
+    {
+        // Keep Laravel's standard /public directory. The old public_html path
+        // breaks deployments where the application is installed as one folder.
+        $setting_basic = collect();
+        $setting_date = collect();
+        if (Schema::hasTable('settings')) {
+            $setting_basic = Setting::where('slug', 'basic')->first() ?: collect();
+            $setting_date = Setting::where('slug', 'date')->first() ?: collect();
+        }
         View::share('settings', ['basic' => $setting_basic->toArray(), 'date' => $setting_date->toArray()]);
 
         $publicBrand = 'საბავშვო ბაღების გაერთიანება';
         $publicNavLabels = [
+            'about' => 'ჩვენ შესახებ',
             'news' => 'განცხადება',
             'rules' => 'წესები',
             'contact' => 'კონტაქტი',
             'status' => 'სტატუსი',
             'register' => 'ბავშვის რეგისტრაცია'
         ];
-        $homePage = PublicPage::where('slug', 'home')->first();
+        $homePage = Schema::hasTable('public_pages')
+            ? PublicPage::where('slug', 'home')->first()
+            : null;
         if ($homePage && is_array($homePage->meta) && !empty($homePage->meta['nav_brand'])) {
             $publicBrand = $homePage->meta['nav_brand'];
         }
@@ -62,14 +68,15 @@ class AppServiceProvider extends ServiceProvider
         View::share('publicNavLabels', $publicNavLabels);
 
         $publicRules = 'რეგისტრაციის წესები ჯერ არ არის დამატებული.';
-        $registrationText = RegistrationText::first();
+        $registrationText = Schema::hasTable('registration_texts')
+            ? RegistrationText::first()
+            : null;
         if ($registrationText && !empty($registrationText->rules)) {
             $publicRules = $registrationText->rules;
         }
         View::share('publicRules', $publicRules);
     }
 }
-
 
 
 

@@ -10,8 +10,8 @@ import DateFnsUtils from '@date-io/date-fns';
 export default function DatePickerField(props) {
   const [field, meta, helper] = useField(props);
   const { touched, error } = meta;
-  const { setValue } = helper;
-  const isError = touched && error && true;
+  const { setValue, setTouched } = helper;
+  const isError = touched && Boolean(error);
   const { value } = field;
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -23,16 +23,17 @@ export default function DatePickerField(props) {
   }, [value]);
 
   function _onChange(date) {
+    setTouched(true, false);
     if (date) {
       setSelectedDate(date);
       try {
-        const ISODateString = date.toISOString();
-        setValue(ISODateString);
+        const localDate = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
+        setValue(localDate, true);
       } catch (error) {
-        setValue(date);
+        setValue(date, true);
       }
     } else {
-      setValue(date);
+      setValue(date, true);
     }
   }
 
@@ -45,8 +46,8 @@ export default function DatePickerField(props) {
           value={selectedDate}
           onChange={_onChange}
           error={isError}
-          invalidDateMessage={isError && error}
-          helperText={isError && error}
+          invalidDateMessage={isError ? error : 'თარიღი არასწორია'}
+          helperText={isError ? error : ''}
         />
       </MuiPickersUtilsProvider>
     </Grid>

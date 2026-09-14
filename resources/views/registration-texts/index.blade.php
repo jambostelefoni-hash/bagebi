@@ -1,41 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0">რეგისტრაციის ტექსტი</h1>
-      </div>
-    </div>
-  </div>
-</div>
-
-<section class="content">
-  <div class="card">
-    <div class="card-body">
-      <form method="POST" action="{{ route('registration-texts.store') }}">
-        @csrf
-        
-
-        <div class="form-group">
-          <label for="subtitle">შეიყვანეთ ტექსტი</label>
-          <input
-            type="text"
-            id="subtitle"
-            name="subtitle"
-            class="form-control"
-            value="{{ old('subtitle', $model->subtitle) }}"
-          >
-        </div>
-
-        
-
-        <button type="submit" class="btn btn-success">
-          <i class="far fa-save"></i> შენახვა
-        </button>
-      </form>
-    </div>
-  </div>
-</section>
+<div class="content-header modern-page-header"><div class="container-fluid"><span class="dashboard-eyebrow">საჯარო რეგისტრაცია</span><h1>რეგისტრაციის შეტყობინება</h1><p>მართეთ ტექსტი, რომელსაც მშობელი რეგისტრაციის ფორმაზე დაინახავს.</p></div></div><section class="content"><form method="POST" action="{{route('registration-texts.store')}}">@csrf<div class="editor-layout"><div class="card"><div class="card-header"><h3 class="card-title">მოკლე საინფორმაციო ტექსტი</h3></div><div class="card-body"><div class="form-group"><label for="subtitle">შეტყობინება</label><textarea id="subtitle" name="subtitle" class="form-control content-editor" rows="7" placeholder="შეიყვანეთ მშობლისთვის განკუთვნილი ინფორმაცია">{{old('subtitle',$model->subtitle)}}</textarea></div></div><div class="card-footer modern-card-footer"><button class="btn btn-primary"><i class="fas fa-save"></i> შენახვა</button></div></div><aside class="editor-preview"><i class="fas fa-eye"></i><h2>საჯარო ინფორმაცია</h2><p>გამოიყენეთ მოკლე და გასაგები ტექსტი. პერსონალური ან შიდა ინფორმაცია აქ არ მიუთითოთ.</p></aside></div></form></section>
 @endsection

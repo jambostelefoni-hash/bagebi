@@ -1,0 +1,5 @@
+@extends('layouts.basic')
+@section('title','რეგისტრაციის აღდგენა')
+@section('content')
+<section class="modern-action-page"><div class="modern-action-card"><div class="modern-action-icon modern-action-icon--document"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div><span class="modern-card-kicker">დოკუმენტის წარმოდგენა</span><h1>რეგისტრაციის აღდგენა</h1><p>ატვირთეთ გამოუცხადებლობის საპატიო მიზეზის დამადასტურებელი PDF ან ფოტო.</p><div class="modern-action-deadline"><small>ატვირთვის ბოლო ვადა</small><strong>{{$reinstatement->expires_at->format('d.m.Y H:i')}}</strong></div><form method="POST" enctype="multipart/form-data" action="{{route('reinstatement.store',$token)}}" class="modern-upload-form">@csrf<label for="document"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 17v3h16v-3"/></svg><span><strong>აირჩიეთ დოკუმენტი</strong><small>PDF, JPG ან PNG</small></span><input id="document" type="file" name="document" accept=".pdf,.jpg,.jpeg,.png" required></label><button class="modern-action-primary">დოკუმენტის გაგზავნა</button></form></div></section>
+@endsection

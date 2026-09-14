@@ -9,9 +9,12 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class KindergartenerExport implements FromQuery, WithHeadings, WithMapping
 {
+    private $kindergartenId;
+    public function __construct($kindergartenId = null) { $this->kindergartenId = $kindergartenId; }
     public function query()
     {
         return Kindergartener::query()
+          ->when($this->kindergartenId, fn ($q) => $q->where('kindergarten_id', $this->kindergartenId))
           ->with('municipality', 'kindergarten', 'groupRange', 'priority', 'activeStatus')->orderBy('created_at', 'desc');
     }
 
@@ -44,7 +47,7 @@ class KindergartenerExport implements FromQuery, WithHeadings, WithMapping
             $kindergartener->municipality->name,
             $kindergartener->kindergarten->name,
             $kindergartener->groupRange ? $kindergartener->groupRange->range : 'დამთავრებული',
-            $kindergartener->activeStatus->name,
+            $kindergartener->application_status_label,
             $kindergartener->priority ? $kindergartener->priority->name : 'არ სარგებლობს',
             $kindergartener->kids_personal_number,
             $kindergartener->kids_first_name,
@@ -63,8 +66,6 @@ class KindergartenerExport implements FromQuery, WithHeadings, WithMapping
         return $excelArr;
     }
 }
-
-
 
 
 
