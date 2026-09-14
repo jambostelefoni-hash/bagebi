@@ -30,6 +30,7 @@ Route::namespace('API')->prefix('kindergarteners')->name('kindergarteners.')->gr
 Route::group(['middleware' => ['auth', 'check']], function () {
 
   Route::get('/home', 'HomeController@index')->name('home');
+  Route::view('/guide', 'guide.index')->name('guide.index');
 
   Route::prefix('auth')->namespace('Auth')->group(function () {
     Route::get('register', 'RegisterController@showRegistrationForm')->name('register');

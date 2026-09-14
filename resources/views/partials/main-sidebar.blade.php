@@ -207,6 +207,12 @@
                         <p>ინფორმაცია</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('guide.index') }}" class="nav-link {{ request()->is('guide') ? 'active' : '' }}">
+                        <i class="fas fa-book-open nav-icon"></i>
+                        <p>დახმარება და გზამკვლევი</p>
+                    </a>
+                </li>
 
                 <!-- Basic -->
                 <li class="nav-item menu-open">
