@@ -16,3 +16,7 @@ error_log
 /client-deck-output
 /output
 /tmp
+/css
+/js
+/fonts
+/images
