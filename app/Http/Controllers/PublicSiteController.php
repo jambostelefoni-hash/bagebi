@@ -36,12 +36,14 @@ class PublicSiteController extends Controller
     {
         $kid = null;
         $statusLabel = null;
-        $query = $request->input('kids_personal_number');
+        $query = $request->isMethod('post') ? $request->input('kids_personal_number') : null;
+        $mobileLastFour = $request->isMethod('post') ? $request->input('mobile_last_four') : null;
 
-        if ($query) {
-            $request->validate(['kids_personal_number' => ['required', 'digits:11']]);
+        if ($request->isMethod('post')) {
+            $request->validate(['kids_personal_number' => ['required', 'digits:11'], 'mobile_last_four' => ['required', 'digits:4']]);
             $kid = Kindergartener::with(['kindergarten', 'groupRange', 'activeStatus'])
                 ->where('kids_personal_number', $query)
+                ->where('mobile_number', 'like', '%'.$mobileLastFour)
                 ->first();
 
             if ($kid) {
@@ -52,7 +54,8 @@ class PublicSiteController extends Controller
         return view('public.status-tracker', [
             'kid' => $kid,
             'statusLabel' => $statusLabel,
-            'query' => $query
+            'query' => $query,
+            'mobileLastFour' => $mobileLastFour,
         ]);
     }
 
@@ -72,7 +75,7 @@ class PublicSiteController extends Controller
     private function homeMetaDefaults(string $title, ?string $body): array
     {
         return [
-            'nav_brand' => 'საბავშვო ბაღების გაერთიანება',
+            'nav_brand' => 'ბაღების გაერთიანება',
             'nav_news_label' => 'განცხადება',
             'nav_rules_label' => 'წესები',
             'nav_contact_label' => 'კონტაქტი',

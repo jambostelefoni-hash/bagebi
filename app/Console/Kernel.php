@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('waiting-list:process')->everyTenMinutes()->withoutOverlapping();
         $schedule->command('attendance:evaluate')->dailyAt('20:00')->withoutOverlapping();
+        $schedule->command('data-quality:scan')->dailyAt('01:30')->withoutOverlapping();
     }
 
     /**

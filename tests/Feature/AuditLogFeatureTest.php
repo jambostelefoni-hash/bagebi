@@ -39,6 +39,33 @@ class AuditLogFeatureTest extends TestCase
         $log->update(['action' => 'tampered']);
     }
 
+    public function test_admin_can_filter_critical_system_actions_and_export_them(): void
+    {
+        Setting::create(['slug' => 'basic', 'object' => ['canPorting' => false]]);
+        $admin = $this->user('Audit administrator', 'audit-admin@example.test', 'union_admin');
+
+        AuditLog::create([
+            'action' => 'waiting_list.offer_expired',
+            'description' => 'Automatic offer expiration',
+        ]);
+        AuditLog::create([
+            'user_id' => $admin->id,
+            'action' => 'settings.update',
+            'description' => 'Manual settings update',
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('audit-logs.index', ['severity' => 'critical', 'actor' => 'system']))
+            ->assertOk()
+            ->assertSee('Automatic offer expiration')
+            ->assertDontSee('Manual settings update');
+
+        $this->actingAs($admin)
+            ->get(route('audit-logs.export', ['severity' => 'critical', 'actor' => 'system']))
+            ->assertOk()
+            ->assertHeader('content-type', 'text/csv; charset=UTF-8');
+    }
+
     public function test_login_log_keeps_actor_snapshot(): void
     {
         $director = $this->user('Snapshot director', 'snapshot@example.test', 'director');

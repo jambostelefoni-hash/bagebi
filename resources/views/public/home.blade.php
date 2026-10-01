@@ -1,53 +1,51 @@
 @extends('layouts.basic')
-@section('title', 'ბავშვის რეგისტრაცია | საბავშვო ბაღების გაერთიანება')
+@section('title', 'მშობლის პორტალი | ' . ($publicBrand ?? config('app.name')))
 @section('content')
-<section class="modern-home">
-    <div class="modern-home-glow modern-home-glow-one"></div><div class="modern-home-glow modern-home-glow-two"></div>
-    <div class="modern-public-container modern-hero-grid">
-        <div class="modern-hero-copy">
-            <span class="modern-eyebrow"><i></i> ახალი სასწავლო წლის რეგისტრაცია</span>
-            <h1>ბაღში რეგისტრაცია<br><em>მარტივად და უსაფრთხოდ</em></h1>
-            <p>შეარჩიეთ სასურველი საბავშვო ბაღი, შეავსეთ ბავშვის მონაცემები და განაცხადის მდგომარეობას ონლაინ ადევნეთ თვალი.</p>
-            <div class="modern-hero-actions">
-                <a class="modern-primary-button" href="{{ url('/kids-registration') }}">რეგისტრაციის დაწყება <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>
-                <button class="modern-text-button" type="button" data-toggle="modal" data-target="#publicRulesModal">რეგისტრაციის წესები</button>
-            </div>
-            <div class="modern-trust-row">
-                <span><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg> დაცული მონაცემები</span>
-                <span><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg> ონლაინ განაცხადი</span>
-                <span><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg> სტატუსის კონტროლი</span>
-            </div>
+@php($registrationOpen = (bool) data_get($settings, 'basic.object.isRegistrationStart', false))
+<section class="portal-hero">
+    <div class="portal-container portal-hero-grid">
+        <div class="portal-hero-copy">
+            <span class="portal-kicker">საბავშვო ბაღები · ონლაინ მომსახურება</span>
+            <h1>ბაღისკენ პირველი ნაბიჯი<br><span>იწყება აქ.</span></h1>
+            <p>დაარეგისტრირეთ ბავშვი საბავშვო ბაღში, შეამოწმეთ განაცხადის სტატუსი და მიიღეთ საჭირო ინფორმაცია ერთ სივრცეში.</p>
+            <div class="portal-actions"><a class="portal-button" href="{{ route('children') }}">რეგისტრაციის დაწყება <span aria-hidden="true">↗</span></a><a class="portal-text-link" href="{{ route('public.registration-rules') }}">გაეცანით წესებს <span aria-hidden="true">→</span></a></div>
+            <div class="portal-registration-state"><span class="portal-state {{ $registrationOpen ? 'portal-state--open' : '' }}">{{ $registrationOpen ? 'რეგისტრაცია გახსნილია' : 'რეგისტრაცია დახურულია' }}</span><a href="{{ route('public.news') }}">იხილეთ განცხადებები <span aria-hidden="true">→</span></a></div>
         </div>
-        <aside class="modern-status-card">
-            <div class="modern-card-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M11 8v3l2 2"/></svg></div>
-            <span class="modern-card-kicker">განაცხადის მონიტორინგი</span><h2>შეამოწმეთ სტატუსი</h2>
-            <p>მიუთითეთ ბავშვის პირადი ნომერი და მიიღეთ მიმდინარე ინფორმაცია.</p>
-            <form id="status-check-form" class="modern-status-form">
-                <label for="statusPersonalNumber">ბავშვის პირადი ნომერი</label>
-                <div class="modern-input-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h4M7 13h7"/></svg><input id="statusPersonalNumber" type="text" name="kids_personal_number" inputmode="numeric" maxlength="11" placeholder="მაგ: 01001010101" required></div>
-                <button type="submit"><span>სტატუსის შემოწმება</span><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
-            </form>
-            <div id="status-result" class="modern-status-result" aria-live="polite"></div>
+        <aside class="portal-service-directory" aria-labelledby="portal-services-title">
+            <span class="portal-kicker">საიდან დავიწყო?</span><h2 id="portal-services-title">თქვენთვის საჭირო<br>მომსახურება</h2>
+            <a href="{{ route('children') }}"><span class="portal-service-index" aria-hidden="true">01</span><span><strong>ახალი განაცხადი</strong><small>ბავშვის რეგისტრაცია ბაღში</small></span><span aria-hidden="true">↗</span></a>
+            <a href="{{ route('public.status-tracker') }}"><span class="portal-service-index" aria-hidden="true">02</span><span><strong>განაცხადის სტატუსი</strong><small>ჩარიცხვა და მომლოდინეთა რიგი</small></span><span aria-hidden="true">↗</span></a>
+            <a href="{{ route('public.contact') }}"><span class="portal-service-index" aria-hidden="true">03</span><span><strong>დახმარება</strong><small>კითხვები და საკონტაქტო ინფორმაცია</small></span><span aria-hidden="true">↗</span></a>
+            <p>რეგისტრაციისთვის მშობლის ანგარიშის შექმნა საჭირო არ არის.</p>
         </aside>
     </div>
 </section>
-<section class="modern-how"><div class="modern-public-container">
-    <div class="modern-section-heading"><span>როგორ მუშაობს</span><h2>სამი მარტივი ნაბიჯი</h2></div>
-    <div class="modern-steps">
-        <article><b>01</b><div class="modern-step-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg></div><h3>შეავსეთ განაცხადი</h3><p>მიუთითეთ ბავშვისა და წარმომადგენლის საჭირო ინფორმაცია.</p></article>
-        <article><b>02</b><div class="modern-step-icon"><svg viewBox="0 0 24 24"><path d="M4 19V8l8-5 8 5v11H4Z"/><path d="M9 19v-6h6v6"/></svg></div><h3>აირჩიეთ ბაღი</h3><p>შეარჩიეთ თქვენთვის სასურველი ბაღი და შესაბამისი ჯგუფი.</p></article>
-        <article><b>03</b><div class="modern-step-icon"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="10"/></svg></div><h3>მიიღეთ პასუხი</h3><p>სტატუსის ცვლილების შესახებ შეტყობინებას ავტომატურად მიიღებთ.</p></article>
+<section class="portal-process" aria-labelledby="portal-process-title">
+    <div class="portal-container">
+        <div class="portal-section-heading"><div><span class="portal-kicker">მარტივი პროცესი</span><h2 id="portal-process-title">განაცხადიდან ჩარიცხვამდე</h2></div><a class="portal-text-link" href="{{ route('public.registration-rules') }}">სრული წესები <span aria-hidden="true">↗</span></a></div>
+        <ol class="portal-steps">
+            <li><span aria-hidden="true">01</span><h3>მოამზადეთ მონაცემები</h3><p>ბავშვის პირადი ნომერი, დაბადების თარიღი და მშობლის საკონტაქტო ინფორმაცია.</p></li>
+            <li><span aria-hidden="true">02</span><h3>აირჩიეთ ბაღი</h3><p>შეარჩიეთ შესაბამისი ასაკობრივი ჯგუფი, შეამოწმეთ ადგილები და შეავსეთ განაცხადი.</p></li>
+            <li><span aria-hidden="true">03</span><h3>გაეცანით შედეგს</h3><p>იხილეთ განაცხადის სტატუსი. ადგილის არქონისას ბავშვი მომლოდინეთა რიგში მოხვდება.</p></li>
+        </ol>
     </div>
-</div></section>
-<script>
-document.getElementById('status-check-form').addEventListener('submit', function (event) {
-    event.preventDefault(); var result = document.getElementById('status-result'); var button = this.querySelector('button');
-    result.className = 'modern-status-result is-loading'; result.textContent = 'მიმდინარეობს შემოწმება...'; button.disabled = true;
-    fetch('/api/find-kid', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content}, body:JSON.stringify({kids_personal_number:this.kids_personal_number.value})})
-    .then(function(response){return response.json();}).then(function(data){
-        if(data.status === 'success' && data.data){var kid=data.data; result.className='modern-status-result is-success'; result.textContent=kid.application_status_label||'სტატუსი არ არის მითითებული';}
-        else{result.className='modern-status-result is-empty'; result.textContent='მითითებული პირადი ნომრით განაცხადი ვერ მოიძებნა.';}
-    }).catch(function(){result.className='modern-status-result is-error'; result.textContent='ინფორმაციის მიღება ვერ მოხერხდა. სცადეთ მოგვიანებით.';}).finally(function(){button.disabled=false;});
-});
-</script>
+</section>
+<section class="portal-lookup" aria-labelledby="portal-lookup-title">
+    <div class="portal-container portal-lookup-grid">
+        <div><span class="portal-kicker">უკვე შეავსეთ განაცხადი?</span><h2 id="portal-lookup-title">შეამოწმეთ<br>მიმდინარე სტატუსი</h2><p>გამოიყენეთ რეგისტრაციისას მითითებული ბავშვის პირადი ნომერი და მობილურის ბოლო ოთხი ციფრი.</p></div>
+        <div>
+            <form id="status-check-form" class="portal-status-form" method="POST" action="{{ route('public.status-tracker.search') }}" data-status-url="{{ url('/api/find-kid') }}">
+                @csrf
+                <div class="portal-field"><label for="statusPersonalNumber">ბავშვის პირადი ნომერი</label><input id="statusPersonalNumber" type="text" name="kids_personal_number" inputmode="numeric" maxlength="11" minlength="11" pattern="[0-9]{11}" autocomplete="off" placeholder="11 ციფრი" required></div>
+                <div class="portal-field"><label for="statusMobileLastFour">მობილურის ბოლო 4 ციფრი</label><input id="statusMobileLastFour" type="text" name="mobile_last_four" inputmode="numeric" maxlength="4" minlength="4" pattern="[0-9]{4}" autocomplete="off" placeholder="მაგ. 1234" required></div>
+                <button type="submit" class="portal-button">სტატუსის შემოწმება <span aria-hidden="true">→</span></button>
+            </form>
+            <div id="status-result" class="portal-lookup-result" role="status" aria-live="polite"></div>
+        </div>
+    </div>
+</section>
+<section class="portal-container portal-updates" aria-labelledby="portal-updates-title">
+    <div><span class="portal-kicker">გაერთიანების ინფორმაცია</span><h2 id="portal-updates-title">{{ $meta['hero_title'] ?: $page->title }}</h2><p>{{ $meta['hero_lead'] ?: $page->body }}</p><a class="portal-text-link" href="{{ route('public.news') }}">ყველა განცხადება <span aria-hidden="true">↗</span></a></div>
+    <aside><span class="portal-kicker">იცოდით?</span><h3>ადგილის არქონა<br>განაცხადს არ აჩერებს.</h3><p>შეგიძლიათ დარეგისტრირდეთ მომლოდინეთა რიგში. ადგილის შეთავაზებას SMS-ით მიიღებთ.</p><a class="portal-text-link" href="{{ route('public.registration-rules') }}">როგორ მუშაობს რიგი <span aria-hidden="true">→</span></a></aside>
+</section>
 @endsection

@@ -1,0 +1,4 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+* * * * * www-data cd /var/www/bagebi && /usr/bin/php artisan schedule:run --no-interaction >> /dev/null 2>&1

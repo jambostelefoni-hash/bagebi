@@ -30,6 +30,7 @@ class CapacityLogicTest extends TestCase
     public function test_public_lookup_does_not_expose_parent_data()
     {
         Kindergartener::create(['kids_personal_number'=>'01000000003','kids_first_name'=>'ანა','kids_last_name'=>'ტესტი','mother_personal_number'=>'01000000004','mobile_number'=>'555000000','application_status'=>'waiting']);
-        $this->postJson('/api/find-kid',['kids_personal_number'=>'01000000003'])->assertOk()->assertJsonMissing(['mother_personal_number'=>'01000000004'])->assertJsonPath('data.application_status','waiting');
+        $this->postJson('/api/find-kid',['kids_personal_number'=>'01000000003','mobile_last_four'=>'0000'])->assertOk()->assertJsonMissing(['mother_personal_number'=>'01000000004'])->assertJsonPath('data.application_status','waiting');
+        $this->postJson('/api/find-kid',['kids_personal_number'=>'01000000003','mobile_last_four'=>'1234'])->assertOk()->assertJsonPath('data',null);
     }
 }

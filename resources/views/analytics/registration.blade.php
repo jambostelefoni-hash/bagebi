@@ -1,0 +1,22 @@
+@extends('layouts.app')
+
+@section('content')
+<x-ui.page-header eyebrow="რეგისტრაცია და დაგეგმვა" title="რეგისტრაციის ანალიტიკა" description="შეამოწმეთ ტევადობა, მომლოდინეთა რიგი და მომდევნო სასწავლო წლის მოსალოდნელი დატვირთვა.">
+  <x-slot name="actions"><x-ui.button variant="outline-primary" :href="route('kindergartens.list')"><i class="fas fa-school"></i> ტევადობის მართვა</x-ui.button></x-slot>
+</x-ui.page-header>
+
+<x-ui.page class="analytics-page">
+  <div class="summary-strip analytics-summary">
+    <div><span class="summary-icon summary-icon--coral"><i class="fas fa-ban"></i></span><span><small>სრული ჯგუფი</small><strong>{{$summary['full']}}</strong></span></div>
+    <div><span class="summary-icon summary-icon--amber"><i class="fas fa-exclamation-triangle"></i></span><span><small>85%-ზე მეტი</small><strong>{{$summary['warning']}}</strong></span></div>
+    <div><span class="summary-icon"><i class="fas fa-chair"></i></span><span><small>თავისუფალი ადგილი</small><strong>{{$summary['available']}}</strong></span></div>
+    <div><span class="summary-icon summary-icon--navy"><i class="fas fa-hourglass-half"></i></span><span><small>მომლოდინე</small><strong>{{$summary['waiting']}}</strong></span></div>
+  </div>
+
+  <x-ui.filter-bar><form class="analytics-filter" method="GET"><select class="custom-select" name="kindergarten_id" aria-label="ბაღი"><option value="">ყველა ბაღი</option>@foreach($gardens as $id=>$name)<option value="{{$id}}" @selected(request('kindergarten_id')==$id)>{{$name}}</option>@endforeach</select><select class="custom-select" name="group_id" aria-label="ასაკობრივი ჯგუფი"><option value="">ყველა ასაკობრივი ჯგუფი</option>@foreach($groups as $id=>$range)<option value="{{$id}}" @selected(request('group_id')==$id)>{{$range}} წ.</option>@endforeach</select><x-ui.button type="submit"><i class="fas fa-filter"></i> ფილტრი</x-ui.button><x-ui.button variant="secondary" :href="route('analytics.registration')">გასუფთავება</x-ui.button></form></x-ui.filter-bar>
+
+  <div class="card"><div class="card-header"><h3 class="card-title">მიმდინარე ტევადობა და რიგი</h3><span class="analytics-legend"><i class="analytics-dot analytics-dot--normal"></i> ნორმა <i class="analytics-dot analytics-dot--warning"></i> 85%-ზე მეტი <i class="analytics-dot analytics-dot--full"></i> სრული</span></div><div class="card-body table-responsive"><table class="table table-hover analytics-table"><thead><tr><th>ბაღი</th><th>ასაკობრივი ჯგუფი</th><th>ზღვარი</th><th>ჩარიცხული</th><th>შეჩერებული</th><th>დაჯავშნილი</th><th>თავისუფალი</th><th>რიგში</th><th>დატვირთვა</th></tr></thead><tbody>@forelse($rows as $row)<tr><td><strong>{{$row->kindergarten_name}}</strong></td><td>{{$row->group_range}} წ.</td><td>{{$row->space_length}}</td><td>{{$row->enrolled_count}}</td><td>{{$row->suspended_count}}</td><td>{{$row->space_reserved}}</td><td><strong>{{$row->available_count}}</strong></td><td>{{$row->waiting_count}}</td><td><span class="analytics-state analytics-state--{{$row->state}}">{{$row->occupancy}}%</span></td></tr>@empty<tr><td colspan="9" class="text-center text-muted py-4">არჩეული ფილტრით ჩანაწერი არ მოიძებნა.</td></tr>@endforelse</tbody></table></div></div>
+
+  <div class="card"><div class="card-header"><div><h3 class="card-title">მომდევნო სასწავლო წლის პროგნოზი</h3><small class="text-muted">ითვლის ჩარიცხული და შეჩერებული ბავშვების გადასვლას მომდევნო ასაკობრივ ჯგუფში.</small></div></div><div class="card-body table-responsive"><table class="table table-hover analytics-table"><thead><tr><th>ბაღი</th><th>სამიზნე ჯგუფი</th><th>არსებული ზღვარი</th><th>მოსალოდნელი ბავშვები</th><th>პროგნოზი</th></tr></thead><tbody>@forelse($forecast['rows'] as $row)<tr><td><strong>{{$row->kindergarten_name}}</strong></td><td>{{$row->group_range}} წ.</td><td>{{$row->space_length}}</td><td>{{$row->projected_count}}</td><td><span class="analytics-state {{$row->forecast_available < 0 ? 'analytics-state--full' : 'analytics-state--normal'}}">{{$row->forecast_available < 0 ? 'დეფიციტი: '.abs($row->forecast_available) : 'თავისუფალი: '.$row->forecast_available}}</span></td></tr>@empty<tr><td colspan="5" class="text-center text-muted py-4">ამჟამინდელი ბავშვების გადასასვლელი პროგნოზი არ არის.</td></tr>@endforelse</tbody></table></div>@if(count($forecast['unmapped']))<div class="card-footer text-warning"><i class="fas fa-exclamation-triangle"></i> შემდეგი ჯგუფების გადასვლის წესი ვერ განისაზღვრა: {{implode(', ', $forecast['unmapped'])}}.</div>@endif</div>
+</x-ui.page>
+@endsection

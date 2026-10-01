@@ -50,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($this->isHttpException($exception) && $exception->getStatusCode() === 410) {
+            return response()->view('errors.link-expired', [], 410);
+        }
+
         return parent::render($request, $exception);
     }
 }

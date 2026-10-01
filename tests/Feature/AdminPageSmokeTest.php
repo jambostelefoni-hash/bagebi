@@ -43,6 +43,8 @@ class AdminPageSmokeTest extends TestCase
 
         $pages = [
             route('home'),
+            route('structure.index'),
+            route('control-center.index'),
             route('users.list'),
             route('users.create'),
             route('users.show', $admin->id),
@@ -66,10 +68,66 @@ class AdminPageSmokeTest extends TestCase
             route('attendance.index', ['kindergarten_id' => $garden]),
             route('reinstatement.index'),
             route('calendar.index'),
+            route('analytics.registration'),
+            route('system-health.index'),
+            route('data-quality.index'),
         ];
 
         foreach ($pages as $page) {
             $this->actingAs($admin)->get($page)->assertOk();
         }
+    }
+
+    public function test_learning_start_action_is_hidden_after_the_year_has_started(): void
+    {
+        Setting::create(['slug' => 'date', 'object' => [
+            'start' => today()->subDay()->toDateString(),
+            'end' => today()->addMonths(9)->toDateString(),
+        ]]);
+        Setting::create(['slug' => 'basic', 'object' => [
+            'isLearningStart' => true,
+            'canPorting' => false,
+        ]]);
+
+        $admin = User::create([
+            'name' => 'Test administrator',
+            'email' => 'started-year@example.test',
+            'password' => Hash::make('testing-password'),
+            'role' => 'union_admin',
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('settings.index'))
+            ->assertOk()
+            ->assertDontSee(route('settings.learningStart'), false)
+            ->assertSee('დაწყებულია');
+    }
+
+    public function test_year_actions_are_locked_and_porting_is_available_after_the_year_has_ended(): void
+    {
+        Setting::create(['slug' => 'date', 'object' => [
+            'start' => today()->subMonths(9)->toDateString(),
+            'end' => today()->subDay()->toDateString(),
+        ]]);
+        Setting::create(['slug' => 'basic', 'object' => [
+            'isLearningStart' => false,
+            'canPorting' => true,
+        ]]);
+
+        $admin = User::create([
+            'name' => 'Test administrator',
+            'email' => 'ended-year@example.test',
+            'password' => Hash::make('testing-password'),
+            'role' => 'union_admin',
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('settings.index'))
+            ->assertOk()
+            ->assertDontSee(route('settings.learningStart'), false)
+            ->assertDontSee(route('settings.learningEnd'), false)
+            ->assertSee('დასრულებულია')
+            ->assertSee('data-submit="portireba"', false)
+            ->assertDontSee('disabled data-submit="portireba"', false);
     }
 }

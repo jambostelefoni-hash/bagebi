@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, Button, CircularProgress } from '@material-ui/core';
 
 import { Formik, Form } from 'formik'
@@ -11,27 +11,10 @@ import axios from 'axios'
 
 import useStyles from './styles';
 
-// import AddressForm from './Forms/AddressForm'
-// import PaymentForm from './Forms/PaymentForm'
-// import ReviewOrder from './Forms/ReviewOrder'
-// import CheckoutSuccess from './CheckoutSuccess'
-
-const AddressForm = React.lazy(() => import(
-  /* webpackChunkName: "AddressForm" */
-  /* webpackPrefetch: true */
-  /* webpackPreload: true */ './Forms/AddressForm'))
-
-const PaymentForm = React.lazy(() => import(
-  /* webpackChunkName: "PaymentForm" */
-  /* webpackPrefetch: true */ './Forms/PaymentForm'))
-
-const ReviewOrder = React.lazy(() => import(
-  /* webpackChunkName: "ReviewOrder" */
-  /* webpackPrefetch: true */ './Forms/ReviewOrder'))
-
-const CheckoutSuccess = React.lazy(() => import(
-  /* webpackChunkName: "CheckoutSuccess" */
-  /* webpackPrefetch: true */ './CheckoutSuccess'))
+import AddressForm from './Forms/AddressForm';
+import PaymentForm from './Forms/PaymentForm';
+import ReviewOrder from './Forms/ReviewOrder';
+import CheckoutSuccess from './CheckoutSuccess';
 
 const domain = location.protocol + '//' + location.host;
 const steps = ['ბაღი', 'ბავშვი', 'დედა', 'მამა', 'დამატებითი ინფორმაცია']
@@ -57,6 +40,8 @@ function _renderStepContent(step, setFieldValue, dataObject, setDataObject) {
 export default function CheckoutPage() {
   const classes = useStyles();
   const [mounted, setMounted] = useState(false)
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
   const isLastStep = activeStep === steps.length - 1;
   const [responseData, setResponseData] = useState({})
@@ -72,28 +57,59 @@ export default function CheckoutPage() {
   const [dataObject, setDataObject] = useState(dataObjectSetter)
   const currentValidationSchema = validationSchema(dataObject.learning_start_date)[activeStep];
 
-  useEffect(async () => {
-    const data = await axios.post(`${domain}/api/data-object`)
-    setDataObject(old => ({ ...old, ...data.data }))
-    setMounted(true)
-  }, [])
-
-  function _sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+  useEffect(() => {
+    let active = true;
+    setLoadError(false);
+    axios.post(`${domain}/api/data-object`, {}, { timeout: 15000 })
+      .then(({ data }) => {
+        if (active) {
+          setDataObject(old => ({ ...old, ...data }));
+          setMounted(true);
+        }
+      })
+      .catch(() => { if (active) setLoadError(true); });
+    return () => { active = false; };
+  }, [loadAttempt]);
 
   async function _submitForm(values, actions) {
-    await _sleep(1000);
-    // alert(JSON.stringify(values, null, 2));
-    actions.setSubmitting(false);
-    let res = await axios.post(`${domain}/api/registration`, values); setResponseData(res.data); setFormStatuss(res.data.status);
-    if (res.data.status == 'success') setActiveStep(activeStep + 1);
+    try {
+      const res = await axios.post(`${domain}/api/registration`, values, { timeout: 30000 });
+      setResponseData(res.data);
+      setFormStatuss(res.data.status);
+      if (res.data.status === 'success') setActiveStep(activeStep + 1);
+    } catch (error) {
+      const errors = error.response?.data?.errors;
+      setResponseData({ errors: errors ? Object.values(errors).flat() : ['პასუხის მიღება ვერ მოხერხდა. ხელახლა გაგზავნამდე შეამოწმეთ განაცხადის სტატუსი.'] });
+      setFormStatuss('errors');
+    } finally {
+      actions.setSubmitting(false);
+    }
   }
 
-  function _handleSubmit(values, actions) {
+  async function _handleSubmit(values, actions) {
     if (isLastStep) {
-      _submitForm(values, actions);
+      await _submitForm(values, actions);
     } else {
+      if (activeStep === 1) {
+        try {
+          const response = await axios.post(`${domain}/api/registration/check-personal-number`, {
+            kids_personal_number: values.kids_personal_number
+          }, { timeout: 15000 });
+
+          if (response.data.exists) {
+            actions.setFieldError('kids_personal_number', 'ამ პირადი ნომრით ბავშვი უკვე რეგისტრირებულია.');
+            actions.setFieldTouched('kids_personal_number', true, false);
+            actions.setSubmitting(false);
+            return;
+          }
+        } catch (error) {
+          actions.setFieldError('kids_personal_number', 'პირადი ნომრის შემოწმება ვერ მოხერხდა. სცადეთ ხელახლა.');
+          actions.setFieldTouched('kids_personal_number', true, false);
+          actions.setSubmitting(false);
+          return;
+        }
+      }
+
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
@@ -102,6 +118,13 @@ export default function CheckoutPage() {
 
   function _handleBack() {
     setActiveStep(activeStep - 1);
+  }
+
+  if (!mounted) {
+    return <div role={loadError ? 'alert' : 'status'} className={classes.closed}>
+      {loadError ? 'ფორმის მონაცემები ვერ ჩაიტვირთა. სცადეთ ხელახლა.' : 'სარეგისტრაციო ფორმა იტვირთება…'}
+      {loadError && <Button onClick={() => setLoadAttempt(value => value + 1)}>ხელახლა ცდა</Button>}
+    </div>;
   }
 
   if (dataObject && dataObject.setting && !dataObject.setting.object.isRegistrationStart) {

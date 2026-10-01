@@ -19,9 +19,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/theme.css') }}?v=20260212">
     <link rel="stylesheet" href="{{ asset('css/public-modern.css') }}?v={{ file_exists(public_path('css/public-modern.css')) ? filemtime(public_path('css/public-modern.css')) : '1' }}">
     <link rel="stylesheet" href="{{ asset('css/platform-unified.css') }}?v={{ filemtime(public_path('css/platform-unified.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/public-system.css') }}?v={{ filemtime(public_path('css/public-system.css')) }}">
 </head>
 <body class="login-shell">
     <div id="app">

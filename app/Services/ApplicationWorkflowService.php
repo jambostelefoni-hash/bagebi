@@ -22,6 +22,7 @@ class ApplicationWorkflowService
     {
         return DB::transaction(function () use ($input, $model) {
             $model = $model ?: new Kindergartener();
+            if ($model->exists) $model = Kindergartener::whereKey($model->id)->lockForUpdate()->firstOrFail();
             $isNew = !$model->exists;
             $oldGarden = $model->kindergarten_id;
             $oldGroup = $model->group_id;
@@ -30,20 +31,29 @@ class ApplicationWorkflowService
             $moved = !$isNew && ((int)$oldGarden !== (int)$attributes['kindergarten_id'] || (int)$oldGroup !== (int)$attributes['group_id']);
             $capacity = ($isNew || $moved) ? $this->lockCapacity($attributes['kindergarten_id'], $attributes['group_id']) : null;
 
-            if ($moved && $oldStatus === self::ENROLLED) $this->releaseCapacity($oldGarden, $oldGroup);
+            if ($moved) $this->closeWaitingEntry($model);
+            if ($moved && in_array($oldStatus, [self::ENROLLED, self::SUSPENDED], true)) $this->releaseCapacity($oldGarden, $oldGroup);
             $newStatus = $oldStatus ?: self::REGISTERED;
-            if ($isNew || $moved) $newStatus = ((int)$capacity->space_free - (int)$capacity->space_reserved) > 0 ? self::ENROLLED : self::WAITING;
+            if ($isNew || $moved) {
+                $queueExists = $oldStatus !== self::SUSPENDED && WaitingListEntry::where('kindergarten_id', $attributes['kindergarten_id'])
+                    ->where('group_id', $attributes['group_id'])->whereIn('state', ['waiting', 'offered'])->exists();
+                $newStatus = !$queueExists && ((int)$capacity->space_free - (int)$capacity->space_reserved) > 0 ? self::ENROLLED : self::WAITING;
+            }
+            if ($moved && $oldStatus === self::SUSPENDED) {
+                if ($newStatus === self::WAITING) throw ValidationException::withMessages(['group_id' => 'შეჩერებული ბავშვის გადასაყვანად თავისუფალი ადგილი საჭიროა.']);
+                $newStatus = self::SUSPENDED;
+            }
 
             $model->fill($attributes);
             $model->application_status = $newStatus;
             $model->active_status_id = $this->legacyStatusId($newStatus);
-            $model->status_changed_at = now();
+            if ($oldStatus !== $newStatus) $model->status_changed_at = now();
             $model->save();
 
-            if (($isNew || $moved) && $newStatus === self::ENROLLED) {
+            if (($isNew || $moved) && in_array($newStatus, [self::ENROLLED, self::SUSPENDED], true)) {
                 $this->consumeCapacity($model->kindergarten_id, $model->group_id);
                 WaitingListEntry::where('kindergartener_id', $model->id)->update(['state' => 'completed']);
-            } elseif ($newStatus === self::WAITING) {
+            } elseif ($newStatus === self::WAITING && ($isNew || $moved || !WaitingListEntry::where('kindergartener_id', $model->id)->exists())) {
                 WaitingListEntry::updateOrCreate(['kindergartener_id' => $model->id], [
                     'kindergarten_id' => $model->kindergarten_id,
                     'group_id' => $model->group_id,
@@ -65,6 +75,13 @@ class ApplicationWorkflowService
             $child = Kindergartener::whereKey($child->id)->lockForUpdate()->firstOrFail();
             $from = $child->application_status;
             if ($from === $status) return $child;
+            if ($from === self::GRADUATED) {
+                throw ValidationException::withMessages(['status' => 'დამთავრებული ბავშვის საბოლოო სტატუსის შეცვლა შეუძლებელია.']);
+            }
+            if ($status === self::SUSPENDED && $from !== self::ENROLLED) {
+                throw ValidationException::withMessages(['status' => 'შეჩერება შესაძლებელია მხოლოდ ჩარიცხული ბავშვისთვის.']);
+            }
+            $this->closeWaitingEntry($child);
             if (in_array($from,[self::ENROLLED,self::SUSPENDED],true) && !in_array($status,[self::ENROLLED,self::SUSPENDED],true)) $this->releaseCapacity($child->kindergarten_id, $child->group_id);
             if (!in_array($from,[self::ENROLLED,self::SUSPENDED],true) && $status === self::ENROLLED) {
                 $capacity = $this->lockCapacity($child->kindergarten_id, $child->group_id);
@@ -75,6 +92,8 @@ class ApplicationWorkflowService
             $child->active_status_id = $this->legacyStatusId($status);
             $child->status_changed_at = now();
             $child->suspended_at = $status === self::SUSPENDED ? now() : null;
+            $child->graduate = $status === self::GRADUATED;
+            if ($status === self::GRADUATED) $child->group_id = null;
             $child->save();
             $this->recordHistory($child, $from, $status, $reason);
             if ($status === self::WAITING) WaitingListEntry::updateOrCreate(['kindergartener_id' => $child->id], ['kindergarten_id' => $child->kindergarten_id,'group_id' => $child->group_id,'queued_at' => now(),'state' => 'waiting']);
@@ -98,6 +117,10 @@ class ApplicationWorkflowService
     {
         return DB::transaction(function () use ($child, $entry) {
             $child = Kindergartener::whereKey($child->id)->lockForUpdate()->firstOrFail();
+            $entry = WaitingListEntry::whereKey($entry->id)->lockForUpdate()->firstOrFail();
+            if ($child->application_status !== self::WAITING || $entry->state !== 'offered' || (int)$entry->kindergartener_id !== (int)$child->id || (int)$entry->kindergarten_id !== (int)$child->kindergarten_id || (int)$entry->group_id !== (int)$child->group_id) {
+                throw ValidationException::withMessages(['offer' => 'შეთავაზება აღარ არის აქტიური.']);
+            }
             $capacity = $this->lockCapacity($child->kindergarten_id, $child->group_id);
             if ((int)$capacity->space_reserved < 1) throw ValidationException::withMessages(['offer' => 'Reserved placement is no longer available.']);
             DB::table('kindergarten_group_age_range')->where('kindergarten_id',$child->kindergarten_id)->where('group_age_range',$child->group_id)->update(['space_reserved'=>DB::raw('space_reserved - 1'),'space_filled'=>DB::raw('CAST(space_filled AS UNSIGNED) + 1'),'space_free'=>DB::raw('CAST(space_free AS UNSIGNED) - 1')]);
@@ -107,6 +130,17 @@ class ApplicationWorkflowService
             $this->recordHistory($child, $from, self::ENROLLED, 'Placement offer accepted');
             return $child->fresh();
         }, 3);
+    }
+
+    private function closeWaitingEntry(Kindergartener $child): void
+    {
+        $entry = WaitingListEntry::where('kindergartener_id', $child->id)->lockForUpdate()->first();
+        if (!$entry) return;
+        if ($entry->state === 'offered') {
+            DB::table('kindergarten_group_age_range')->where('kindergarten_id', $entry->kindergarten_id)->where('group_age_range', $entry->group_id)->where('space_reserved', '>', 0)->decrement('space_reserved');
+        }
+        \App\Model\PlacementOffer::where('waiting_list_entry_id', $entry->id)->whereNull('responded_at')->update(['responded_at' => now(), 'response' => 'expired']);
+        $entry->update(['state' => 'completed']);
     }
 
     private function recordHistory($child, $from, $to, $reason)

@@ -87,7 +87,7 @@ class RegistrationTextController extends Controller
     private function defaults()
     {
         return [
-            'title' => 'საბავშვო ბაღების გაერთიანება',
+            'title' => 'ბაღების გაერთიანება',
             'subtitle' => 'ბავშვის რეგისტრაცია',
             'description' => 'შეავსეთ განაცხადი ზუსტად და სრულად. სისტემა ავტომატურად გადამოწმებს აუცილებელ ველებს.',
             'rules' => 'რეგისტრაციის წესები ჯერ არ არის დამატებული.'

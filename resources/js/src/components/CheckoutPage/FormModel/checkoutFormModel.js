@@ -84,13 +84,12 @@ export default {
     },
     email: {
       name: 'email',
-      label: 'ელ-ფოსტა*',
+      label: 'ელ-ფოსტა (არასავალდებულო)',
       notValidErrorMsg: 'ელ-ფოსტა არ არის ვალიდური!',
       requiredErrorMsg: 'შეავსეთ ელ-ფოსტის ველი!'
     }
   }
 };
-
 
 
 

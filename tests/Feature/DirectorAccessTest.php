@@ -21,8 +21,11 @@ class DirectorAccessTest extends TestCase
         $otherChild = $this->child($municipality, $otherGarden, '01000000902', 'სხვა');
         $director = User::create(['name'=>'Director','email'=>'director@example.test','password'=>Hash::make('password'),'role'=>'director','kindergarten_id'=>$ownGarden]);
 
-        $this->actingAs($director)->get(route('kindergarteners.index'))
-            ->assertOk()->assertSee('01000000901')->assertDontSee('01000000902');
+        $this->actingAs($director)->get(route('kindergarteners.index'))->assertOk();
+        $this->getJson(route('kindergarteners.data').'?draw=1&start=0&length=10')
+            ->assertOk()->assertJsonPath('recordsTotal',1)
+            ->assertJsonPath('data.0.kids_personal_number','01000000901')
+            ->assertJsonMissing(['kids_personal_number'=>'01000000902']);
         $this->actingAs($director)->get(route('kindergarteners.show',$ownChild))->assertOk();
         $this->actingAs($director)->get(route('kindergarteners.show',$otherChild))->assertForbidden();
         $this->actingAs($director)->get(route('attendance.index',['kindergarten_id'=>$otherGarden]))
@@ -56,6 +59,22 @@ class DirectorAccessTest extends TestCase
             ->assertRedirect();
         $this->assertDatabaseHas('users',['id'=>$director->id,'name'=>'Updated Director']);
         $this->actingAs($director)->get(route('operations.index'))->assertForbidden();
+        $this->actingAs($director)->get(route('structure.index'))->assertForbidden();
+        $this->actingAs($director)->get(route('control-center.index'))->assertForbidden();
+        $this->actingAs($director)->get(route('guide.index'))->assertForbidden();
+        $this->actingAs($director)->get(route('home'))
+            ->assertDontSee('href="'.route('guide.index').'"', false);
+    }
+
+    public function test_guide_is_available_only_to_union_admin(): void
+    {
+        $this->structure();
+        $this->get(route('guide.index'))->assertRedirect(route('login'));
+        $admin = User::create(['name'=>'Admin','email'=>'admin-guide@example.test','password'=>Hash::make('password'),'role'=>'union_admin']);
+        $this->actingAs($admin)->get(route('guide.index'))
+            ->assertOk()
+            ->assertSee('ოპერაციები, SMS და სისტემის გამართულობა')
+            ->assertSee('წინასწარი ნახვა');
     }
 
     public function test_public_registration_is_rejected_when_registration_is_closed(): void
@@ -85,11 +104,21 @@ class DirectorAccessTest extends TestCase
             'kids_personal_number'=>'01000000903',
             'kids_first_name'=>'განახლებული',
             'kids_last_name'=>'ბავშვი',
+            'mother_personal_number'=>'90000007788',
             'mobile_number'=>'555000000',
             'email'=>'parent@example.test',
         ])->assertRedirect();
 
         $this->assertDatabaseHas('kindergarteners', ['id'=>$child->id, 'kids_first_name'=>'განახლებული', 'application_status'=>'enrolled']);
+        $audit = \App\Model\AuditLog::where('action', 'kindergartener.update')->where('model_id', $child->id)->latest('id')->firstOrFail();
+        $this->assertSame(['old'=>'ძველი', 'new'=>'განახლებული'], $audit->changes['kids_first_name']);
+        $this->assertSame(['old'=>null, 'new'=>'90000007788'], $audit->changes['mother_personal_number']);
+        $this->actingAs($admin)->get(route('audit-logs.index'))
+            ->assertOk()
+            ->assertSee('ბავშვის სახელი')
+            ->assertSee('ძველი')
+            ->assertSee('განახლებული')
+            ->assertSee('90000007788');
     }
 
     private function structure(): array

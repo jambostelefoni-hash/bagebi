@@ -19,18 +19,25 @@ class SettingController extends Controller
         $dateSetting = Setting::where('slug', 'date')->firstOrNew();
         $permission = $dateSetting->toArray();
         $permission['object'] = array_merge(['start' => null, 'end' => null], $permission['object'] ?? []);
+        $model = Setting::where('slug', 'basic')->firstOrNew();
         $now = Carbon::today();
         $start = $this->parseSettingDate($permission['object']['start']);
         $end = $this->parseSettingDate($permission['object']['end']);
-        $canStart = $start ? $now->gte($start) : false;
-        $canEnd = $end ? $now->gte($end) : false;
+        $isLearningStarted = filter_var(data_get($model->object, 'isLearningStart', false), FILTER_VALIDATE_BOOLEAN);
+        $canPorting = filter_var(data_get($model->object, 'canPorting', false), FILTER_VALIDATE_BOOLEAN);
+        $isLearningEnded = !$isLearningStarted && $canPorting;
+        $canStart = $start ? $now->gte($start) && !$isLearningStarted && !$canPorting : false;
+        $canEnd = $end ? $now->gte($end) && $isLearningStarted : false;
+        $portingAvailable = $end ? $now->gte($end) && $isLearningEnded : false;
 
-        $model = Setting::where('slug', 'basic')->firstOrNew();
         return view('settings.index', [
             'model' => $model,
             'permission' => $permission,
             'canStart' => $canStart,
-            'canEnd' => $canEnd
+            'canEnd' => $canEnd,
+            'isLearningStarted' => $isLearningStarted,
+            'isLearningEnded' => $isLearningEnded,
+            'portingAvailable' => $portingAvailable,
         ]);
     }
 
@@ -200,6 +207,22 @@ class SettingController extends Controller
             'flashType' => 'success',
             'flashMessage' => 'პორტირება დასრულდა: გადაყვანილია '.$result['moved'].'; დასრულებულია '.$result['graduated'].'. ჯგუფების ზღვრები შენარჩუნებულია.',
         ]);
+    }
+
+    public function portingPreview(Request $request, \App\Services\AnnualPortingService $porting)
+    {
+        $preview = $porting->preview();
+        $preview['moves_total'] = $preview['moves']->count();
+        $preview['graduates_total'] = $preview['graduates']->count();
+        $preview['moves'] = $this->paginatePreview($preview['moves'], $request, 'moves_page');
+        $preview['graduates'] = $this->paginatePreview($preview['graduates'], $request, 'graduates_page');
+        return view('settings.porting-preview', compact('preview'));
+    }
+
+    private function paginatePreview($items, Request $request, string $pageName)
+    {
+        $page = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage($pageName);
+        return new \Illuminate\Pagination\LengthAwarePaginator($items->forPage($page, 25)->values(), $items->count(), 25, $page, ['path' => $request->url(), 'pageName' => $pageName, 'query' => $request->query()]);
     }
 
     private function parseSettingDate($value): ?Carbon

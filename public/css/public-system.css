@@ -1,0 +1,294 @@
+/* Public counterpart of the administration design system. */
+:root {
+    --service-blue: var(--ds-primary);
+    --service-navy: var(--ds-primary-strong);
+    --service-gold: var(--ds-accent);
+    --service-ink: var(--ds-text);
+    --service-muted: var(--ds-muted);
+    --service-line: var(--ds-line);
+    --service-bg: var(--ds-canvas);
+    --service-surface: var(--ds-surface);
+    --service-surface-soft: var(--ds-surface-soft);
+    --service-primary-soft: var(--ds-primary-soft);
+}
+.basic-shell, .login-shell { color: var(--service-ink); background: var(--service-bg) !important; font-size: 14px; }
+.basic-shell { display: flex; flex-direction: column; min-height: 100vh; overflow-x: visible; }
+.basic-shell .public-shell { flex: 1; min-width: 0; padding-top: 0 !important; }
+.basic-shell *, .login-shell * { box-sizing: border-box; }
+.modern-public-container, .public-nav-inner { width: min(1200px, calc(100% - 48px)); margin-inline: auto; }
+.basic-shell .public-skip-link { position: fixed; top: -80px; left: 12px; z-index: 11000; padding: 12px; background: #fff; }
+.basic-shell .public-skip-link:focus { top: 8px; }
+.basic-shell :focus-visible, .login-shell :focus-visible { outline: 2px solid var(--service-gold) !important; outline-offset: 3px; }
+.basic-shell :is(a,button), .login-shell :is(a,button) { transition: background-color .15s, color .15s, border-color .15s, box-shadow .15s; }
+.basic-shell :is(button,a):hover, .login-shell :is(button,a):hover { transform: none; }
+.basic-shell :is(button,[class*="button"]):active, .login-shell button:active { transform: translateY(1px); }
+.basic-shell svg { flex-shrink: 0; }
+.basic-shell .public-nav { position: sticky !important; inset: 0 0 auto; z-index: 1030; background: #fff !important; border-bottom: 1px solid var(--service-line) !important; box-shadow: none; }
+.basic-shell .public-nav::after { display: none; }
+.basic-shell .public-nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 80px; height: auto; padding-block: 12px; }
+.basic-shell .public-brand { display: flex; gap: 12px; min-width: 0; flex: 1 1 auto; max-width: 390px; }
+.basic-shell .public-brand-mark { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border-radius: 8px; box-shadow: none; }
+.basic-shell .public-brand-mark--logo { background: transparent; border-radius: 0; }
+.basic-shell .public-brand-mark svg { width: 29px; height: 29px; }
+.basic-shell .public-brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+.basic-shell .public-brand-mark--logo img { background: transparent; border-radius: 0; }
+.basic-shell .public-brand-copy { min-width: 0; }
+.basic-shell .public-brand strong { color: var(--service-navy); font-size: 13px; line-height: 1.6; white-space: normal; }
+.basic-shell .public-brand small { color: var(--service-muted); font-size: 10px; margin-top: 3px; }
+.basic-shell .public-nav-menu { display: flex; align-items: center; flex: 0 0 auto; gap: 3px; }
+.basic-shell .public-nav-menu a { padding: 10px 11px; border: 0; border-radius: 6px; color: var(--service-blue); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.basic-shell .public-nav-menu a[aria-current="page"]:not(.public-nav-cta) { color: var(--service-navy); background: #edf2fa; box-shadow: inset 0 -2px var(--service-gold); }
+.basic-shell .public-nav-menu a:hover { background: #edf2fa; color: var(--service-navy); }
+.basic-shell .public-nav-menu .public-nav-cta { margin-left: 6px; padding: 12px 16px; color: #fff !important; background: var(--service-blue) !important; border-radius: 6px; box-shadow: none; }
+.basic-shell .public-menu-toggle { display: none !important; }
+.basic-shell :is(.modern-home,.modern-how,.modern-registration-page,.status-page,.rules-page,.public-info-page,.modern-content-page,.modern-action-page) { background: var(--service-bg) !important; background-image: none !important; min-height: 0; }
+.basic-shell .modern-home { padding: 32px 0 0; border: 0; }
+.basic-shell .modern-hero-grid { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(300px,1fr); gap: 24px; padding-bottom: 0; align-items: stretch; }
+.basic-shell .modern-hero-copy { display: flex; flex-direction: column; justify-content: center; padding: 42px; min-width: 0; background: var(--service-navy); border-radius: 10px; color: #fff; }
+.basic-shell .modern-hero-copy .modern-eyebrow { color: #d6def0; font-size: 11px; }
+.basic-shell .modern-hero-copy h1 { margin: 18px 0; color: #fff; font-size: clamp(29px,3vw,42px); font-weight: 700 !important; line-height: 1.45; letter-spacing: normal; }
+.basic-shell .modern-hero-copy h1 em { color: #fff; font-style: normal; }
+.basic-shell .modern-hero-copy > p { margin: 0; color: #d5dcee; font-size: 14px; line-height: 1.85; }
+.basic-shell .modern-hero-actions { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+.basic-shell .modern-hero-copy .modern-primary-button { background: var(--service-gold) !important; color: var(--service-navy) !important; border: 1px solid var(--service-gold); }
+.basic-shell .modern-hero-copy .modern-primary-button:hover { background: #e8b957 !important; }
+.basic-shell .modern-hero-copy .modern-text-button { color: #fff; border-color: #7884a5; font-size: 12px; }
+.basic-shell .modern-trust-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 30px; padding: 18px 0 0; border: 0; border-top: 1px solid #4b5474; }
+.basic-shell .modern-trust-row span { flex: 0 1 auto; padding: 0; color: #d5dcee; font-size: 11px; border: 0; }
+.basic-shell .modern-trust-row svg { stroke: var(--service-gold); }
+.basic-shell .modern-status-card { margin: 0; padding: 28px; border: 1px solid var(--service-line); border-radius: 10px; background: #fff; box-shadow: 0 3px 14px rgba(33,42,77,.035); min-width: 0; }
+.basic-shell .modern-card-icon { display: grid; place-items: center; background: #edf2fa !important; color: var(--service-blue) !important; border-radius: 7px; width: 40px; height: 40px; margin-bottom: 16px; }
+.basic-shell .modern-card-icon svg { width: 22px; height: 22px; }
+.basic-shell .modern-status-card h2 { font-size: 22px; margin: 6px 0 10px; }
+.basic-shell .modern-status-card > p { font-size: 13px; margin-bottom: 20px; color: var(--service-muted); }
+.basic-shell .modern-status-form label { margin-bottom: 6px; font-size: 12px; color: var(--service-ink); }
+.basic-shell .modern-status-form .modern-input-wrap { margin-bottom: 14px; }
+.basic-shell .modern-input-wrap input, .basic-shell .status-search-input input { width: 100%; min-width: 0; height: 46px; border: 1px solid #cdd3e1 !important; border-radius: 6px !important; background: #fff !important; color: var(--service-ink); font-size: 14px !important; }
+.basic-shell .modern-status-form button { width: 100%; margin-top: 4px; height: 44px; border-radius: 6px; box-shadow: none; background: var(--service-blue); }
+.basic-shell .modern-how { padding: 32px 0 0; }
+.basic-shell .modern-section-heading { display: block; margin-bottom: 16px; }
+.basic-shell .modern-section-heading span { display: block; color: var(--service-muted); margin-bottom: 5px; }
+.basic-shell .modern-section-heading h2 { font-size: 22px; margin: 0; }
+.basic-shell .modern-steps { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; border: 0; }
+.basic-shell .modern-steps article { position: relative; display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 4px 14px; padding: 22px; background: #fff; border: 1px solid var(--service-line); border-radius: 8px; box-shadow: none; }
+.basic-shell .modern-steps article > b { position: absolute; right: 16px; top: 12px; margin: 0; color: #9a741e; font-size: 10px; }
+.basic-shell .modern-step-icon { display: grid; place-items: center; grid-row: 1 / 3; margin: 0; width: 40px; height: 40px; border-radius: 7px; background: #eaf0fa; color: var(--service-blue); }
+.basic-shell .modern-step-icon svg { width: 22px; height: 22px; }
+.basic-shell .modern-steps h3 { font-size: 14px; padding-right: 10px; margin: 0 0 5px; }
+.basic-shell .modern-steps p { font-size: 12px; line-height: 1.7; margin: 0; }
+.basic-shell .public-services { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; padding-block: 24px 44px; }
+.public-services > a { display: flex; align-items: center; gap: 12px; padding: 18px; background: #edf2fa; border: 1px solid #e0e7f3; border-radius: 8px; color: var(--service-blue); text-decoration: none; }
+.public-services > a:hover { background: #e3eaf6; }
+.public-services > a > div { min-width: 0; flex: 1; }
+.public-services .public-service-number { color: #8792ab; font-size: 11px; }
+.public-services h2 { margin: 0 0 4px; font-size: 13px; }
+.public-services p { font-size: 11px; line-height: 1.7; margin: 0; color: var(--service-muted); }
+.basic-shell .public-footer { background: #fff; border-top: 1px solid var(--service-line); padding: 24px 0; }
+.public-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.public-footer strong { font-size: 12px; color: var(--service-blue); }
+.public-footer p { margin: 4px 0 0; color: var(--service-muted); font-size: 11px; }
+.public-footer nav { display: flex; gap: 12px 22px; flex-wrap: wrap; }
+.public-footer a { color: var(--service-blue); font-size: 11px; text-decoration: none; }
+.public-footer a:hover { text-decoration: underline; }
+
+/* Registration: primary form first, supporting guidance alongside it. */
+.basic-shell :is(.modern-registration-page,.rules-page,.status-page,.public-info-page,.modern-content-page) { padding: 28px 0 44px; }
+.basic-shell .modern-breadcrumb { margin: 0 0 20px; color: var(--service-muted); font-size: 11px; }
+.basic-shell :is(.modern-registration-header,.public-info-hero,.status-hero,.rules-hero) { margin: 0 0 24px; padding: 0; border: 0; }
+.basic-shell :is(.modern-registration-header,.public-info-hero) { display: flex; align-items: center; gap: 20px; }
+.basic-shell :is(.modern-registration-header h1,.public-info-hero h1,.status-hero h1,.rules-hero h1,.modern-content-card h1) { color: var(--service-navy); font-size: clamp(26px,3vw,34px); line-height: 1.5; margin: 8px 0; }
+.basic-shell :is(.modern-registration-header p,.public-info-hero p,.status-hero p,.rules-hero p) { font-size: 13px; color: var(--service-muted); line-height: 1.85; }
+.basic-shell .modern-registration-layout { display: grid; grid-template-columns: minmax(0,1fr) 270px; gap: 24px; align-items: start; }
+.basic-shell .modern-form-card { grid-column: 1; grid-row: 1; min-width: 0; overflow: visible; border: 1px solid var(--service-line); border-radius: 8px; background: #fff; box-shadow: 0 3px 14px rgba(33,42,77,.035); }
+.basic-shell .modern-registration-aside { grid-column: 2; grid-row: 1; position: sticky; top: 104px; padding: 20px; border: 1px solid var(--service-line); border-radius: 8px; background: #fff; }
+.basic-shell .modern-registration-aside h2 { font-size: 14px; margin: 0 0 12px; }
+.basic-shell .modern-registration-aside ul { display: block; padding: 0; }
+.basic-shell .modern-registration-aside li { padding: 12px 0; font-size: 12px; line-height: 1.7; border-bottom: 1px solid #edf0f5; }
+.basic-shell .modern-security-note { background: #edf2fa; padding: 12px; border-radius: 6px; margin-top: 16px; }
+.basic-shell .modern-security-note p { font-size: 11px; }
+.basic-shell .modern-form-card-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; padding: 16px 24px; border-bottom: 1px solid #edf0f5; border-radius: 8px 8px 0 0; background: #fafbfe; }
+.basic-shell .modern-form-card-head span { font-size: 14px; color: var(--service-navy); font-weight: 600; }
+.basic-shell .modern-form-card-head small { font-size: 11px; color: var(--service-muted); }
+.basic-shell .modern-form-card #children-form { padding: 24px; }
+.basic-shell #children-form div:has(> .MuiStepper-root) { padding: 0; }
+.basic-shell #children-form div:has(> .MuiStepper-root) > div:first-child { padding: 0; margin: 0 0 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.basic-shell #children-form div:has(> .MuiStepper-root) > div:first-child strong { font-size: 15px; color: var(--service-navy); }
+.basic-shell #children-form div:has(> .MuiStepper-root) > div:first-child span { font-size: 12px; color: var(--service-muted); line-height: 1.7; }
+.basic-shell #children-form div:has(> .MuiStepper-root) > div:first-child > span { flex: 0 0 auto; border-radius: 5px; padding: 5px 9px; background: #edf2fa; color: var(--service-blue); }
+.basic-shell #children-form .MuiStepper-root { padding: 18px 8px 22px !important; margin-bottom: 24px !important; background: #f7f9fd !important; border: 1px solid #edf0f5; border-radius: 7px; }
+.basic-shell #children-form .MuiStepIcon-root { width: 28px !important; height: 28px !important; color: #d9dfeb; }
+.basic-shell #children-form .MuiStepIcon-active { color: var(--service-blue) !important; filter: none !important; }
+.basic-shell #children-form .MuiStepIcon-completed { color: #23735f !important; }
+.basic-shell #children-form .MuiStepLabel-label { font-size: 11px !important; line-height: 1.5; margin-top: 8px; color: #6c7890; }
+.basic-shell #children-form .MuiStepLabel-active { color: var(--service-navy) !important; }
+.basic-shell #children-form .MuiStepConnector-line { border-color: #cfd7e7; }
+.basic-shell #children-form .registration-section-heading { margin-bottom: 20px; gap: 12px; }
+.basic-shell #children-form .registration-section-heading > span { background: #edf2fa !important; color: var(--service-blue) !important; width: 36px; height: 36px; border-radius: 6px; }
+.basic-shell #children-form .registration-section-heading h5 { color: var(--service-navy); font-size: 16px !important; }
+.basic-shell #children-form .registration-section-heading p { font-size: 12px; line-height: 1.7; color: var(--service-muted); }
+.basic-shell #children-form .MuiFormControl-root { width: 100%; padding: 10px 14px 6px; border: 1px solid #cdd3e1; border-radius: 6px; background: #fff; min-width: 0; }
+.basic-shell #children-form .MuiFormControl-root:focus-within { border-color: var(--service-blue); box-shadow: 0 0 0 3px #edf0f8; }
+.basic-shell #children-form .MuiFormControl-root:has(.Mui-error) { border-color: #b43c49; background: #fffafa; }
+.basic-shell #children-form .MuiInputLabel-root { font-size: 14px; color: #65718a; }
+.basic-shell #children-form .MuiInputLabel-shrink { transform: translate(0,0) scale(.85); }
+.basic-shell #children-form .MuiInputBase-root { color: var(--service-ink); font-size: 14px; margin-top: 16px; min-height: 30px; }
+.basic-shell #children-form .MuiInputBase-input { min-width: 0; }
+.basic-shell #children-form .MuiFormHelperText-root { font-size: 11px; line-height: 1.6; }
+.basic-shell #children-form .Mui-error { color: #a82938; }
+.basic-shell #children-form .MuiSelect-root { white-space: normal; overflow-wrap: anywhere; padding-right: 28px; }
+.basic-shell #children-form .MuiButton-root { min-height: 44px; border-radius: 6px !important; box-shadow: none !important; text-transform: none; font-size: 13px; padding: 10px 18px; }
+.basic-shell #children-form .MuiButton-containedPrimary { background: var(--service-blue) !important; color: #fff !important; }
+.basic-shell #children-form .MuiButton-containedPrimary:hover { background: var(--service-navy) !important; }
+.basic-shell #children-form .MuiButton-containedPrimary.Mui-disabled { background: #dfe3ec !important; color: #707b93 !important; }
+.basic-shell #children-form form > div:last-child { padding: 18px 0 0; margin-top: 24px; border-top: 1px solid #edf0f5; gap: 12px; }
+.basic-shell .registration-waiting-note { border: 1px solid #ead9b6; border-left: 3px solid var(--service-gold); background: #fffaf0; color: #6a542b; border-radius: 6px; font-size: 12px; }
+.basic-shell .registration-success { padding: 24px 12px; }
+.basic-shell .registration-success h5 { font-size: 22px !important; color: var(--service-navy); }
+.basic-shell .registration-success p { font-size: 13px; }
+.basic-shell .registration-success-icon--waiting { background: #f8f0e1 !important; color: #9b6c18 !important; }
+.basic-shell :is(.registration-queue-position,.registration-result-status) { min-width: min(220px,100%); margin: 4px auto 12px; padding: 12px 18px; border: 1px solid var(--service-line); border-radius: 8px; background: #f7f7fb; }
+.basic-shell :is(.registration-queue-position,.registration-result-status) span { display: block; color: var(--service-muted); font-size: 11px; }
+.basic-shell .registration-queue-position strong { display: block; margin-top: 3px; color: var(--service-blue); font-size: 28px; line-height: 1.3; }
+.basic-shell .registration-result-status strong { display: block; margin-top: 4px; color: var(--service-blue); font-size: 16px; }
+.basic-shell .MuiPopover-paper { max-width: calc(100vw - 24px); border: 1px solid var(--service-line); border-radius: 7px; box-shadow: 0 8px 28px #212a4d20; }
+.basic-shell .MuiMenuItem-root { white-space: normal; font-size: 13px; line-height: 1.7; padding: 10px 16px; }
+
+/* Information, status results, secure actions and authentication. */
+.basic-shell :is(.status-search-card,.rules-document,.public-info-card,.public-contact-aside,.modern-content-card,.modern-action-card) { background: #fff; border: 1px solid var(--service-line); border-radius: 8px; box-shadow: 0 3px 14px rgba(33,42,77,.035); }
+.basic-shell .status-page__container { max-width: 1000px; }
+.basic-shell .status-search-card form { padding: 24px; }
+.basic-shell .status-search-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto; gap: 12px; }
+.basic-shell .status-search-row > * { min-width: 0; }
+.basic-shell .status-search-row button { padding: 0 18px; border-radius: 6px; background: var(--service-blue); }
+.basic-shell .status-search-card label { font-size: 13px; color: var(--service-navy); }
+.basic-shell .status-search-card small { color: var(--service-muted); font-size: 11px; }
+.basic-shell .status-result-card { border-radius: 8px; box-shadow: none; }
+.basic-shell .status-result-card p, .basic-shell .status-not-found p { font-size: 13px; }
+.basic-shell .status-not-found--expired { margin-top: 72px; }
+.basic-shell .status-not-found__action { margin-top: 16px; }
+.basic-shell .status-details { gap: 12px; border: 0; }
+.basic-shell .status-details article { border: 1px solid var(--service-line); border-radius: 7px; }
+.basic-shell .status-details span { font-size: 11px; }
+.basic-shell .status-details strong { font-size: 13px; }
+.basic-shell .rules-highlights { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; background: transparent; border: 0; }
+.basic-shell .rules-highlights article { border: 1px solid var(--service-line); border-radius: 8px; padding: 18px; background: #fff; }
+.basic-shell .rules-highlights article > span { width: 36px; height: 36px; background: #edf2fa; color: var(--service-blue); border-radius: 6px; }
+.basic-shell .rules-highlights p { font-size: 12px; }
+.basic-shell :is(.rules-document header,.public-info-card__top,.modern-content-card > header) { padding: 20px 24px; background: #fafbfe; border-bottom: 1px solid #edf0f5; }
+.basic-shell :is(.rules-document__body,.public-info-card__body,.modern-content-body) { padding: 24px; font-size: 14px; line-height: 1.95; color: #4c5870; overflow-wrap: anywhere; }
+.basic-shell .public-info-layout--contact { grid-template-columns: minmax(0,1fr) 300px; gap: 24px; }
+.basic-shell .public-info-card__top { flex-wrap: wrap; gap: 10px; }
+.basic-shell .public-info-card__top time { font-size: 11px; color: var(--service-muted); }
+.basic-shell .public-contact-aside { padding: 24px; }
+.basic-shell .public-contact-aside h2 { font-size: 18px; }
+.basic-shell .public-contact-aside p { font-size: 13px; line-height: 1.85; }
+.basic-shell .public-info-icon { background: #eaf0fa; color: var(--service-blue); width: 48px; height: 48px; border-radius: 8px; }
+.basic-shell .modern-action-page { padding: 40px 24px; }
+.basic-shell .modern-action-card { padding: 32px; width: min(660px,100%); }
+.basic-shell .modern-action-card h1 { color: var(--service-navy); font-size: 26px; }
+.basic-shell .modern-action-icon { width: 56px; height: 56px; border-radius: 8px; }
+.basic-shell .modern-action-primary { background: var(--service-blue); border-radius: 6px; }
+.basic-shell .modern-action-danger { border-radius: 6px; }
+.basic-shell .modern-action-deadline { background: #f1f4fa; border-radius: 6px; gap: 12px; }
+.basic-shell .modern-upload-form label { border-radius: 6px; padding: 16px; flex-wrap: wrap; }
+.basic-shell .modern-upload-form input { max-width: 100%; }
+.basic-shell .modern-action-note { color: var(--service-muted); font-size: 11px; }
+.basic-shell .modal-content { border-radius: 8px; border: 1px solid var(--service-line); }
+.basic-shell .modal-header,.basic-shell .modal-footer { padding: 16px 20px; border-color: #edf0f5; }
+.basic-shell .modal-body { padding: 20px; font-size: 14px; line-height: 1.9; }
+.login-shell .modern-auth-page { padding: 32px 24px; background: var(--service-bg); min-height: 100dvh; }
+.login-shell .modern-auth-card { grid-template-columns: .9fr 1.1fr; border: 1px solid var(--service-line); border-radius: 10px; box-shadow: 0 8px 32px #212a4d0b; }
+.login-shell .modern-auth-brand { padding: 40px; background: var(--service-navy) !important; }
+.login-shell .modern-auth-brand::after { content: none; }
+.login-shell .modern-auth-brand h1 { font-size: 27px; }
+.login-shell .modern-auth-brand > span { color: #e7bc68; }
+.login-shell .modern-auth-logo { border-radius: 8px; width: 52px; height: 52px; margin-bottom: 24px; }
+.login-shell .modern-auth-form { padding: 40px; min-width: 0; }
+.login-shell .modern-auth-form h2 { font-size: 24px; line-height: 1.5; color: var(--service-navy); }
+.login-shell .modern-auth-form > p { font-size: 13px; }
+.login-shell .modern-auth-field label { font-size: 12px; }
+.login-shell .modern-auth-field input { height: 46px; background: #fff; border: 1px solid #cdd3e1; border-radius: 6px; font-size: 14px; }
+.login-shell .modern-auth-submit { height: 46px; background: var(--service-blue) !important; border-radius: 6px; box-shadow: none; }
+.login-shell .modern-auth-options { font-size: 12px; flex-wrap: wrap; gap: 12px; }
+.login-shell .modern-auth-back { display: block; width: fit-content; font-size: 12px; margin-bottom: 28px; }
+.login-shell .modern-auth-form > .modern-card-kicker { display: block; }
+.login-shell .modern-auth-field small { font-size: 12px; }
+
+/* Standalone system error pages intentionally avoid application data and scripts. */
+.service-error-page { min-height: 100dvh; display: grid; place-items: center; box-sizing: border-box; margin: 0; padding: 32px 20px; background: var(--service-bg); color: var(--service-ink); font-family: 'Noto Sans Georgian', sans-serif; }
+.service-error-page *, .service-error-page *::before, .service-error-page *::after { box-sizing: border-box; }
+.service-error-card { width: min(620px,100%); padding: 36px; background: #fff; border: 1px solid var(--service-line); border-radius: 10px; box-shadow: 0 10px 34px rgba(33,42,77,.06); }
+.service-error-code { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; margin-bottom: 20px; border-radius: 5px; background: #edf2fa; color: var(--service-blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.service-error-card h1 { margin: 0 0 12px; color: var(--service-navy); font-size: clamp(26px,4vw,36px); line-height: 1.45; }
+.service-error-card p { margin: 0; color: var(--service-muted); font-size: 14px; line-height: 1.9; }
+.service-error-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.service-error-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 18px; border: 1px solid var(--service-blue); border-radius: 6px; background: var(--service-blue); color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; }
+.service-error-actions a:hover { background: var(--service-navy); border-color: var(--service-navy); color: #fff; }
+
+@media (max-width: 1000px) {
+    .basic-shell .public-nav-inner { min-height: 72px; }
+    .basic-shell .public-menu-toggle { display: flex !important; flex: 0 0 40px; align-items: center; justify-content: center; flex-direction: column; gap: 4px; width: 40px; height: 40px; padding: 10px; background: #edf2fa; border: 0; border-radius: 6px; }
+    .basic-shell .public-menu-toggle span { display: block; width: 20px; height: 2px; background: var(--service-blue); }
+    .basic-shell .public-nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; padding: 16px 24px; background: #fff; border-bottom: 1px solid var(--service-line); box-shadow: 0 10px 20px #212a4d0a; }
+    .basic-shell .public-nav-menu.is-open { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .basic-shell .public-nav-menu .public-nav-cta { margin: 0; }
+    .basic-shell .modern-hero-grid { grid-template-columns: minmax(0,1fr) minmax(280px,.9fr); gap: 16px; }
+    .basic-shell .modern-hero-copy { padding: 28px; }
+    .basic-shell .modern-steps, .basic-shell .public-services { grid-template-columns: 1fr; }
+    .basic-shell .modern-registration-layout { grid-template-columns: minmax(0,1fr); gap: 20px; }
+    .basic-shell .modern-registration-aside { grid-column: 1; grid-row: 2; position: static; display: block; }
+    .basic-shell .modern-registration-aside ul { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+    .basic-shell .modern-registration-aside li { border: 0; }
+    .basic-shell .rules-highlights { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .public-footer-inner { align-items: flex-start; flex-direction: column; gap: 16px; }
+}
+@media (max-width: 700px) {
+    .modern-public-container, .public-nav-inner { width: calc(100% - 32px); }
+    .basic-shell .modern-hero-grid { grid-template-columns: minmax(0,1fr); gap: 16px; }
+    .basic-shell .modern-home { padding-top: 20px; }
+    .basic-shell .modern-hero-copy { padding: 26px 22px; }
+    .basic-shell .modern-hero-copy h1 { font-size: 30px; }
+    .basic-shell .modern-hero-copy .modern-primary-button { width: 100%; justify-content: center; }
+    .basic-shell .modern-status-card { padding: 22px; }
+    .basic-shell :is(.modern-registration-header,.public-info-hero) { align-items: flex-start; flex-wrap: wrap; }
+    .basic-shell .modern-registration-header h1 { font-size: 26px; }
+    .basic-shell .modern-rules-button { margin: 0; }
+    .basic-shell .modern-form-card-head { padding: 16px; }
+    .basic-shell .modern-form-card #children-form { padding: 18px 14px; }
+    .basic-shell #children-form div:has(> .MuiStepper-root) > div:first-child { flex-direction: column; gap: 10px; }
+    .basic-shell #children-form .MuiStepper-root { padding: 14px 0 !important; }
+    .basic-shell #children-form .MuiStep-root { padding-inline: 3px; min-width: 0; flex: 1 1 0; }
+    .basic-shell #children-form .MuiStepLabel-label { font-size: 10px !important; overflow-wrap: anywhere; }
+    .basic-shell #children-form .MuiStepIcon-root { width: 24px !important; height: 24px !important; }
+    .basic-shell #children-form .MuiStepConnector-alternativeLabel { top: 12px; }
+    .basic-shell #children-form .MuiButton-root { min-width: 0; padding: 10px 12px; font-size: 12px; }
+    .basic-shell .modern-registration-aside ul { display: block; }
+    .basic-shell .modern-registration-aside li + li { border-top: 1px solid #edf0f5; }
+    .basic-shell .status-search-row, .basic-shell .status-details, .basic-shell .public-info-layout--contact { grid-template-columns: minmax(0,1fr); }
+    .basic-shell .status-search-card form { padding: 18px; }
+    .basic-shell .status-search-row button { min-height: 44px; }
+    .basic-shell .status-hero h1 br { display: none; }
+    .basic-shell :is(.rules-document__body,.public-info-card__body,.modern-content-body,.rules-document header,.public-info-card__top,.modern-content-card > header) { padding: 20px; }
+    .basic-shell .rules-highlights article { display: block; }
+    .basic-shell .modern-action-page { padding: 28px 16px; }
+    .basic-shell .modern-action-card { padding: 24px 20px; }
+    .basic-shell .modern-action-card h1 { font-size: 23px; }
+    .basic-shell .modern-action-buttons { grid-template-columns: 1fr; }
+    .login-shell .modern-auth-page { padding: 20px 16px; }
+    .login-shell .modern-auth-card { grid-template-columns: minmax(0,1fr); }
+    .login-shell .modern-auth-brand { padding: 24px; }
+    .login-shell .modern-auth-brand h1 { font-size: 23px; }
+    .login-shell .modern-auth-brand p { display: none; }
+    .login-shell .modern-auth-logo { margin-bottom: 14px; width: 40px; height: 40px; }
+    .login-shell .modern-auth-form { padding: 24px; }
+}
+@media (max-width: 400px) {
+    .basic-shell .public-brand strong { font-size: 11px; }
+    .basic-shell .public-brand-mark { width: 36px; height: 36px; flex-basis: 36px; }
+    .basic-shell .public-nav-inner { gap: 12px; }
+    .basic-shell .public-nav-menu.is-open, .basic-shell .rules-highlights { grid-template-columns: 1fr; }
+    .basic-shell #children-form .MuiStepLabel-label { font-size: 9px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .basic-shell *, .login-shell * { scroll-behavior: auto !important; transition: none !important; }
+}

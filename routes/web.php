@@ -14,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Auth::routes(['register' => false]);
+Route::get('/login', 'Auth\\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\\LoginController@login');
+Route::post('/logout', 'Auth\\LoginController@logout')->name('logout');
+Route::get('/password/reset', 'Auth\\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('/password/email', 'Auth\\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('/password/reset/{token}', 'Auth\\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('/password/reset', 'Auth\\ResetPasswordController@reset')->name('password.update');
+Route::get('/password/confirm', 'Auth\\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
+Route::post('/password/confirm', 'Auth\\ConfirmPasswordController@confirm');
 
 Route::get('/', 'PublicSiteController@home')->name('public.home');
 Route::get('/kids-registration', 'ChildrenController@index')->name('children');
+Route::view('/registration-rules', 'public.rules')->name('public.registration-rules');
 Route::get('/home-public', 'PublicSiteController@home')->name('public.home.alias');
 Route::get('/about', 'PublicSiteController@show')->name('public.about')->defaults('slug', 'about');
 Route::get('/contact', 'PublicSiteController@show')->name('public.contact')->defaults('slug', 'contact');
@@ -28,9 +37,12 @@ Route::post('/status-tracker', 'PublicSiteController@statusTracker')->middleware
 Route::group(['middleware' => ['auth', 'check']], function () {
 
   Route::get('/home', 'HomeController@index')->name('home');
-  Route::view('/guide', 'guide.index')->name('guide.index');
+  Route::view('/structure', 'hubs.structure')->middleware('role:union_admin')->name('structure.index');
+  Route::view('/control-center', 'hubs.control-center')->middleware('role:union_admin')->name('control-center.index');
+  Route::view('/guide', 'guide.index')->middleware('role:union_admin')->name('guide.index');
   Route::get('/profile', 'ProfileController@edit')->name('profile.edit');
   Route::patch('/profile', 'ProfileController@update')->name('profile.update');
+  Route::post('/guided-tour/complete', 'GuidedTourController@complete')->name('guided-tour.complete');
 
   Route::prefix('auth')->namespace('Auth')->middleware('role:union_admin')->name('users.')->group(function () {
     Route::get('register', 'RegisterController@showRegistrationForm')->name('create');
@@ -81,6 +93,7 @@ Route::group(['middleware' => ['auth', 'check']], function () {
 
   Route::namespace('API')->prefix('kindergarteners')->name('kindergarteners.')->group(function () {
     Route::get('', 'KindergartenerController@index')->name('index');
+    Route::get('data', 'KindergartenerController@dataTable')->name('data');
     Route::get('show/{id?}', 'KindergartenerController@show')->name('show');
     Route::post('store', 'KindergartenerController@store')->name('store');
     Route::post('order', 'KindergartenerController@order')->middleware('role:union_admin')->name('order');
@@ -96,6 +109,7 @@ Route::group(['middleware' => ['auth', 'check']], function () {
     Route::post('learning-start', 'SettingController@learningStart')->name('learningStart');
     Route::post('learning-end', 'SettingController@learningEnd')->name('learningEnd');
     Route::post('learning', 'SettingController@learning')->name('learning');
+    Route::get('porting-preview', 'SettingController@portingPreview')->name('porting-preview');
   });
 
   Route::prefix('registration-texts')->name('registration-texts.')->middleware('role:union_admin')->group(function () {
@@ -112,10 +126,17 @@ Route::group(['middleware' => ['auth', 'check']], function () {
   });
 
   Route::prefix('audit-logs')->name('audit-logs.')->middleware('role:union_admin')->group(function () {
-    Route::get('', 'AuditLogController@index')->name('index');
+  Route::get('', 'AuditLogController@index')->name('index');
+  Route::get('export', 'AuditLogController@export')->name('export');
   });
   Route::get('/operations', 'OperationsController@index')->middleware('role:union_admin')->name('operations.index');
+  Route::get('/registration-analytics', 'RegistrationAnalyticsController@index')->middleware('role:union_admin')->name('analytics.registration');
+  Route::get('/system-health', 'SystemHealthController@index')->middleware('role:union_admin')->name('system-health.index');
+  Route::get('/data-quality', 'DataQualityController@index')->middleware('role:union_admin')->name('data-quality.index');
+  Route::post('/data-quality/scan', 'DataQualityController@scan')->middleware('role:union_admin')->name('data-quality.scan');
+  Route::get('/data-quality/{issue}/edit', 'DataQualityController@edit')->middleware('role:union_admin')->name('data-quality.edit');
   Route::post('/operations/process-waiting-list', 'OperationsController@processWaitingList')->middleware('role:union_admin')->name('operations.process-waiting-list');
+  Route::post('/operations/notifications/{id}/resend', 'OperationsController@resendNotification')->middleware('role:union_admin')->name('operations.notifications.resend');
 
   Route::get('/attendance', 'AttendanceController@index')->name('attendance.index');
   Route::post('/attendance', 'AttendanceController@store')->name('attendance.store');
@@ -135,3 +156,4 @@ Route::get('/placement-offers/{token}', 'PlacementOfferController@show')->name('
 Route::post('/placement-offers/{token}', 'PlacementOfferController@respond')->middleware('throttle:10,1')->name('placement-offers.respond');
 Route::get('/reinstatement/{token}', 'ReinstatementController@show')->name('reinstatement.show');
 Route::post('/reinstatement/{token}', 'ReinstatementController@store')->middleware('throttle:5,1')->name('reinstatement.store');
+Route::get('/s/{code}', 'ShortActionLinkController@show')->where('code', '[A-Za-z0-9]{20}')->name('short-action-links.show');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\MailtrapEmailService;
+use App\Services\SmsOfficeService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Mailtrap\Helper\ResponseHelper;
@@ -57,3 +58,36 @@ Artisan::command('mailtrap:test', function (MailtrapEmailService $mailtrap) {
 
     return Command::SUCCESS;
 })->purpose('Send a transactional test email through Mailtrap');
+
+Artisan::command('smsoffice:test {--to=}', function (SmsOfficeService $smsOffice) {
+    $recipient = $this->option('to') ?: config('services.smsoffice.test_recipient');
+    if (!$recipient) {
+        $this->error('Set SMSOFFICE_TEST_RECIPIENT or pass --to=9955XXXXXXXX.');
+        return Command::FAILURE;
+    }
+
+    $reference = 'sms-test-'.now()->format('His');
+    $result = $smsOffice->send($recipient, 'ბაგა-ბაღების პლატფორმის SMS ტესტი.', $reference);
+    $this->info('სატესტო SMS მიღებულია SMS Office-ის მიერ.');
+    $this->line('Reference: '.$reference);
+    $this->line(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    return Command::SUCCESS;
+})->purpose('Send a transactional test SMS through SMS Office');
+
+Artisan::command('smsoffice:status {reference} {--to=}', function (SmsOfficeService $smsOffice) {
+    $recipient = $this->option('to') ?: config('services.smsoffice.test_recipient');
+    if (!$recipient) {
+        $this->error('Set SMSOFFICE_TEST_RECIPIENT or pass --to=9955XXXXXXXX.');
+        return Command::FAILURE;
+    }
+
+    $result = $smsOffice->status($recipient, (string) $this->argument('reference'));
+    $this->line(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    return Command::SUCCESS;
+})->purpose('Check an SMS Office delivery status by reference');
+
+Artisan::command('smsoffice:callback-url', function () {
+    $token = \App\Http\Controllers\SmsOfficeCallbackController::callbackToken();
+    $this->line(url('/api/sms-office/callback/'.$token));
+    return Command::SUCCESS;
+})->purpose('Show the protected SMS Office delivery callback URL');

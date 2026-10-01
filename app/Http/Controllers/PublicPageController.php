@@ -128,7 +128,7 @@ class PublicPageController extends Controller
     private function homeMetaDefaults(string $title, ?string $body): array
     {
         return [
-            'nav_brand' => 'საბავშვო ბაღების გაერთიანება',
+            'nav_brand' => 'ბაღების გაერთიანება',
             'nav_about_label' => 'ჩვენ შესახებ',
             'nav_news_label' => 'განცხადება',
             'nav_rules_label' => 'წესები',

@@ -10,8 +10,9 @@ class PlacementOfferController extends Controller
     public function respond(Request $request,$token,ApplicationWorkflowService $workflow)
     {
         $data=$request->validate(['response'=>['required','in:accepted,declined']]);
-        DB::transaction(function()use($token,$data,$workflow){$offer=PlacementOffer::with('entry.kindergartener')->where('token_hash',hash('sha256',$token))->lockForUpdate()->firstOrFail();abort_if($offer->responded_at||$offer->expires_at->isPast(),410,'შეთავაზების ვადა ამოიწურა.');$offer->update(['responded_at'=>now(),'response'=>$data['response']]);if($data['response']==='accepted'){$workflow->acceptReservedPlacement($offer->entry->kindergartener,$offer->entry);}else{DB::table('kindergarten_group_age_range')->where('kindergarten_id',$offer->entry->kindergarten_id)->where('group_age_range',$offer->entry->group_id)->where('space_reserved','>',0)->decrement('space_reserved');$offer->entry->update(['state'=>'declined']);}},3);
+        $child=DB::transaction(function()use($token,$data,$workflow){$offer=PlacementOffer::with('entry.kindergartener')->where('token_hash',hash('sha256',$token))->lockForUpdate()->firstOrFail();abort_if($offer->responded_at||$offer->expires_at->isPast(),410,'შეთავაზების ვადა ამოიწურა.');$offer->update(['responded_at'=>now(),'response'=>$data['response']]);if($data['response']==='accepted'){$workflow->acceptReservedPlacement($offer->entry->kindergartener,$offer->entry);}else{$workflow->transition($offer->entry->kindergartener,ApplicationWorkflowService::CANCELLED,'Placement offer declined');}return $offer->entry->kindergartener;},3);
+        if($data['response']==='declined') app(\App\Services\ParentNotificationService::class)->send($child,'placement_offer_declined','ადგილის შეთავაზება უარყოფილია','თქვენ უარყავით ადგილის შეთავაზება. ადგილი გადაეცემა მომდევნო კანდიდატს.');
         return view('parent.offer-result',['accepted'=>$data['response']==='accepted']);
     }
-    private function offer($token){return PlacementOffer::with('entry.kindergartener')->where('token_hash',hash('sha256',$token))->firstOrFail();}
+    private function offer($token){$offer=PlacementOffer::with('entry.kindergartener')->where('token_hash',hash('sha256',$token))->firstOrFail();abort_if($offer->responded_at||$offer->expires_at->isPast(),410,'შეთავაზების ვადა ამოიწურა.');return $offer;}
 }

@@ -37,4 +37,12 @@ return [
         'test_recipient' => env('MAILTRAP_TEST_RECIPIENT'),
     ],
 
+    'smsoffice' => [
+        'enabled' => env('SMSOFFICE_ENABLED', false),
+        'api_key' => env('SMSOFFICE_API_KEY'),
+        'sender' => env('SMSOFFICE_SENDER', 'Bagebi'),
+        'urgent' => env('SMSOFFICE_URGENT', false),
+        'test_recipient' => env('SMSOFFICE_TEST_RECIPIENT'),
+    ],
+
 ];

@@ -19,7 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // Public registration is served from this application's own domain.
+    // Additional approved origins can be configured as a comma-separated list.
+    'allowed_origins' => array_values(array_filter(array_map('trim', explode(',', env('CORS_ALLOWED_ORIGINS', env('APP_URL', 'https://gaep.store')))))),
 
     'allowed_origins_patterns' => [],
 

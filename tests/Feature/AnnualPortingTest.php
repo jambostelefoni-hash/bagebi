@@ -52,6 +52,16 @@ class AnnualPortingTest extends TestCase
         parent::tearDown();
     }
 
+    public function test_preview_catches_missing_target_capacity_for_waiting_child(): void
+    {
+        $this->child(10, 'waiting');
+        DB::table('kindergarten_group_age_range')->where('kindergarten_id',$this->garden)->where('group_age_range',30)->delete();
+        $preview = app(AnnualPortingService::class)->preview();
+        $this->assertNotEmpty($preview['errors']);
+        $this->assertStringContainsString('ზღვარი არ აქვს მითითებული', implode(' ', $preview['errors']));
+        $this->rejected();
+    }
+
     private function child(int $group, string $status = 'enrolled'): Kindergartener
     {
         return Kindergartener::create(['kindergarten_id' => $this->garden, 'municipality_id' => $this->municipality,

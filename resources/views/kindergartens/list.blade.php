@@ -1,5 +1,69 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="content-header modern-page-header"><div class="container-fluid"><div class="page-heading-row"><div><span class="dashboard-eyebrow">სტრუქტურა და ტევადობა</span><h1>საბავშვო ბაღები</h1><p>დაამატეთ ნებისმიერი რაოდენობის ბაღი და მართეთ ჯგუფების ზღვრული რაოდენობები.</p></div><a href="{{ route('kindergartens.show') }}" class="btn btn-success"><i class="fas fa-plus"></i> ახალი ბაღი</a></div></div></div>
-<section class="content"><div class="garden-grid">@forelse($model as $item)@php($capacity=$item->groupAgeRanges->sum('pivot.space_length'))@php($occupied=$item->occupied_children_count)@php($reserved=$item->groupAgeRanges->sum('pivot.space_reserved'))@php($free=max(0,$capacity-$occupied-$reserved))<article class="garden-card"><div class="garden-card__head"><span class="garden-card__icon"><i class="fas fa-school"></i></span><div><small>{{ optional($item->municipality)->name ?: 'მუნიციპალიტეტი არ არის მითითებული' }}</small><h2>{{ $item->name }}</h2></div><span class="capacity-state {{ $free<1?'capacity-state--full':'' }}">{{ $capacity < 1 ? 'ზღვარი მიუთითეთ' : ($occupied+$reserved > $capacity ? 'ზღვარი გადაჭარბებულია' : ($free>0?'აქტიური':'შევსებული')) }}</span></div><div class="garden-capacity"><div><small>ზღვარი</small><strong>{{ $capacity }}</strong></div><div><small>დაკავებული</small><strong>{{ $occupied }}</strong></div><div><small>დაჯავშნილი</small><strong>{{ $reserved }}</strong></div><div><small>თავისუფალი</small><strong>{{ $free }}</strong></div></div><div class="capacity-bar"><span style="width:{{ $capacity ? min(100,round((($occupied+$reserved)/$capacity)*100)) : 0 }}%"></span></div><div class="garden-groups">@foreach($item->groupAgeRanges as $group)<span>{{ $group->range }} · {{ $group->pivot->space_length }}</span>@endforeach</div><div class="garden-card__footer"><a href="{{ route('kindergartens.show',$item->id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> რედაქტირება</a><button type="button" class="btn btn-sm btn-outline-danger" data-href="{{ route('kindergartens.destroy',$item->id) }}" onclick="nottify(event)"><i class="fas fa-trash-alt"></i> წაშლა</button></div></article>@empty<div class="card garden-empty"><div class="empty-state"><i class="fas fa-school"></i><h3>ბაღები არ არის დამატებული</h3><p>შექმენით პირველი ბაღი და მიუთითეთ ჯგუფების ტევადობა.</p><a href="{{ route('kindergartens.show') }}" class="btn btn-success mt-3">ბაღის დამატება</a></div></div>@endforelse</div></section>
+<div class="content-header modern-page-header">
+    <div class="container-fluid">
+        <div class="page-heading-row">
+            <div>
+                <span class="dashboard-eyebrow">სტრუქტურა და ტევადობა</span>
+                <h1>საბავშვო ბაღები</h1>
+                <p>დაამატეთ ნებისმიერი რაოდენობის ბაღი და მართეთ ჯგუფების ზღვრული რაოდენობები.</p>
+            </div>
+<a href="{{ route('kindergartens.show') }}" class="btn btn-primary"><i class="fas fa-plus"></i> ახალი ბაღი</a>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="garden-grid">
+        @forelse($model as $item)
+            @php
+                $capacity = $item->groupAgeRanges->sum('pivot.space_length');
+                $occupied = $item->occupied_children_count;
+                $reserved = $item->groupAgeRanges->sum('pivot.space_reserved');
+                $free = max(0, $capacity - $occupied - $reserved);
+                $usage = $capacity ? min(100, round((($occupied + $reserved) / $capacity) * 100)) : 0;
+            @endphp
+            <article class="garden-card">
+                <div class="garden-card__head">
+                    <span class="garden-card__icon"><i class="fas fa-school"></i></span>
+                    <div>
+                        <small>{{ optional($item->municipality)->name ?: 'მუნიციპალიტეტი არ არის მითითებული' }}</small>
+                        <h2>{{ $item->name }}</h2>
+                    </div>
+                    <span class="capacity-state {{ $free < 1 ? 'capacity-state--full' : '' }}">
+                        {{ $capacity < 1 ? 'ზღვარი მიუთითეთ' : ($occupied + $reserved > $capacity ? 'ზღვარი გადაჭარბებულია' : ($free > 0 ? 'აქტიური' : 'შევსებული')) }}
+                    </span>
+                </div>
+                <div class="garden-capacity">
+                    <div><small>ზღვარი</small><strong>{{ $capacity }}</strong></div>
+                    <div><small>დაკავებული</small><strong>{{ $occupied }}</strong></div>
+                    <div><small>დაჯავშნილი</small><strong>{{ $reserved }}</strong></div>
+                    <div><small>თავისუფალი</small><strong>{{ $free }}</strong></div>
+                </div>
+                <div class="capacity-bar">
+                    <progress class="capacity-bar__progress" max="100" value="{{ $usage }}">{{ $usage }}%</progress>
+                </div>
+                <div class="garden-groups">
+                    @foreach($item->groupAgeRanges as $group)
+                        <span>{{ $group->range }} · {{ $group->pivot->space_length }}</span>
+                    @endforeach
+                </div>
+                <div class="garden-card__footer">
+                    <a href="{{ route('kindergartens.show', $item->id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> რედაქტირება</a>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-href="{{ route('kindergartens.destroy', $item->id) }}" data-confirm-action><i class="fas fa-trash-alt"></i> წაშლა</button>
+                </div>
+            </article>
+        @empty
+            <div class="card garden-empty">
+                <div class="empty-state">
+                    <i class="fas fa-school"></i>
+                    <h3>ბაღები არ არის დამატებული</h3>
+                    <p>შექმენით პირველი ბაღი და მიუთითეთ ჯგუფების ტევადობა.</p>
+<a href="{{ route('kindergartens.show') }}" class="btn btn-primary mt-3">ბაღის დამატება</a>
+                </div>
+            </div>
+        @endforelse
+    </div>
+</section>
 @endsection

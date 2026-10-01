@@ -22,8 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('API')->group(function () {
 
-  Route::post('/data-object', 'KindergartenerController@dataObject');
+  Route::post('/data-object', 'KindergartenerController@dataObject')->middleware('throttle:30,1');
   Route::post('/registration', 'KindergartenerController@publicStore')->middleware('throttle:10,1');
+  Route::post('/registration/check-personal-number', 'KindergartenerController@checkPersonalNumber')->middleware('throttle:10,1');
   Route::post('/find-kid', 'KindergartenerController@findKid')->middleware('throttle:10,1');
 
 });
+
+Route::match(['get', 'post'], '/sms-office/callback/{token}', 'SmsOfficeCallbackController')
+    ->middleware('throttle:120,1')
+    ->name('smsoffice.callback');

@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Illuminate\Pagination\Paginator::defaultView('partials.pagination');
         // Keep Laravel's standard /public directory. The old public_html path
         // breaks deployments where the application is installed as one folder.
         $setting_basic = collect();
@@ -39,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         }
         View::share('settings', ['basic' => $setting_basic->toArray(), 'date' => $setting_date->toArray()]);
 
-        $publicBrand = 'საბავშვო ბაღების გაერთიანება';
+        $publicBrand = 'ბაღების გაერთიანება';
         $publicNavLabels = [
             'about' => 'ჩვენ შესახებ',
             'news' => 'განცხადება',
@@ -77,8 +78,6 @@ class AppServiceProvider extends ServiceProvider
         View::share('publicRules', $publicRules);
     }
 }
-
-
 
 
 

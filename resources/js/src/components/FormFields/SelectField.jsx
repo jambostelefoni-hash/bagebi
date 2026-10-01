@@ -25,7 +25,9 @@ function SelectField(props) {
 
   function localhandler (e, objName) {
     setValue(e.target.value ? e.target.value : '')
-    handlechange(e.target.value, objName)
+    if (handlechange) {
+      handlechange(e.target.value, objName)
+    }
 
   }
 
@@ -36,7 +38,7 @@ function SelectField(props) {
         <MenuItem value=''>--- აირჩიეთ ---</MenuItem>
         {data.map((value, index) => (
           <MenuItem key={index} value={value.id}>
-            {!objName ? value.range : value.name}
+            {value.range || value.name}
           </MenuItem>
         ))}
       </Select>
@@ -57,6 +59,4 @@ SelectField.propTypes = {
 };
 
 export default SelectField;
-
-
 

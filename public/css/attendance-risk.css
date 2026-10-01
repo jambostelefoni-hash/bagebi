@@ -1,0 +1,17 @@
+.attendance-risk-panel{margin-top:12px;padding:13px;border:1px solid #ead8b2;border-radius:9px;background:#fffaf0}
+.attendance-risk-panel__head{display:flex;align-items:center;gap:9px}
+.attendance-risk-panel__head>span{width:32px;height:32px;display:grid;place-items:center;flex:0 0 32px;border-radius:8px;background:#f6e7c7;color:#8b651f}
+.attendance-risk-panel__head h3{margin:0;color:#62491e;font-size:.78rem;font-weight:800}
+.attendance-risk-panel__head p{margin:2px 0 0;color:#806c47;font-size:.63rem}
+.attendance-risk-list{display:grid;gap:6px;margin-top:11px}
+.attendance-risk-row{display:grid;grid-template-columns:minmax(180px,1fr) auto minmax(180px,auto) 12px;align-items:center;gap:12px;padding:9px 11px;border-left:3px solid #d9a441;border-radius:6px;background:#fff;color:#232842;text-decoration:none!important}
+.attendance-risk-row:hover{background:#fffdf8;color:#232842}
+.attendance-risk-row--critical{border-left-color:#b94f45;background:#fff8f7}
+.attendance-risk-person{display:flex;flex-direction:column;min-width:0}
+.attendance-risk-person b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.69rem}
+.attendance-risk-person small,.attendance-risk-counts small{color:#6d7185;font-size:.59rem}
+.attendance-risk-counts{display:flex;gap:10px}
+.attendance-risk-row>strong{color:#8b651f;font-size:.64rem;white-space:nowrap}
+.attendance-risk-row--critical>strong{color:#a13f37}
+.attendance-risk-row>.fa-chevron-right{color:#a7a9b4;font-size:.58rem}
+@media(max-width:700px){.attendance-risk-row{grid-template-columns:1fr 12px}.attendance-risk-counts,.attendance-risk-row>strong{grid-column:1}.attendance-risk-row>.fa-chevron-right{grid-column:2;grid-row:1/4}.attendance-risk-panel__head{align-items:flex-start}}

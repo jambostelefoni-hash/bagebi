@@ -1,16 +1,25 @@
-<nav class="public-nav" aria-label="მთავარი ნავიგაცია">
-    <div class="public-nav-inner">
-        <a class="public-brand" href="{{ route('public.home') }}" aria-label="მთავარ გვერდზე დაბრუნება">
-            <span class="public-brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 5c8 0 15 6 15 14 0 11-9 19-15 24-6-5-15-13-15-24C9 11 16 5 24 5Z"/><path d="M17 22c2-5 12-7 16 0M19 28c3 3 7 3 10 0"/></svg></span>
-            <span><strong>{{ $publicBrand ?? 'საბავშვო ბაღების გაერთიანება' }}</strong><small>ერთიანი სარეგისტრაციო პორტალი</small></span>
+<header class="portal-header" data-public-header>
+    <div class="portal-utility"><div class="portal-container"><span>სკოლამდელი განათლება · მშობლის პორტალი</span><a href="{{ route('login') }}">თანამშრომლის შესვლა <span aria-hidden="true">↗</span></a></div></div>
+    <div class="portal-container portal-masthead">
+        <a class="portal-brand" href="{{ route('public.home') }}" aria-label="მთავარ გვერდზე დაბრუნება">
+            @if(file_exists(public_path('images/logo.png')))
+                <img src="{{ asset('images/logo.png') }}?v={{ filemtime(public_path('images/logo.png')) }}" alt="" width="64" height="64">
+            @endif
+            <span><strong>{{ $publicBrand ?? config('app.name') }}</strong><small>ერთიანი სარეგისტრაციო სივრცე</small></span>
         </a>
-        <button class="public-menu-toggle" id="publicMenuToggle" type="button" aria-expanded="false" aria-controls="publicNavMenu" aria-label="მენიუს გახსნა"><span></span><span></span><span></span></button>
-        <div class="public-nav-menu" id="publicNavMenu">
-            <a href="{{ route('public.news') }}">{{ $publicNavLabels['news'] ?? 'განცხადებები' }}</a>
-            <button type="button" data-toggle="modal" data-target="#publicRulesModal">{{ $publicNavLabels['rules'] ?? 'წესები' }}</button>
-            <a href="{{ route('public.contact') }}">{{ $publicNavLabels['contact'] ?? 'კონტაქტი' }}</a>
-            <a href="{{ route('public.status-tracker') }}">{{ $publicNavLabels['status'] ?? 'სტატუსი' }}</a>
-            <a class="public-nav-cta" href="{{ url('/kids-registration') }}">რეგისტრაცია</a>
-        </div>
+        <a class="portal-header-help" href="{{ route('public.contact') }}"><span>გჭირდებათ დახმარება?</span><strong>დაგვიკავშირდით <span aria-hidden="true">↗</span></strong></a>
+        <button class="portal-menu-toggle" id="publicMenuToggle" type="button" aria-expanded="false" aria-controls="publicNavMenu" aria-label="მენიუს გახსნა"><span>მენიუ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
-</nav>
+    <nav class="portal-nav" id="publicNavMenu" aria-label="მთავარი ნავიგაცია">
+        <div class="portal-container portal-nav-inner">
+            <div class="portal-nav-links">
+                <a href="{{ route('public.home') }}" @if(request()->routeIs('public.home','public.home.alias')) aria-current="page" @endif>მთავარი</a>
+                <a href="{{ route('public.news') }}" @if(request()->routeIs('public.news')) aria-current="page" @endif>{{ $publicNavLabels['news'] ?? 'განცხადებები' }}</a>
+                <a href="{{ route('public.registration-rules') }}" @if(request()->routeIs('public.registration-rules')) aria-current="page" @endif>{{ $publicNavLabels['rules'] ?? 'წესები' }}</a>
+                <a href="{{ route('public.contact') }}" @if(request()->routeIs('public.contact')) aria-current="page" @endif>{{ $publicNavLabels['contact'] ?? 'კონტაქტი' }}</a>
+                <a href="{{ route('public.status-tracker') }}" @if(request()->routeIs('public.status-tracker*')) aria-current="page" @endif>{{ $publicNavLabels['status'] ?? 'სტატუსი' }}</a>
+            </div>
+            <a class="portal-nav-register" href="{{ route('children') }}" @if(request()->routeIs('children')) aria-current="page" @endif>{{ $publicNavLabels['register'] ?? 'რეგისტრაცია' }} <span aria-hidden="true">↗</span></a>
+        </div>
+    </nav>
+</header>

@@ -14,5 +14,5 @@
   <aside class="form-aside"><div class="aside-icon"><i class="fas fa-shield-alt"></i></div><h2>წვდომის უსაფრთხოება</h2><p>დირექტორი ხედავს მხოლოდ მისთვის მინიჭებული ბაღის ბავშვებს, ჯგუფებს, დასწრებასა და ანგარიშებს.</p><ul><li><i class="fas fa-check"></i> სხვა ბაღები იზოლირებულია</li><li><i class="fas fa-check"></i> ტევადობას მხოლოდ გაერთიანება მართავს</li><li><i class="fas fa-check"></i> მოქმედებები აუდიტში ინახება</li></ul></aside>
 </div>
 @push('scripts')
-<script>(function(){const role=document.getElementById('role'),field=document.getElementById('garden-field'),garden=document.getElementById('kindergarten_id');function sync(){const director=role.value==='director';field.hidden=!director;garden.required=director;if(!director)garden.value='';}role.addEventListener('change',sync);sync();})();</script>
+<script nonce="{{ $cspNonce }}">(function(){const role=document.getElementById('role'),field=document.getElementById('garden-field'),garden=document.getElementById('kindergarten_id');function sync(){const director=role.value==='director';field.hidden=!director;garden.required=director;if(!director)garden.value='';}role.addEventListener('change',sync);sync();})();</script>
 @endpush

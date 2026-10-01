@@ -16,11 +16,10 @@ function CheckoutSuccess(props) {
       ) : (
         <div className="registration-result-status"><span>განაცხადის სტატუსი</span><strong>{statusLabel}</strong></div>
       )}
-      <Typography variant="body2">შემდგომი ცვლილების შესახებ შეტყობინებას მითითებულ ელფოსტაზე მიიღებთ.</Typography>
+      <Typography variant="body2">შემდგომი ცვლილების შესახებ SMS შეტყობინებას მითითებულ მობილურ ნომერზე მიიღებთ.</Typography>
       <a href="/">მთავარ გვერდზე დაბრუნება →</a>
     </div>
   );
 }
 
 export default CheckoutSuccess;
-

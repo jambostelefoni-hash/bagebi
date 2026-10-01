@@ -1,0 +1,212 @@
+/* Unified administration navigation: a quiet, readable workspace surface. */
+.app-shell .main-sidebar {
+    width: 270px !important;
+    background: #fff !important;
+    border-right: 1px solid #e3e4f0;
+    box-shadow: 8px 0 28px rgba(33, 42, 77, .05) !important;
+}
+
+.app-shell .main-header,
+.app-shell .content-wrapper { margin-left: 270px !important; }
+
+.app-shell.sidebar-collapse .main-header,
+.app-shell.sidebar-collapse .content-wrapper { margin-left: 0 !important; }
+
+.app-shell.sidebar-collapse .main-sidebar {
+    margin-left: -270px !important;
+    transform: none !important;
+}
+
+.app-shell .brand-link {
+    align-items: center;
+    background: #fff !important;
+    border-bottom: 1px solid #e3e4f0 !important;
+}
+
+.app-shell .sidebar {
+    background: #fff;
+    padding: 16px 12px 32px !important;
+}
+
+.app-shell .sidebar-user {
+    background: #f7f7fb !important;
+    border: 1px solid #e3e4f0 !important;
+    border-radius: 10px;
+    margin: 0 0 16px;
+    padding: 11px;
+}
+
+.app-shell .nav-sidebar .nav-header {
+    color: #7a829b !important;
+    font-size: 10px;
+    letter-spacing: .06em;
+    padding: 14px 10px 6px;
+}
+
+.app-shell .nav-sidebar .nav-link {
+    border-radius: 8px !important;
+    color: #4a5270 !important;
+    margin: 3px 0 !important;
+    padding: 10px 11px !important;
+}
+
+.app-shell .nav-sidebar .nav-link p,
+.app-shell .nav-sidebar .nav-link .nav-icon { color: inherit !important; }
+
+.app-shell .nav-sidebar .nav-link:hover {
+    background: #f1f2f8 !important;
+    color: #333f6b !important;
+}
+
+.app-shell .nav-sidebar .nav-link.active {
+    background: #333f6b !important;
+    box-shadow: none !important;
+    color: #fff !important;
+}
+
+.app-shell .nav-treeview {
+    background: #f7f7fb !important;
+    border: 1px solid #e3e4f0 !important;
+    border-radius: 8px;
+    margin: 4px 0 7px;
+    padding: 4px !important;
+}
+
+.app-shell .nav-treeview .nav-link.active {
+    background: #e9eaf4 !important;
+    box-shadow: inset 3px 0 0 #d9a441 !important;
+    color: #333f6b !important;
+}
+
+.admin-menu-button {
+    align-items: center;
+    background: #f7f7fb;
+    border: 1px solid #e3e4f0;
+    color: #333f6b;
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.app-shell.sidebar-collapse .admin-menu-button {
+    display: inline-flex !important;
+    visibility: visible !important;
+}
+
+.admin-menu-button:hover,
+.admin-menu-button:focus-visible {
+    background: #f1f2f8;
+    border-color: #d9a441;
+    box-shadow: 0 0 0 3px rgba(217, 164, 65, .18);
+    outline: 0;
+}
+
+/* Consistent action feedback across every administrative screen. */
+.app-shell .btn,
+.admin-tour-trigger,
+.admin-profile-button,
+.admin-menu-button {
+    transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease, color .16s ease, transform .16s ease;
+}
+
+.app-shell .btn-primary:not(:disabled):hover,
+.app-shell .btn-success:not(:disabled):hover,
+.app-shell .btn-warning:not(:disabled):hover,
+.app-shell .btn-danger:not(:disabled):hover,
+.admin-tour-trigger:hover,
+.admin-profile-button:hover,
+.admin-menu-button:hover {
+    transform: translateY(-1px);
+}
+
+.app-shell .btn-primary:not(:disabled):hover {
+    background: #212a4d !important;
+    border-color: #212a4d !important;
+    box-shadow: 0 7px 14px rgba(33, 42, 77, .18) !important;
+    color: #fff !important;
+}
+
+.app-shell .btn-success:not(:disabled):hover {
+    background: #176b50 !important;
+    border-color: #176b50 !important;
+    box-shadow: 0 7px 14px rgba(23, 107, 80, .17) !important;
+    color: #fff !important;
+}
+
+.app-shell .btn-warning:not(:disabled):hover {
+    background: #c48f2e !important;
+    border-color: #c48f2e !important;
+    box-shadow: 0 7px 14px rgba(217, 164, 65, .22) !important;
+    color: #212a4d !important;
+}
+
+.app-shell .btn-danger:not(:disabled):hover {
+    background: #9e3b46 !important;
+    border-color: #9e3b46 !important;
+    box-shadow: 0 7px 14px rgba(158, 59, 70, .18) !important;
+    color: #fff !important;
+}
+
+.app-shell .btn-outline-primary:not(:disabled):hover,
+.app-shell .btn-outline-secondary:not(:disabled):hover {
+    background: #333f6b !important;
+    border-color: #333f6b !important;
+    box-shadow: 0 7px 14px rgba(51, 63, 107, .15) !important;
+    color: #fff !important;
+}
+
+.app-shell .btn-outline-success:not(:disabled):hover {
+    background: #176b50 !important;
+    border-color: #176b50 !important;
+    box-shadow: 0 5px 12px rgba(23, 107, 80, .13) !important;
+    color: #fff !important;
+}
+
+.app-shell .btn-outline-danger:not(:disabled):hover {
+    background: #9e3b46 !important;
+    border-color: #9e3b46 !important;
+    box-shadow: 0 5px 12px rgba(158, 59, 70, .13) !important;
+    color: #fff !important;
+}
+
+.app-shell .btn-light:not(:disabled):hover {
+    background: #f1f2f8 !important;
+    border-color: #c7c9da !important;
+    box-shadow: 0 5px 12px rgba(33, 42, 77, .09) !important;
+    color: #232842 !important;
+}
+
+.app-shell .btn:not(:disabled):active,
+.admin-tour-trigger:active,
+.admin-profile-button:active,
+.admin-menu-button:active {
+    box-shadow: none !important;
+    transform: translateY(0);
+}
+
+.app-shell .btn:focus-visible,
+.admin-tour-trigger:focus-visible,
+.admin-profile-button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(217, 164, 65, .24) !important;
+    outline: 0;
+}
+
+.app-shell .btn:disabled,
+.app-shell .btn.disabled {
+    box-shadow: none !important;
+    cursor: not-allowed;
+    opacity: .58;
+    transform: none !important;
+}
+
+@media (max-width: 991.98px) {
+    .app-shell .main-header { margin-left: 0 !important; }
+    .app-shell .content-wrapper { margin-left: 0 !important; }
+    .app-shell .main-sidebar {
+        margin-left: -270px !important;
+        transform: none !important;
+        transition: margin-left .2s ease;
+    }
+    .app-shell.sidebar-open .main-sidebar { margin-left: 0 !important; }
+}

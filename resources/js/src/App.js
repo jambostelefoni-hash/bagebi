@@ -17,13 +17,33 @@ import './index.css';
 
 import './App.css';
 
+class RegistrationBoundary extends React.Component {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    if (this.state.failed) {
+      return <div role="alert" className="registration-waiting-note">
+        <p>ფორმის ჩატვირთვა ვერ მოხერხდა. განაახლეთ გვერდი და სცადეთ ხელახლა.</p>
+        <button type="button" onClick={() => window.location.reload()}>გვერდის განახლება</button>
+      </div>;
+    }
+    return this.props.children;
+  }
+}
+
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <RegistrationBoundary>
+    <Suspense fallback={<div role="status">სარეგისტრაციო ფორმა იტვირთება…</div>}>
       <MaterialLayout>
         <CheckoutPage />
       </MaterialLayout>
     </Suspense>
+    </RegistrationBoundary>
   );
 }
 

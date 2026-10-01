@@ -19,9 +19,10 @@ export default function AddressForm(props) {
     if (name) {
       let dataNewObject = [];
       if (name == 'kindergartens') {
-        if (!value) { props.setFieldValue('garden_id', '', false); props.setFieldValue('group_id', '', false) } 
+        props.setFieldValue('kindergarten_id', '', false);
+        props.setFieldValue('group_id', '', false);
         props.setDataObject(old => ({ ...old, kindergartens : [], group_ranges: [] }))
-        dataNewObject = props.dataObject.municipalities.find(elm => elm.id == value)?.kindergartens
+        dataNewObject = props.dataObject.municipalities.find(elm => elm.id == value)?.kindergartens || []
       } else if (name == 'group_ranges') {
         props.setFieldValue('group_id', '', false)
         dataNewObject = (props.dataObject.kindergartens
@@ -47,8 +48,6 @@ export default function AddressForm(props) {
         {(props.dataObject.setting && props.dataObject.setting.object && props.dataObject.setting.object.isPrioritetiesStart) ? 
           (<Grid item xs={12} md={6}>
             <SelectField
-              handlechange = { handlechange }
-              objName="kindergartens"
               name={priority.name}
               label={priority.label}
               data={props.dataObject.priorities}
@@ -99,8 +98,6 @@ export default function AddressForm(props) {
     </React.Fragment>
   )
 }
-
-
 
 
 

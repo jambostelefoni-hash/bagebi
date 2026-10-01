@@ -1,59 +1,61 @@
 @extends('layouts.app')
 
+@section('title', 'აღსაზრდელები')
+
 @section('content')
+<x-ui.page-header eyebrow="აღსაზრდელთა მართვა" title="აღსაზრდელები" description="მოძებნეთ, მართეთ სტატუსები და ნახეთ თითოეული ბავშვის მონაცემი.">
+  <x-slot name="actions"><x-ui.button :href="route('kindergarteners.show')"><x-admin-icon name="plus" /> აღსაზრდელის დამატება</x-ui.button></x-slot>
+</x-ui.page-header>
 
-<div class="content-header kids-page-header">
-  <div class="container-fluid">
-    <div class="kids-page-heading">
-      <div><span class="dashboard-eyebrow">აღსაზრდელთა მართვა</span><h1 class="m-0">აღსაზრდელები</h1><p>მოძებნეთ, მართეთ სტატუსები და ნახეთ თითოეული ბავშვის მონაცემი.</p></div>
-      <a href="{{ route('kindergarteners.show') }}" class="btn btn-success kids-add-button"><i class="fas fa-plus"></i> აღსაზრდელის დამატება</a>
-    </div>
-  </div>
-</div>
+<x-ui.page class="kids-page">
+  <x-ui.card class="kids-list-card" :flush="true">
+    <x-slot name="header">
+      <div><h3 class="card-title">აღსაზრდელების ჩამონათვალი</h3><span class="kids-list-caption">სულ {{ $total }} ჩანაწერი</span></div>
+    </x-slot>
+    <x-slot name="actions"><x-ui.button variant="outline" size="sm" :href="route('kindergarteners.export')"><x-admin-icon name="file-excel" /> Excel</x-ui.button></x-slot>
 
-<section class="content kids-page">
-  <div class="card kids-list-card">
-    <div class="card-header">
-      <div><h3 class="card-title">აღსაზრდელების ჩამონათვალი</h3><span class="kids-list-caption">სულ {{ count($model) }} ჩანაწერი</span></div>
-      <a href="{{ route('kindergarteners.export') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-excel"></i> Excel</a>
-    </div>
-
-    <div class="card-body table-responsive p-2">
+    <div class="kids-list-body">
       @if(auth()->user()->isUnionAdmin())
-      {!! Form::model($model, ['route' => 'kindergarteners.order']) !!}
-      <div style="display: none;" id="checkbox-section"></div>
-      <div class="row kids-toolbar">
-
-        <div class="col-lg-5">
-          <div class="form-group">
-            <div class="input-group kids-search">
-              <span class="input-group-text"><i class="fas fa-search"></i></span><input id="searchable" type="text" class="form-control" placeholder="ძებნა სახელით, ბაღით ან სტატუსით" >
-            </div>
+      <form method="POST" action="{{ route('kindergarteners.order') }}">@csrf
+      <div class="is-hidden" id="checkbox-section"></div>
+      <div class="kids-toolbar">
+        <div class="kids-filter-field kids-filter-field--search">
+          <label for="searchable">ძიება</label>
+          <div class="kids-search">
+            <span class="kids-search__icon" aria-hidden="true"><x-admin-icon name="search" /></span>
+            <input id="searchable" type="search" class="form-control" placeholder="სახელი, ბაღი ან სტატუსი">
           </div>
         </div>
 
-        <div class="col-lg-3">
-          <select name="action" id="cars-select" class="custom-select" onchange="updateModels()">
+        <div class="kids-filter-field">
+          <label for="cars-select">მოქმედება</label>
+          <select name="action" id="cars-select" class="custom-select">
             <option value="" selected>აირჩიეთ მოქმედება</option>
-          </select> 
+          </select>
         </div>
 
-        <div class="col-lg-2">
+        <div class="kids-filter-field">
+          <label for="models-select">შედეგი</label>
           <select name="destination" id="models-select" class="custom-select">
             <option value="" selected>შედეგი</option>
           </select>
         </div>
 
-        <div class="col-lg-2"><button type="submit" class="btn btn-block btn-primary">შესრულება</button></div>
-      </div>
-      {!! Form::close() !!}   
-      @endif
-      @if(!auth()->user()->isUnionAdmin())<div style="display:none" id="checkbox-section"></div>@endif
+        <div class="kids-filter-field" id="status-reason-field" hidden>
+          <label for="status-reason">ცვლილების მიზეზი</label>
+          <input type="text" name="reason" id="status-reason" class="form-control" maxlength="500" placeholder="მიუთითეთ მიზეზი">
+        </div>
 
-      <table class="table table-hover text-nowrap" id="table" ></table>
+        <div class="kids-filter-action"><button type="submit" class="btn btn-primary">შესრულება</button></div>
+      </div>
+      </form>
+      @endif
+      @if(!auth()->user()->isUnionAdmin())<div class="is-hidden" id="checkbox-section"></div>@endif
+
+      <div class="table-responsive"><table class="table table-hover text-nowrap" id="table"></table></div>
     </div>
-  </div>
-</section>
+  </x-ui.card>
+</x-ui.page>
 @endsection
 
 @push('scripts')
@@ -62,7 +64,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.js"></script>
 <script type="text/javascript" src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.js"></script>
 
-<script>
+<script nonce="{{ $cspNonce }}">
 
 var carsSelect = document.getElementById('cars-select');
 var modelsSelect = document.getElementById('models-select');
@@ -85,8 +87,8 @@ var cars = [
 ];
 
 var models = [
-  createModel('დასტურის გაუქმება', '0', '1'),
-  createModel('დადასტურება', '1', '1'),
+  createModel('პრიორიტეტის დასტურის გაუქმება', '0', '1'),
+  createModel('პრიორიტეტის დადასტურება', '1', '1'),
   createModel('დარეგისტრირებული', 'registered', '2'),
   createModel('მომლოდინე', 'waiting', '2'),
   createModel('ჩარიცხული', 'enrolled', '2'),
@@ -101,21 +103,36 @@ function updateModels() {
   });
   removeOptions(modelsSelect);
   addOptions(modelsSelect, options);
+  var reasonField = document.getElementById('status-reason-field');
+  var reasonInput = document.getElementById('status-reason');
+  if (reasonField && reasonInput) {
+    reasonField.hidden = selectedCar !== '2';
+    reasonInput.required = selectedCar === '2';
+    if (selectedCar !== '2') reasonInput.value = '';
+  }
 }
 
-if (carsSelect) addOptions(carsSelect, cars);
+if (carsSelect) { addOptions(carsSelect, cars); carsSelect.addEventListener('change', updateModels); }
 
-var app = @json($model);
 var applicationStatusLabels = @json(config('statuses.application'));
+var applicationStatusClasses = {
+  registered: 'registered',
+  waiting: 'waiting',
+  enrolled: 'enrolled',
+  suspended: 'suspended',
+  cancelled: 'cancelled'
+};
 
 const datatable = $('#table').DataTable({
+  "processing": true,
+  "serverSide": true,
+  "ajax": @json(route('kindergarteners.data')),
   "ordering": true,
   "info": false,
   "autoWidth": false,
   "responsive": true,
   "lengthChange": false,
   fixedColumns: true,
-  data: app,
   "order": [[ 0, "desc" ]],
   columnDefs: [
     { targets: 0, visible: false },
@@ -155,7 +172,12 @@ const datatable = $('#table').DataTable({
            </span>`
         : '<span class="badge badge-primary">არ სარგებლობს</span>'
     },
-    { render: (d,t,row) => applicationStatusLabels[row.application_status] ?? 'უცნობი სტატუსი' },
+    { render: (d,t,row) => {
+        const status = applicationStatusClasses[row.application_status] ?? 'neutral';
+        const label = applicationStatusLabels[row.application_status] ?? 'უცნობი სტატუსი';
+        return `<span class="application-status application-status--${status}">${label}</span>`;
+      }
+    },
     { data: 'kids_personal_number' },
     { render: (d,t,row) => `${row.kids_first_name} ${row.kids_last_name}` },
     { render: (d,t,row) => row.birth_date ? row.birth_date : '---' },
@@ -173,9 +195,8 @@ const datatable = $('#table').DataTable({
         const route = @json(route('kindergarteners.show'));
         const routeDelate = @json(route('kindergarteners.destroy', ['id' => '__ID__']));
         const canDelete = @json(auth()->user()->isUnionAdmin());
-        return `${!row.graduate ? `<i style="cursor:pointer; margin-right:17px; color:black;" class="fas fa-edit" 
-          onclick='letsRedirect(event, "${route}", ${row.id})'></i>` : ''}
-                ${canDelete ? `<i style="cursor:pointer; color:black;" class="fas fa-trash" onclick='nottify(event)' data-href="${routeDelate.replace('__ID__', row.id)}"></i>` : ''}`
+        return `${!row.graduate ? `<i class="fas fa-edit table-action table-action--edit" data-edit-url="${route}/${row.id}"></i>` : ''}
+                ${canDelete ? `<i class="fas fa-trash table-action table-action--delete" data-href="${routeDelate.replace('__ID__', row.id)}"></i>` : ''}`
       },
       orderable: false
     }
@@ -214,6 +235,9 @@ $('#searchable').keyup(function () {
 
 $('.dataTables_filter').css('display', 'none');
 
+$('#table tbody').on('click', '.table-action--edit', function () { window.location.href = this.dataset.editUrl; });
+$('#table tbody').on('click', '.table-action--delete', function (event) { nottify(event); });
+
 </script>
 @endpush
 
@@ -221,8 +245,4 @@ $('.dataTables_filter').css('display', 'none');
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap4.css">
 <link rel="stylesheet" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/css/dataTables.checkboxes.css">
 
-<style>
-  table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected { background-color: #B0BED9; }
-  .kids-page-header{padding-bottom:18px!important}.kids-page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}.kids-page-heading h1{margin-top:4px!important}.kids-page-heading p{margin:7px 0 0;color:var(--panel-muted);font-size:.87rem}.kids-add-button{white-space:nowrap}.kids-list-card .card-header{display:flex;align-items:center;justify-content:space-between;gap:14px}.kids-list-caption{display:block;margin-top:5px;color:var(--panel-muted);font-size:.76rem;font-weight:700}.kids-toolbar{align-items:center;margin-bottom:6px}.kids-toolbar .form-group{margin:0}.kids-search .input-group-text{border:1px solid #d8e1ec;border-right:0;border-radius:11px 0 0 11px;background:#fff;color:var(--panel-teal)}.kids-search .form-control{border-left:0!important;border-radius:0 11px 11px 0!important}.kids-list-card .dataTables_wrapper{padding-top:8px}.kids-list-card .badge{padding:6px 9px;border-radius:99px;font-size:.7rem}.kids-list-card .fa-edit,.kids-list-card .fa-trash{width:30px;height:30px;display:inline-grid;place-items:center;border-radius:8px;background:#eef5fb!important;color:var(--panel-navy)!important;margin-right:5px!important}.kids-list-card .fa-trash{background:#fff0ed!important;color:#cb5a47!important}@media(max-width:767px){.kids-page-heading{align-items:flex-start;flex-direction:column}.kids-add-button{width:100%}.kids-toolbar>div{margin-bottom:10px}.kids-list-card .card-header{align-items:flex-start;flex-direction:column}.kids-list-card .card-header .btn{width:100%}}
-</style>
 @endpush

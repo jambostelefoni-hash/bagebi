@@ -59,6 +59,7 @@ class KindergartenController extends Controller
 
         $model = DB::transaction(function () use ($request) {
             $model = $request->id ? Kindergarten::whereKey($request->id)->lockForUpdate()->firstOrFail() : new Kindergarten();
+            $before = $model->exists ? $model->only(['name','municipality_id']) : [];
             $model->fill($request->only(['name', 'municipality_id']));
             $model->save();
 
@@ -87,10 +88,15 @@ class KindergartenController extends Controller
                 $ranges[$groupId] = ['space_length'=>$capacity,'space_filled'=>$occupied,'space_free'=>$capacity-$occupied,'space_reserved'=>$reserved];
             }
             $model->groupAgeRanges()->syncWithoutDetaching($ranges);
-            return $model->fresh();
+            $model = $model->fresh();
+            $changes = $this->buildAuditChangesFromValues($before, $model->only(['name','municipality_id']));
+            $changes['capacities'] = [
+                'old' => $existing->mapWithKeys(fn ($row) => [(string)$row->group_age_range => (int)$row->space_length])->all(),
+                'new' => collect($ranges)->mapWithKeys(fn ($values, $groupId) => [(string)$groupId => (int)$values['space_length']])->all(),
+            ];
+            $this->logAudit($request->id ? 'kindergarten.update' : 'kindergarten.create', Kindergarten::class, $model->id, 'Kindergarten saved', $changes, true);
+            return $model;
         }, 3);
-
-        $this->logAudit($request->id ? 'kindergarten.update' : 'kindergarten.create', Kindergarten::class, $model->id, 'Kindergarten saved', ['name'=>$model->name,'municipality_id'=>$model->municipality_id]);
 
         $insertOrUpdate = $request->id ? 'განახლდა' : 'დაემატა';
 

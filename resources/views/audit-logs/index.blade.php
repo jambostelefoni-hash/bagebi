@@ -13,17 +13,18 @@
     'calendar.update'=>'სამუშაო კალენდრის შეცვლა','settings.update'=>'პარამეტრების შეცვლა','settings.date'=>'სასწავლო თარიღების შეცვლა',
     'settings.learningStart'=>'სწავლის დაწყება','settings.learningEnd'=>'სწავლის დასრულება','settings.learning'=>'ჯგუფების პორტირება',
     'public_page.update'=>'საჯარო გვერდის შეცვლა','registration_text.update'=>'რეგისტრაციის ტექსტის შეცვლა','registration_text.rules.update'=>'რეგისტრაციის წესების შეცვლა',
+    'waiting_list.offer_created'=>'რიგიდან ადგილის შეთავაზება','waiting_list.offer_expired'=>'შეთავაზების ვადის გასვლა','notification.resend'=>'შეტყობინების ხელახალი გაგზავნა','notification.delivery_status'=>'SMS მიწოდების სტატუსი','audit_logs.export'=>'აუდიტის ექსპორტი',
   ];
   $fieldLabels = [
     'kids_first_name'=>'ბავშვის სახელი','kids_last_name'=>'ბავშვის გვარი','kids_personal_number'=>'ბავშვის პირადი ნომერი',
     'mother_personal_number'=>'დედის პირადი ნომერი','father_personal_number'=>'მამის პირადი ნომერი','mother_first_name'=>'დედის სახელი','mother_last_name'=>'დედის გვარი','father_first_name'=>'მამის სახელი','father_last_name'=>'მამის გვარი',
-    'mobile_number'=>'მობილური','email'=>'ელფოსტა','municipality_id'=>'მუნიციპალიტეტი','kindergarten_id'=>'ბაღი','group_id'=>'ჯგუფი','priority_id'=>'პრიორიტეტი','active_status_id'=>'სტატუსი',
-    'application_status'=>'განაცხადის სტატუსი','from'=>'ძველი სტატუსი','to'=>'ახალი სტატუსი','reason'=>'მიზეზი','note'=>'შენიშვნა','date'=>'თარიღი','count'=>'ჩანაწერების რაოდენობა',
-    'title'=>'სათაური','subtitle'=>'ქვესათაური','description'=>'აღწერა','name'=>'სახელი','password'=>'პაროლი','role'=>'როლი','is_working_day'=>'სამუშაო დღე',
+    'birth_date'=>'დაბადების თარიღი','mobile_number'=>'მობილური','email'=>'ელფოსტა','municipality_id'=>'მუნიციპალიტეტი','kindergarten_id'=>'ბაღი','group_id'=>'ჯგუფი','priority_id'=>'პრიორიტეტი','has_permission'=>'პრიორიტეტის დადასტურება','active_status_id'=>'სტატუსი',
+    'application_status'=>'განაცხადის სტატუსი','provider_status'=>'მიწოდების სტატუსი','from'=>'ძველი სტატუსი','to'=>'ახალი სტატუსი','reason'=>'მიზეზი','note'=>'შენიშვნა','date'=>'თარიღი','count'=>'ჩანაწერების რაოდენობა',
+    'title'=>'სათაური','subtitle'=>'ქვესათაური','description'=>'აღწერა','name'=>'სახელი','password'=>'პაროლი','role'=>'როლი','is_working_day'=>'სამუშაო დღე','waiting_list_entry_id'=>'რიგის ჩანაწერი','attempts'=>'მცდელობა',
   ];
   $modelLabels = ['User'=>'მომხმარებელი','Kindergartener'=>'აღსაზრდელი','Kindergarten'=>'ბაღი','GroupAgeRange'=>'ასაკობრივი ჯგუფი','Attendance'=>'დასწრება','Setting'=>'პარამეტრი','PublicPage'=>'საჯარო გვერდი','RegistrationText'=>'რეგისტრაციის ტექსტი','ReinstatementRequest'=>'აღდგენის მოთხოვნა','WorkCalendarDay'=>'კალენდრის დღე'];
-  $dangerActions = ['kindergartener.delete','kindergartener.bulk_action','kindergarten.delete','user.delete','reinstatement.rejected','settings.learning','settings.learningStart','settings.learningEnd'];
-  $warningActions = ['application.status','kindergartener.update','group_age_range.update','user.update','settings.update','settings.date','calendar.update','public_page.update','registration_text.update','registration_text.rules.update'];
+  $dangerActions = ['kindergartener.delete','kindergartener.bulk_action','kindergarten.delete','user.delete','reinstatement.rejected','settings.learning','settings.learningStart','settings.learningEnd','waiting_list.offer_expired'];
+  $warningActions = ['application.status','kindergartener.update','group_age_range.update','user.update','settings.update','settings.date','calendar.update','public_page.update','registration_text.update','registration_text.rules.update','attendance.store','waiting_list.offer_created','notification.resend'];
   $renderValue = function($value) {
     if (is_array($value) && array_key_exists('changed',$value)) return 'შეცვლილია — მნიშვნელობა დაფარულია';
     if ($value === null || $value === '') return '—';
@@ -44,12 +45,14 @@
   </div>
 
   <div class="card audit-filter-card"><div class="card-body"><form method="GET" action="{{route('audit-logs.index')}}" class="audit-filters">
-    <div class="form-group audit-search-field"><label for="search">ძებნა</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"></i></span></div><input id="search" name="search" class="form-control" value="{{request('search')}}" placeholder="მოქმედება, მომხმარებელი, IP ან ჩანაწერის ID"></div></div>
+    <div class="form-group audit-search-field"><label for="search">ძებნა</label><div class="audit-search-control"><i class="fas fa-search" aria-hidden="true"></i><input id="search" name="search" type="search" class="form-control" value="{{request('search')}}" placeholder="მოქმედება, მომხმარებელი, IP ან ჩანაწერის ID"></div></div>
     <div class="form-group"><label for="user_id">მომხმარებელი</label><select id="user_id" name="user_id" class="custom-select"><option value="">ყველა მომხმარებელი</option>@foreach($users as $user)<option value="{{$user->id}}" @selected((string)request('user_id')===(string)$user->id)>{{$user->name}} · {{$user->email}}</option>@endforeach</select></div>
     <div class="form-group"><label for="action">მოქმედება</label><select id="action" name="action" class="custom-select"><option value="">ყველა მოქმედება</option>@foreach($actions as $action)<option value="{{$action}}" @selected(request('action')===$action)>{{$actionLabels[$action]??$action}}</option>@endforeach</select></div>
+    <div class="form-group"><label for="severity">მნიშვნელობა</label><select id="severity" name="severity" class="custom-select"><option value="">ყველა დონე</option><option value="critical" @selected(request('severity')==='critical')>კრიტიკული</option><option value="change" @selected(request('severity')==='change')>მონაცემის ცვლილება</option><option value="normal" @selected(request('severity')==='normal')>ჩვეულებრივი</option></select></div>
+    <div class="form-group"><label for="actor">წყარო</label><select id="actor" name="actor" class="custom-select"><option value="">ყველა წყარო</option><option value="user" @selected(request('actor')==='user')>მომხმარებელი</option><option value="system" @selected(request('actor')==='system')>ავტომატური სისტემა</option></select></div>
     <div class="form-group"><label for="date_from">თარიღიდან</label><input id="date_from" type="date" name="date_from" class="form-control" value="{{request('date_from')}}"></div>
     <div class="form-group"><label for="date_to">თარიღამდე</label><input id="date_to" type="date" name="date_to" class="form-control" value="{{request('date_to')}}"></div>
-    <div class="audit-filter-actions"><button class="btn btn-primary"><i class="fas fa-filter"></i> გაფილტვრა</button><a href="{{route('audit-logs.index')}}" class="btn btn-light"><i class="fas fa-redo"></i> გასუფთავება</a></div>
+    <div class="audit-filter-actions"><button class="btn btn-primary"><i class="fas fa-filter"></i> გაფილტვრა</button><a href="{{route('audit-logs.export', request()->query())}}" class="btn btn-outline-primary"><i class="fas fa-file-csv"></i> CSV ექსპორტი</a><a href="{{route('audit-logs.index')}}" class="btn btn-light"><i class="fas fa-redo"></i> გასუფთავება</a></div>
   </form></div></div>
 
   <div class="card audit-log-card"><div class="card-header"><div><h3 class="card-title">მოქმედებების ისტორია</h3><span class="kids-list-caption">ნაპოვნია {{number_format($logs->total())}} ჩანაწერი</span></div><div class="audit-legend"><span><i class="audit-dot audit-dot--critical"></i> კრიტიკული</span><span><i class="audit-dot audit-dot--change"></i> ცვლილება</span><span><i class="audit-dot audit-dot--normal"></i> ჩვეულებრივი</span></div></div>

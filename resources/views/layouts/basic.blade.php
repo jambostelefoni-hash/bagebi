@@ -6,8 +6,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="csp-nonce" content="{{ $cspNonce }}">
 
-    <title>@yield('title', $publicBrand ?? config('app.name', 'საბავშვო ბაღების გაერთიანება'))</title>
+    <title>@yield('title', $publicBrand ?? config('app.name', 'ბაღების გაერთიანება'))</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,16 +17,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/theme.css') }}?v=20260212">
     <link rel="stylesheet" href="{{ asset('css/public-modern.css') }}?v={{ file_exists(public_path('css/public-modern.css')) ? filemtime(public_path('css/public-modern.css')) : '1' }}">
-
     <link rel="stylesheet" href="{{ asset('css/platform-unified.css') }}?v={{ filemtime(public_path('css/platform-unified.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/public-system.css') }}?v={{ filemtime(public_path('css/public-system.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/public-portal.css') }}?v={{ filemtime(public_path('css/public-portal.css')) }}">
 </head>
-<body class="basic-shell">
+<body class="basic-shell landing-shell">
+ <a class="public-skip-link" href="#public-content">შინაარსზე გადასვლა</a>
  @include('partials.public-nav')
- <main class="public-shell">
+ <main class="public-shell" id="public-content" tabindex="-1">
   @yield('content')
  </main>
+ @include('partials.public-footer')
  <div class="modal fade" id="publicRulesModal" tabindex="-1" role="dialog" aria-labelledby="publicRulesTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
    <div class="modal-content">
@@ -49,17 +52,7 @@
  <script src="{{ mix('js/vendor.js') }}" defer></script>
  <script src="{{ mix('js/bootstrap.js') }}" defer></script>
  <script src="{{ mix('js/app.js') }} " defer></script>
- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var toggle = document.getElementById('publicMenuToggle');
-        var menu = document.getElementById('publicNavMenu');
-        if (!toggle || !menu) return;
-        toggle.addEventListener('click', function () {
-            var open = menu.classList.toggle('is-open');
-            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-    });
- </script>
+ <script src="{{ asset('js/public-shell.js') }}?v={{ filemtime(public_path('js/public-shell.js')) }}" defer></script>
 
 </body>
 </html>

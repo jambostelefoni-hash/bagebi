@@ -13,6 +13,65 @@ use Illuminate\Validation\ValidationException;
 
 class AnnualPortingService
 {
+    public function preview(): array
+    {
+        abort_unless(auth()->user() && auth()->user()->isUnionAdmin(), 403);
+
+        $errors = [];
+        $basic = Setting::where('slug', 'basic')->first();
+        $dates = Setting::where('slug', 'date')->first();
+        $flags = $basic->object ?? [];
+        $end = data_get($dates, 'object.end');
+        try { $end = $end ? Carbon::parse($end)->startOfDay() : null; } catch (\Throwable $exception) { $end = null; }
+        if (!$end) $errors[] = 'სასწავლო წლის დასრულების თარიღი არ არის სწორად მითითებული.';
+        $alreadyPorted = $end && !empty($flags['last_ported_end']) && $end->toDateString() <= $flags['last_ported_end'];
+        if ($alreadyPorted) $errors[] = 'ამ სასწავლო წლის პორტირება უკვე შესრულებულია; ახალი პორტირება მხოლოდ შემდეგი სასწავლო წლის დასრულების შემდეგ გახდება შესაძლებელი.';
+        elseif (!$basic || empty($flags['canPorting']) || ($flags['isLearningStart'] ?? null) !== false || ($end && $end->isFuture())) $errors[] = 'პორტირება ჯერ ხელმისაწვდომი არ არის — დაასრულეთ სასწავლო წელი და ჩართეთ პორტირების ეტაპი.';
+
+        $capacities = DB::table('kindergarten_group_age_range')->get()->keyBy(fn ($row) => $row->kindergarten_id.':'.$row->group_age_range);
+        if (DB::table('placement_offers')->whereNull('responded_at')->exists() || DB::table('waiting_list_entries')->where('state', 'offered')->exists() || $capacities->sum('space_reserved') > 0) $errors[] = 'ჯერ დაასრულეთ მოქმედი ადგილის შეთავაზებები და დაჯავშნილი ადგილები.';
+
+        $groups = GroupAgeRange::orderBy('id')->get()->keyBy('id');
+        $byRange = [];
+        foreach ($groups as $group) if ($range = $this->range($group->range)) $byRange[$range[0].'-'.$range[1]][] = $group->id;
+        $children = Kindergartener::with(['kindergarten', 'groupRange'])->whereIn('application_status', ['registered', 'waiting', 'enrolled', 'suspended'])->orderBy('kids_last_name')->get();
+        $moves = collect(); $graduates = collect(); $projected = []; $requiredTargets = [];
+
+        foreach ($children as $child) {
+            $group = $groups->get($child->group_id);
+            $range = $group ? $this->range($group->range) : null;
+            $name = trim($child->kids_first_name.' '.$child->kids_last_name);
+            if (!$range || $child->graduate) { $errors[] = $name.' — ასაკობრივი ჯგუფი ან დასრულების მდგომარეობა არასწორია.'; continue; }
+            if ($range[0] >= 5) { $graduates->push((object)['name'=>$name, 'kindergarten'=>optional($child->kindergarten)->name, 'group'=>$group->range]); continue; }
+            $targets = $byRange[($range[0] + 1).'-'.($range[1] + 1)] ?? [];
+            if (count($targets) !== 1) { $errors[] = $name.' — ჯგუფისთვის „'.$group->range.'“ ერთმნიშვნელოვანი მომდევნო ჯგუფი ვერ მოიძებნა.'; continue; }
+            $target = $groups->get($targets[0]);
+            $moves->push((object)['name'=>$name, 'kindergarten'=>optional($child->kindergarten)->name, 'from'=>$group->range, 'to'=>$target->range]);
+            $key = $child->kindergarten_id.':'.$target->id;
+            $requiredTargets[$key] = true;
+            if (in_array($child->application_status, ['enrolled', 'suspended'], true)) {
+                $projected[$key] = ($projected[$key] ?? 0) + 1;
+            }
+        }
+
+        $shortages = collect();
+        $gardens = DB::table('kindergartens')->pluck('name', 'id');
+        $missingCapacities = [];
+        foreach ($requiredTargets as $key => $_) {
+            $count = $projected[$key] ?? 0;
+            $slot = $capacities->get($key);
+            [$gardenId, $groupId] = explode(':', $key);
+            if (!$slot || (int) $slot->space_length < 1) { $missingCapacities[$key] = ($gardens[$gardenId] ?? 'ბაღი').' — სამიზნე ჯგუფს „'.optional($groups->get($groupId))->range.'“ ზღვარი არ აქვს მითითებული.'; continue; }
+            if ($count > (int) $slot->space_length) {
+                $shortages->push((object)['kindergarten'=>$gardens[$gardenId] ?? 'ბაღი', 'group'=>optional($groups->get($groupId))->range, 'needed'=>$count, 'capacity'=>(int)$slot->space_length, 'shortage'=>$count-(int)$slot->space_length]);
+            }
+        }
+
+        $errors = array_merge($errors, array_values($missingCapacities));
+
+        return compact('errors', 'moves', 'graduates', 'shortages');
+    }
+
     public function execute(): array
     {
         abort_unless(auth()->user() && auth()->user()->isUnionAdmin(), 403);

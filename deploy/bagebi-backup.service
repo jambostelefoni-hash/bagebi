@@ -1,0 +1,6 @@
+[Unit]
+Description=Bagebi daily backup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/bagebi-backup
